@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Bookmark Manager",
+  "version": "1.0.0",
+  "description": "Save bookmarks from any tab",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": ["tabs", "storage", "activeTab"],
+  "host_permissions": ["<all_urls>"]
+}
