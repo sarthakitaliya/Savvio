@@ -15,7 +15,8 @@
     "better-auth": "^1.2.10",
     "next": "^15.3.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@repo/db": "*",
