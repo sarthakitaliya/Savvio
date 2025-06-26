@@ -1,19 +1,47 @@
 "use client";
 
 import React from "react";
+import { Files } from "../components/Files";
 
 export default function Dashboard() {
   
 
   return (
-    <div className="h-screen w-full">
-        
-        <div className="flex flex-col gap-3 justify-center items-center w-full h-full">
-            <div className="text-4xl font-bold">
-                Search You Mark
-            </div>
-            <input type="text" className="bg-white text-black w-1/2 rounded-md p-3"/>
+
+    <div className="relative bg-[#171717] h-screen flex-1 flex-col ">
+        <div>
+
+        </div>
+        <div></div>
+        <div>
+
         </div>
     </div>
+
+    
+
+
+
+    // <div className="relative h-screen w-full ">
+        
+    //     <div className="flex flex-col gap-3 bg-[#171717] text-white justify-center items-center w-full h-full overflow-auto">
+    //         <div className="h-300">
+    //                 <div className="text-4xl font-bold">
+    //                     Search You Mark
+    //                 </div>
+    //                 <input type="text" placeholder="Search . . ."className=" text-white w-1/3  rounded-2xl p-2 outline-none bg-[#202020]  placeholder:text-center"/>
+    //         </div>
+            
+    //         <div className="fixed bottom-3 right-3 p-2 px-4 rounded-md bg-[#202020] hover:bg-[#3d3d3d]">+</div>
+    //         <div className=" grid grid-cols-4 gap-4 mt-10">
+    //             <Files/>
+    //             <Files/>
+    //             <Files/>
+    //             <Files/>
+                
+    //     </div>
+    //     </div>
+        
+    // </div>
   );
 }
