@@ -1,6 +1,7 @@
-import { NavBar } from "../../components/NavBar";
+"use client";
+import { NavBar } from "../../components/ui/NavBar";
 
-NavBar
+NavBar;
 
 export default function DashboardLayout({
   children,
