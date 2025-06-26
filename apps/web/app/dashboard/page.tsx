@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { Files } from "../components/Files";
-import { Cardmark } from "../components/Card";
+import { Cardmark } from "../../components/Card";
+import { Files } from "../../components/Files";
+
 
 export default function Dashboard() {
   
