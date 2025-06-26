@@ -1,6 +1,7 @@
-import { Bookmark } from "../../public/icons/bookmark";
-import { Dark } from "../../public/icons/moon";
-import { PersonIcon } from "../../public/icons/person";
+import { Bookmark } from "../public/icons/bookmark";
+import { Dark } from "../public/icons/moon";
+import { PersonIcon } from "../public/icons/person";
+
 
 export const NavBar = () => {
   return (

@@ -3,6 +3,7 @@
 import React from "react";
 import { signIn } from "../../lib/auth-client";
 import { GoogleIcon } from "../../public/icons/google";
+import Link from "next/link";
 
 export default function LoginPage() {
   const handleGoogleLogin = async () => {
@@ -32,10 +33,10 @@ export default function LoginPage() {
 
       {/* Footer pinned to bottom */}
       <div className="flex flex-col items-center gap-2 mb-4 text-[10px] text-gray-600">
-        <a href="/" className="hover:underline">Return home</a>
+        <Link href="/" className="hover:underline">Return home</Link>
         <div className="flex gap-3">
-          <a href="#" className="hover:underline">Terms of Service</a>
-          <a href="#" className="hover:underline">Privacy Policy</a>
+          <Link href="#" className="hover:underline">Terms of Service</Link>
+          <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
         </div>
       </div>
     </div>
