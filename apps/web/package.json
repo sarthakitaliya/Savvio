@@ -15,12 +15,14 @@
     "@tailwindcss/postcss": "^4.1.11",
     "better-auth": "^1.2.10",
     "next": "^15.3.0",
+    "next-themes": "^0.4.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "zod": "^3.25.67"
   },
   "devDependencies": {
     "@repo/db": "*",
+    "@repo/store": "*",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@types/node": "^22.15.3",
