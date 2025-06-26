@@ -1,6 +1,6 @@
 import { apiClient } from "./axiosInstance";
 
-export const getBookmarks = async (userId: string) => {
+export const getBookmarks = async () => {
   try {
     const response = await apiClient.get(`/bookmarks`);
     return response.data;
