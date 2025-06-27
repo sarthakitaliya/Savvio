@@ -1,19 +1,12 @@
 import { useThemeStore } from "@repo/store";
-import { Bookmark } from "../../public/icons/bookmark";
-import { Dark } from "../../public/icons/moon";
-import { PersonIcon } from "../../public/icons/person";
+import { Bookmark, Moon, Sun, User } from "lucide-react";
 import { useTheme } from "next-themes";
 
-
 export const NavBar = () => {
-
-const { themes, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const toggleTheme = () => {
-    setTheme((prevTheme) =>
-      prevTheme === 'dark' ? 'light' : 'dark'
-    );
-    console.log('themes', themes);
-    
+    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+    console.log("theme", theme);
   };
 
   return (
@@ -23,10 +16,13 @@ const { themes, setTheme } = useTheme();
         Mark
       </div>
       <div className="flex gap-4">
-        <button onClick={toggleTheme}><Dark /></button>
-        <button><PersonIcon /></button>
+        <button onClick={toggleTheme}>
+          {theme === "dark" ? <Sun /> : <Moon />}
+        </button>
+        <button>
+          <User />
+        </button>
       </div>
     </nav>
   );
 };
-
