@@ -9,7 +9,7 @@ export interface CardmarkInterface {
 
 export const Cardmark = (props: CardmarkInterface) => {
   return (
-    <div className="w-64 h-108 bg-[#191919]">
+    <div className="w-64 h-108 bg-[#191919] text-white">
       <div>{props.title}</div>
       <div>
         {props.type == "youtube" ? (
@@ -18,10 +18,10 @@ export const Cardmark = (props: CardmarkInterface) => {
             height="auto"
             src={props.link.replace("youtu.be", "www.youtube.com/embed")}
             title="YouTube video player"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
           ></iframe>
         ) : (
           ""
