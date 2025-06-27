@@ -6,7 +6,7 @@ import { Files } from "../../components/ui/Files";
 
 export default function Dashboard() {
   return (
-    <div className="relative bg-white text-black dark:bg-[#171717] h-screen flex-1 flex-col dark:text-white mx-auto flex justify-center items-center ">
+    <div className="relative bg-[#171717] h-screen flex-1 flex-col text-white mx-auto flex justify-center items-center ">
       <div className="h-1/2 w-screen flex justify-center items-center flex-col gap-4">
         <div className="text-4xl font-bold">Search You Mark</div>
         <input

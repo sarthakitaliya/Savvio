@@ -22,8 +22,8 @@
   },
   "devDependencies": {
     "@repo/db": "*",
-    "@repo/store": "*",
     "@repo/eslint-config": "*",
+    "@repo/store": "*",
     "@repo/typescript-config": "*",
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",

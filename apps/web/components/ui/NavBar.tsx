@@ -6,20 +6,18 @@ import { useTheme } from "next-themes";
 
 
 export const NavBar = () => {
-  // const { theme, setTheme } = useThemeStore();
-  // const toggleTheme = () => {
-  //   const newTheme = theme === 'dark' ? 'light' : 'dark';
-  //   setTheme(newTheme);
-  //   document.documentElement.classList.toggle('dark', newTheme === 'dark');
-  // };
+
 const { themes, setTheme } = useTheme();
   const toggleTheme = () => {
     setTheme((prevTheme) =>
       prevTheme === 'dark' ? 'light' : 'dark'
     );
+    console.log('themes', themes);
+    
   };
+
   return (
-    <nav className="w-screen bg-white text-black dark:bg-[#202020] dark:text-white flex justify-between items-center h-15 px-10">
+    <nav className="w-screen text-white bg-[#202020] flex justify-between items-center h-15 px-10">
       <div className="flex gap-4">
         <Bookmark />
         Mark
