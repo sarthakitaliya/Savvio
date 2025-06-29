@@ -1,3 +1,4 @@
+"use client";
 import { useThemeStore } from "@repo/store";
 import { Bookmark, Moon, Sun, User } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -10,12 +11,12 @@ export const NavBar = () => {
   };
 
   return (
-    <nav className="w-screen text-white bg-[#202020] flex justify-between items-center h-15 px-10">
-      <div className="flex gap-4">
+    <div className="h-14 flex justify-between items-center bg-[#202020] px-5">
+      <div className="flex items-center">
         <Bookmark />
-        Mark
+        BookMeMark
       </div>
-      <div className="flex gap-4">
+      <div className="flex items-center gap-4">
         <button onClick={toggleTheme}>
           {theme === "dark" ? <Sun /> : <Moon />}
         </button>
@@ -23,6 +24,6 @@ export const NavBar = () => {
           <User />
         </button>
       </div>
-    </nav>
+    </div>
   );
 };
