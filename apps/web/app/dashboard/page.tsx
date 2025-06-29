@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useUserStore } from "@repo/store";
 
 export default function Dashboard() {
   return (
