@@ -1,4 +1,4 @@
-"use client";
+
 import { RequireAuth } from "../../components/RequireAuth";
 import { NavBar } from "../../components/ui/NavBar";
 import { authClient, useSession } from "../../lib/auth-client";
