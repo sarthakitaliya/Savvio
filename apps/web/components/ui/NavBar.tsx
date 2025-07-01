@@ -13,14 +13,21 @@ export function NavBar() {
   const router = useRouter();
 
   const handleLogout = async () => {
-    logout();
-    await authClient.signOut({ 
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/login");
+    try {
+      await authClient.signOut({ 
+        fetchOptions: {
+          onSuccess: () => {
+            logout();
+            router.push("/login");
+          },
+          onError: (error) => {
+            console.error("Logout failed:", error);
+          }
         }
-      }
-     });
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   return (

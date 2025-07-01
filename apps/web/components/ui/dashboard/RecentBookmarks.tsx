@@ -11,7 +11,7 @@ export function RecentBookmarks() {
             className="flex justify-between items-center p-3 bg-white dark:bg-[#2A2A2A] rounded-md border border-[#E5E7EB] dark:border-[#333333] hover:bg-[#F3F4F6] dark:hover:bg-[#3A3A3A] transition-colors cursor-pointer"
           >
             <div className="flex items-center space-x-2">
-              <img src="/favicon.ico" alt="" className="w-4 h-4" />
+              <img src="/favicon.ico" alt="Bookmark favicon" className="w-4 h-4" />
               <span className="text-sm text-[#1F1F1F] dark:text-[#FFFFFFCF]">
                 Bookmark Title {i + 1}
               </span>

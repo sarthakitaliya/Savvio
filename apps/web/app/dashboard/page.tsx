@@ -14,7 +14,7 @@ export default function Dashboard() {
       </div>
       <FolderLayout />
       <div className="flex justify-center">
-        <CreateFolder />
+        <CreateFolder onClick={() => console.log("Create Folder clicked")} />
       </div>
       <RecentBookmarks/>
     </div>
