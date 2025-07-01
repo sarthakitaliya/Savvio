@@ -7,7 +7,7 @@ import { SearchBar } from "../../components/ui/SearchBar";
 export default function Dashboard() {
   return (
     <div className="m-5">
-      <div className="max-w-md mx-auto">
+      <div className="max-w-md mx-auto pt-5">
         <SearchBar placeholder="Search your mark" />
       </div>
     </div>
