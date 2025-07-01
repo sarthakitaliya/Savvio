@@ -24,14 +24,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
-        <div
-          className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden`}
-        >
-          <ThemeProvider attribute="class" enableSystem defaultTheme="system">
+      <body className="bg-[#F5F5F4] text-[#1F1F1F] dark:bg-[#202020] dark:text-white">
+        <ThemeProvider attribute="class" enableSystem defaultTheme="system">
+          <div
+            className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden`}
+          >
             {children}
-          </ThemeProvider>
-        </div>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
