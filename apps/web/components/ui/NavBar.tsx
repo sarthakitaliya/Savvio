@@ -15,7 +15,7 @@ export function NavBar() {
   };
 
   return (
-    <div className="h-14 flex justify-between items-center dark:bg-[#202020] px-5">
+    <div className="h-14 flex justify-between items-center px-7 py-10 border-b-1 border-gray-200 dark:border-gray-700">
       <div className="flex items-center">
         <Bookmark />
         BookMeMark
