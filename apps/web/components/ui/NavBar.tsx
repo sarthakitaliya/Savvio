@@ -32,13 +32,13 @@ export function NavBar() {
       <div className="flex items-center gap-4">
         <ThemeToggle/>
         <Menu as="div" className="relative">
-          <Menu.Button className="flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-[#2F2F2F] rounded-full p-1 transition-colors">
+          <Menu.Button className="flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-[#2F2F2F] rounded-full p-1 transition-colors cursor-pointer">
             <Image
               src={user?.image || "/default-avatar.png"}
               alt="User Avatar"
               width={32}
               height={32}
-              className="rounded-full"
+              className="rounded-full cursor-pointer"
             />
             <ChevronDown className="w-4 h-4 text-[#4B5563] dark:text-[#A1A1AA]" />
           </Menu.Button>
@@ -47,7 +47,7 @@ export function NavBar() {
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    className={`w-full text-left px-4 py-2 text-sm ${
+                    className={`w-full text-left px-4 py-2 text-sm cursor-pointer ${
                       active
                         ? "bg-gray-100 dark:bg-[#3A3A3A]"
                         : "text-[#1F1F1F] dark:text-[#FFFFFFCF]"
@@ -61,7 +61,7 @@ export function NavBar() {
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    className={`w-full text-left px-4 py-2 text-sm ${
+                    className={`w-full text-left px-4 py-2 text-sm cursor-pointer ${
                       active
                         ? "bg-gray-100 dark:bg-[#3A3A3A]"
                         : "text-[#1F1F1F] dark:text-[#FFFFFFCF]"
