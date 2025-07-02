@@ -11,7 +11,6 @@ export function RequireAuth({ children }: { children: React.ReactNode }) {
   const { setUser, user } = useUserStore();
 
   useEffect(() => {
-    console.log("Session data:", session);
 
     if (!isPending && !session) {
       router.push("/login");
