@@ -21,7 +21,7 @@ export function FolderCard({folder, onClick}: {
           {folder.name}
         </p>
         <p className="text-sm text-[#4B5563] dark:text-[#A1A1AA]">
-          {folder._count?.bookmarks} {folder._count?.bookmarks === 1 || folder._count?.bookmarks == 0 ? 'bookmark' : 'bookmarks'}
+          {folder._count?.bookmarks} {folder._count?.bookmarks === 1 ? 'bookmark' : 'bookmarks'}
         </p>
       </div>
     </div>

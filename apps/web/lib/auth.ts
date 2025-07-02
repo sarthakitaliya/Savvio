@@ -9,8 +9,8 @@ export const auth = betterAuth({
   }),
   socialProviders: {
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     },
   },
   emailAndPassword: {
@@ -19,24 +19,31 @@ export const auth = betterAuth({
   hooks: {
     after: createAuthMiddleware(async (ctx) => {
       const session = ctx.context.session;
-      const now: any = new Date();
-      if (
-        session?.user.createdAt &&
-        now - new Date(session.user.createdAt).getTime() < 60_000
-      ) {
-        const existingFolder = await prismaClient.folder.findFirst({
-          where: {
-            userId: session.user.id,
-            name: "Unsorted",
-          },
-        });
-        if (!existingFolder) {
-          const defaultFolder = await prismaClient.folder.create({
-            data: {
-              name: "Unsorted",
+      if (!session?.user.id || !session.user.createdAt) {
+        return;
+      }
+      const now = new Date();
+      const userCreatedAt = new Date(session.user.createdAt);
+      const timeDiffMs = now.getTime() - userCreatedAt.getTime();
+
+      if (timeDiffMs < 60_000) {
+        try {
+          const existingFolder = await prismaClient.folder.findFirst({
+            where: {
               userId: session.user.id,
+              name: "Unsorted",
             },
           });
+          if (!existingFolder) {
+            const defaultFolder = await prismaClient.folder.create({
+              data: {
+                name: "Unsorted",
+                userId: session.user.id,
+              },
+            });
+          }
+        } catch (error) {
+          console.error("Error creating default folder:", error);
         }
       }
     }),
