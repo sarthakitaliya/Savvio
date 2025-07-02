@@ -13,6 +13,10 @@ interface Folder {
   parentId?: string | null;
   color?: string;
   icon?: string;
+  _count: {
+    bookmarks: number;
+  };
+  createdAt?: string;
 }
 
 interface FolderStore {

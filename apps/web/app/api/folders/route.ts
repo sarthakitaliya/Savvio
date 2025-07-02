@@ -31,12 +31,14 @@ export async function GET(req: NextRequest) {
             name: true,
           },
         },
-        bookmarks: true,
+
+        _count: { select: { bookmarks: true } },
       },
       orderBy: {
         createdAt: "desc",
       },
     });
+    console.log("Folder created:", folders);
 
     return NextResponse.json({ folders }, { status: 200 });
   } catch (error) {

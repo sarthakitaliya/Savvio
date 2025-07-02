@@ -19,13 +19,11 @@ export const auth = betterAuth({
   hooks: {
     after: createAuthMiddleware(async (ctx) => {
       const session = ctx.context.session;
-      console.log("server", session);
       const now: any = new Date();
       if (
         session?.user.createdAt &&
         now - new Date(session.user.createdAt).getTime() < 60_000
       ) {
-        console.log("User created within the last minute");
         const existingFolder = await prismaClient.folder.findFirst({
           where: {
             userId: session.user.id,
@@ -39,7 +37,6 @@ export const auth = betterAuth({
               userId: session.user.id,
             },
           });
-          console.log("Default folder created:", defaultFolder);
         }
       }
     }),
