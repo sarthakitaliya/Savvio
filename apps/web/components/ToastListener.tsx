@@ -11,14 +11,14 @@ export default function ToastListener() {
       toast.error(error);
       setError(null); 
     }
-  }, [error]);
+  }, [error, setError]);
 
   useEffect(() => {
     if (message) {
       toast.success(message);
       setMessage(null);
     }
-  }, [message]);
+  }, [message, setMessage]);
 
   return null; 
 }

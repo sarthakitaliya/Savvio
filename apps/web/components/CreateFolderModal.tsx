@@ -1,3 +1,4 @@
+import { Loader2 } from "lucide-react";
 import { useFolderStore, useUiStore } from "@repo/store";
 import { MouseEventHandler, useState } from "react";
 import { IconsButton } from "./IconsButton";
@@ -5,7 +6,7 @@ import { ColorsButton } from "./ColorsButton";
 import { toast } from "sonner";
 
 export function CreateFolderModal({ parentFolder }: { parentFolder?: string }) {
-  const { setShowModel, showModel } = useUiStore();
+  const { setShowModel, showModel, loading } = useUiStore();
   const { addFolder } = useFolderStore();
   const [folderName, setFolderName] = useState("");
   const [color, setColor] = useState("");
@@ -23,6 +24,13 @@ export function CreateFolderModal({ parentFolder }: { parentFolder?: string }) {
         parentId: parentFolder || null,
         color: color || undefined,
         icon: icon || undefined,
+      }).then(() => {
+        if(!loading) {
+          setShowModel(false);
+          setFolderName("");
+          setColor("");
+          setIcon("Folder");
+        }
       }),
       {
         loading: "Creating folder...",
@@ -94,10 +102,18 @@ export function CreateFolderModal({ parentFolder }: { parentFolder?: string }) {
               </button>
               <button
                 type="submit"
-                className="cursor-pointer px-5 py-2 rounded-xl bg-blue-600 text-white border border-blue-700 hover:bg-blue-700 dark:bg-blue-500 dark:border-blue-600 dark:hover:bg-blue-600 transition-colors"
+                className={`cursor-pointer px-5 py-2 rounded-xl bg-blue-600 text-white border border-blue-700 hover:bg-blue-700 dark:bg-blue-500 dark:border-blue-600 dark:hover:bg-blue-600 transition-colors ${loading ? "opacity-50 pointer-events-none" : ""}`}
                 onClick={handleSubmit}
+                disabled={loading}
               >
-                Create
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <Loader2 className="animate-spin w-4 h-4" />
+                    Creating Folder...
+                  </span>
+                ) : (
+                  "Create Folder"
+                )}
               </button>
             </div>
           </div>
