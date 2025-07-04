@@ -22,7 +22,7 @@ interface Folder {
 interface FolderStore {
   folders: Folder[];
   fetchFolders: () => Promise<void>;
-  addFolder: (folderData: Omit<Folder, "id">) => Promise<void>;
+  addFolder: (folderData: Omit<Folder, "id" | "createdAt" | "_count">) => Promise<void>;
   editFolder: (folderData: Folder) => Promise<void>;
   removeFolder: (id: string) => Promise<void>;
 }
@@ -51,7 +51,7 @@ export const useFolderStore = create<FolderStore>((set) => ({
       set((state) => ({ folders: [...state.folders, folder] }));
     } catch (error: any) {
       console.error("Error creating folder:", error);
-      setError(error.response?.data?.error || "Failed to create folder");
+      // setError(error.response?.data?.error || "Failed to create folder");
     } finally {
       setLoading(false);
     }
