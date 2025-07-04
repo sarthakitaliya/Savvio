@@ -6,25 +6,22 @@ import {
   deleteFolder,
 } from "@repo/api-client";
 import { useUiStore } from "./useUiStore";
+import type {
+  CreateFolderPayload,
+  DeleteFolderPayload,
+  Folder,
+  UpdateFolderPayload,
+} from "@repo/types";
 
-interface Folder {
-  id: string;
-  name: string;
-  parentId?: string | null;
-  color?: string;
-  icon?: string;
-  _count: {
-    bookmarks: number;
-  };
-  createdAt?: string;
-}
 
 interface FolderStore {
   folders: Folder[];
   fetchFolders: () => Promise<void>;
-  addFolder: (folderData: Omit<Folder, "id" | "createdAt" | "_count">) => Promise<void>;
-  editFolder: (folderData: Folder) => Promise<void>;
-  removeFolder: (id: string) => Promise<void>;
+  addFolder: (
+    folderData: CreateFolderPayload
+  ) => Promise<void>;
+  editFolder: (folderData: UpdateFolderPayload) => Promise<void>;
+  removeFolder: (folderData: DeleteFolderPayload) => Promise<void>;
 }
 const { setLoading, setError } = useUiStore.getState();
 
@@ -72,12 +69,12 @@ export const useFolderStore = create<FolderStore>((set) => ({
     }
   },
 
-  removeFolder: async (id) => {
+  removeFolder: async (folderData) => {
     setLoading(true);
     try {
-      await deleteFolder(id);
+      await deleteFolder(folderData);
       set((state) => ({
-        folders: state.folders.filter((folder) => folder.id !== id),
+        folders: state.folders.filter((folder) => folder.id !== folderData.id),
       }));
     } catch (error: any) {
       console.error("Error deleting folder:", error);

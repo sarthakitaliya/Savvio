@@ -1,4 +1,5 @@
 import { apiClient } from "./axiosInstance";
+import type { CreateBookmarkPayload, DeleteBookmarkPayload, UpdateBookmarkPayload } from "@repo/types";
 
 export const getBookmarks = async () => {
   try {
@@ -11,11 +12,7 @@ export const getBookmarks = async () => {
   }
 };
 
-export const createBookmark = async (bookmarkData: {
-  url: string;
-  notes?: string;
-  folderId?: string | null;
-}) => {
+export const createBookmark = async (bookmarkData: CreateBookmarkPayload) => {
     try {
         const response = await apiClient.post(`/bookmarks`, bookmarkData);
         return response.data;
@@ -25,12 +22,7 @@ export const createBookmark = async (bookmarkData: {
     }
 };
 
-export const updateBookmark = async (bookmarkData: {
-  id: string;
-  url: string;
-  notes?: string;
-  folderId?: string | null;
-}) => {
+export const updateBookmark = async (bookmarkData: UpdateBookmarkPayload) => {
   try {
     const response = await apiClient.put(`/bookmarks`, bookmarkData);
     return response.data;
@@ -40,9 +32,9 @@ export const updateBookmark = async (bookmarkData: {
   }
 };  
 
-export const deleteBookmark = async (id: string) => {
+export const deleteBookmark = async (bookmarkData: DeleteBookmarkPayload) => {
   try {
-    const response = await apiClient.delete(`/bookmarks`, {data: { id }});
+    const response = await apiClient.delete(`/bookmarks`, {data: { bookmarkData }});
     return response.data;
   } catch (error: Error | any) {
     console.error("Error deleting bookmark:", error);
