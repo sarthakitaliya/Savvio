@@ -1,20 +1,14 @@
 import { create } from "zustand";
 import { getBookmarks, createBookmark, updateBookmark, deleteBookmark } from "@repo/api-client";
 import { useUiStore } from "./useUiStore";
-
-interface Bookmark {
-  id: string;
-  url: string;
-  notes?: string;
-  folderId?: string | null;
-}
+import type { Bookmark, CreateBookmarkPayload, DeleteBookmarkPayload, UpdateBookmarkPayload } from "@repo/types";
 
 interface BookmarkStore {
   bookmarks: Bookmark[];
   fetchBookmarks: () => Promise<void>;
-  addBookmark: (bookmarkData: Omit<Bookmark, "id">) => Promise<void>;
-  editBookmark: (bookmarkData: Bookmark) => Promise<void>;
-  removeBookmark: (id: string) => Promise<void>;
+  addBookmark: (bookmarkData: CreateBookmarkPayload) => Promise<void>;
+  editBookmark: (bookmarkData: UpdateBookmarkPayload) => Promise<void>;
+  removeBookmark: (bookmarkData: DeleteBookmarkPayload) => Promise<void>;
 }
 
 const { setLoading, setError } = useUiStore.getState();
@@ -65,12 +59,12 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     }
   },
 
-  removeBookmark: async (id) => {
+  removeBookmark: async (bookmarkData) => {
     setLoading(true);
     try {
-      await deleteBookmark(id);
+      await deleteBookmark(bookmarkData);
       set((state) => ({
-        bookmarks: state.bookmarks.filter((b) => b.id !== id),
+        bookmarks: state.bookmarks.filter((b) => b.id !== bookmarkData.id),
       }));
     } catch (error: any) {
       console.error("Error deleting bookmark:", error);

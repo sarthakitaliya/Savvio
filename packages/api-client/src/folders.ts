@@ -1,3 +1,4 @@
+import type { CreateFolderPayload, DeleteFolderPayload, Folder, UpdateFolderPayload } from "@repo/types";
 import { apiClient } from "./axiosInstance";
 
 export const getFolders = async () => {
@@ -10,12 +11,7 @@ export const getFolders = async () => {
   }
 }
 
-export const createFolder = async (folderData: {
-  name: string;
-  parentId?: string | null;
-  color?: string;
-  icon?: string;
-}) => {
+export const createFolder = async (folderData: CreateFolderPayload)=> {
   try {
     const response = await apiClient.post(`/folders`, folderData);
     return response.data;
@@ -25,13 +21,7 @@ export const createFolder = async (folderData: {
   }
 };  
 
-export const updateFolder = async (folderData: {
-  id: string;
-  name: string;
-  parentId?: string | null;
-  color?: string;
-  icon?: string;
-}) => {
+export const updateFolder = async (folderData: UpdateFolderPayload) => {
   try {
     const response = await apiClient.put(`/folders`, folderData);
     return response.data;
@@ -41,9 +31,9 @@ export const updateFolder = async (folderData: {
   }
 };
 
-export const deleteFolder = async (id: string) => {
+export const deleteFolder = async (folderData: DeleteFolderPayload) => {
   try {
-    const response = await apiClient.delete(`/folders`, { data: { id } });
+    const response = await apiClient.delete(`/folders`, { data: folderData });
     return response.data;
   } catch (error: Error | any) {
     console.error("Error deleting folder:", error);

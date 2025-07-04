@@ -8,18 +8,19 @@ datasource db {
 }
 
 model User {
-  id            String     @id @default(uuid())
+  id            String   @id @default(uuid())
   name          String
   email         String
   emailVerified Boolean
   image         String?
   createdAt     DateTime
   updatedAt     DateTime
-  
-  bookmarks     Bookmark[]
-  folders       Folder[]
-  sessions      Session[]
-  accounts      Account[]
+
+  bookmarks Bookmark[]
+  folders   Folder[]
+  sessions  Session[]
+  accounts  Account[]
+  tags      Tag[]
 
   @@unique([email])
   @@map("user")
@@ -41,20 +42,36 @@ model Folder {
   bookmarks Bookmark[]
 }
 
+model Tag {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  bookmarks Bookmark[] @relation("BookmarkTags")
+
+  @@unique([name, userId])
+}
+
 model Bookmark {
   id           String       @id @default(uuid())
   title        String
-  url          String
+  url          String?
   type         BookmarkType
   notes        String?
   previewImage String?
-  isFavorite Boolean @default(false)
+  isFavorite   Boolean      @default(false)
   createdAt    DateTime     @default(now())
 
   userId   String
   user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   folderId String?
   folder   Folder? @relation(fields: [folderId], references: [id], onDelete: Cascade)
+
+  tags Tag[] @relation("BookmarkTags")
 }
 
 model Session {
@@ -104,6 +121,7 @@ model Verification {
 
 enum BookmarkType {
   url
+  notes
   youtube
   image
   svg

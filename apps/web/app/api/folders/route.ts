@@ -2,6 +2,7 @@ import { prismaClient } from "@repo/db";
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "../../../lib/middleware";
 import { z } from "zod";
+import type { CreateFolderPayload, UpdateFolderPayload } from "@repo/types";
 
 const folderSchema = z.object({
   id: z.string().uuid().optional(),
@@ -56,7 +57,7 @@ export async function POST(req: NextRequest) {
     if (!session || !session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    const body = await req.json();
+    const body: CreateFolderPayload = await req.json();
 
     const validation = folderSchema.safeParse(body);
     if (!validation.success) {
@@ -92,7 +93,7 @@ export async function PUT(req: NextRequest) {
     if (!session || !session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    const body = await req.json();
+    const body: UpdateFolderPayload = await req.json();
 
     const validation = folderSchema.safeParse(body);
     if (!validation.success) {

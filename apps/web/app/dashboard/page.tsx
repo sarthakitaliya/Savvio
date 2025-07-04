@@ -7,11 +7,11 @@ import { RecentBookmarks } from "../../components/ui/dashboard/RecentBookmarks";
 import { useEffect } from "react";
 import { CreateFolderModal } from "../../components/CreateFolderModal";
 import { CreateFolderButton } from "../../components/ui/dashboard/CreateFolderButton";
+import { BookmarkModal } from "../../components/BookmarkModal";
 
 
 export default function Dashboard() {
   const { fetchFolders, folders } = useFolderStore();
-  const {setShowModel, showModel} = useUiStore();
 
   useEffect(() => {
     fetchFolders()
@@ -20,6 +20,7 @@ export default function Dashboard() {
   return (
     <div className="m-5">
       <CreateFolderModal />
+      <BookmarkModal/>
       <div className="max-w-md mx-auto pt-5">
         <SearchBar placeholder="Search your mark" />
       </div>

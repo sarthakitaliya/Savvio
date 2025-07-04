@@ -3,12 +3,32 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "../../../lib/middleware";
 import { detectType } from "../../../lib/utils";
 import { z } from "zod";
+import type {
+  CreateBookmarkPayload,
+  DeleteBookmarkPayload,
+  UpdateBookmarkPayload,
+} from "@repo/types";
 
-const bookmarkSchema = z.object({
+const urlBookmarkSchema = z.object({
+  type: z.literal("url"),
   url: z.string().url(),
-  notes: z.string().max(500).optional(),
-  folderId: z.string().uuid().optional(),
+  title: z.string().max(255).optional(),
+  folderId: z.string().uuid(),
+  tags: z.array(z.string()).optional(),
 });
+
+const noteBookmarkSchema = z.object({
+  type: z.literal("notes"),
+  title: z.string().max(255), // now required
+  notes: z.string().max(500),
+  folderId: z.string().uuid(),
+  tags: z.array(z.string()).optional(),
+});
+
+const bookmarkSchema = z.discriminatedUnion("type", [
+  urlBookmarkSchema,
+  noteBookmarkSchema,
+]);
 
 export async function GET(req: NextRequest) {
   try {
@@ -42,7 +62,7 @@ export async function POST(req: NextRequest) {
     if (!session || !session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    const body = await req.json();
+    const body: CreateBookmarkPayload = await req.json();
 
     const validation = bookmarkSchema.safeParse(body);
     if (!validation.success) {
@@ -51,21 +71,91 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    const { url, notes, folderId } = validation.data;
+    const bookmarkData = validation.data;
 
-    const type = detectType(url);
+    let createdBookmark;
+    if (bookmarkData.type === "url") {
+      const { url, title, folderId, tags } = bookmarkData;
+      createdBookmark = await prismaClient.bookmark.create({
+        data: {
+          type: "url",
+          title: title || "",
+          url,
+          notes: null,
+          folderId,
+          userId: session.user.id,
+        },
+      });
+      if (tags && tags.length > 0) {
+        for (const tagName of tags) {
+          const tag = await prismaClient.tag.upsert({
+            where: {
+              name_userId: {
+                name: tagName,
+                userId: session.user.id,
+              },
+            },
+            update: {},
+            create: {
+              name: tagName,
+              userId: session.user.id,
+            },
+          });
 
-    const bookmark = await prismaClient.bookmark.create({
-      data: {
-        title: "untitled", // fetch metadata later
-        url,
-        notes,
-        type,
-        userId: session.user.id,
-        folderId: folderId || null,
-      },
-    });
-    return NextResponse.json({ bookmark }, { status: 201 });
+          await prismaClient.bookmark.update({
+            where: { id: createdBookmark.id },
+            data: {
+              tags: {
+                connect: { id: tag.id },
+              },
+            },
+          });
+        }
+      }
+    } else if (bookmarkData.type === "notes") {
+      const { title, notes, folderId, tags } = bookmarkData;
+      createdBookmark = await prismaClient.bookmark.create({
+        data: {
+          type: "notes",
+          title,
+          url: null,
+          notes,
+          folderId,
+          userId: session.user.id,
+        },
+      });
+      if (tags && tags.length > 0) {
+        for (const tagName of tags) {
+          const tag = await prismaClient.tag.upsert({
+            where: {
+              name_userId: {
+                name: tagName,
+                userId: session.user.id,
+              },
+            },
+            update: {},
+            create: {
+              name: tagName,
+              userId: session.user.id,
+            },
+          });
+
+          await prismaClient.bookmark.update({
+            where: { id: createdBookmark.id },
+            data: {
+              tags: {
+                connect: { id: tag.id },
+              },
+            },
+          });
+        }
+      }
+    } else {
+      return NextResponse.json(
+        { error: "Invalid bookmark type" },
+        { status: 400 }
+      );
+    }
   } catch (error) {
     console.error("Error in bookmarks API:", error);
     return NextResponse.json(
@@ -81,7 +171,7 @@ export async function PUT(req: NextRequest) {
     if (!session || !session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    const body = await req.json();
+    const body: UpdateBookmarkPayload = await req.json();
     const { id, url, notes, folderId } = body;
 
     const validation = bookmarkSchema.safeParse(body);
@@ -116,7 +206,7 @@ export async function DELETE(req: NextRequest) {
     if (!session || !session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    const body = await req.json();
+    const body: DeleteBookmarkPayload = await req.json();
     const { id } = body;
 
     if (!id) {
