@@ -156,6 +156,7 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+    return NextResponse.json({ bookmark: createdBookmark }, { status: 201 });
   } catch (error) {
     console.error("Error in bookmarks API:", error);
     return NextResponse.json(
