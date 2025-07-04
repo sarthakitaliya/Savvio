@@ -18,7 +18,6 @@ export function FolderCard({
   };
   onClick?: () => void;
 }) {
-  console.log("Rendering FolderCard for:", folder);
   const selectedIconObj = folderIcons.find((f) => f.name === folder.icon);
   const IconComponent = selectedIconObj ? selectedIconObj.icon : Folder;
   const hasColor = Boolean(folder.color);
