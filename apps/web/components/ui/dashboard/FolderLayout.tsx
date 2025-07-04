@@ -5,7 +5,7 @@ export function FolderLayout() {
   const { folders } = useFolderStore();
 
   return (
-    <div className="flex items-center justify-center lg:flex-nowrap flex-wrap gap-5 sm:gap-7 mt-20 mb-10 md:mx-5">
+    <div className="flex items-center justify-center flex-wrap gap-5 sm:gap-7 mt-20 mb-10 md:mx-5">
       {folders.length < 1 ? (
         <div>
           <div className="text-3xl mb-4">📂</div>

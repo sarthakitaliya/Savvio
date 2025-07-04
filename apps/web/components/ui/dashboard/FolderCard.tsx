@@ -25,9 +25,9 @@ export function FolderCard({
   
   return (
     <div
-      className={`size-40 flex flex-col justify-between p-4 rounded-xl cursor-pointer transition-colors ${
-        !hasColor 
-          ? "bg-[#E5E7EB] dark:bg-[#2A2A2A] hover:bg-[#D1D5DB] dark:hover:bg-[#3A3A3A]" 
+      className={`sm:size-40 size-36 flex flex-col justify-between p-4 rounded-xl cursor-pointer transition-colors ${
+        !hasColor
+          ? "bg-[#E5E7EB] dark:bg-[#2A2A2A] hover:bg-[#D1D5DB] dark:hover:bg-[#3A3A3A]"
           : "hover:brightness-90"
       }`}
       style={{ 
@@ -36,10 +36,10 @@ export function FolderCard({
       onClick={onClick}
     >
       <div className="text-3xl">
-        <IconComponent className="w-8 h-8" />
+        <IconComponent className="sm:size-8" />
       </div>
       <div>
-        <p className="text-lg font-semibold text-[#1F1F1F] dark:text-[#FFFFFFCF]">
+        <p className="sm:text-lg font-semibold text-[#1F1F1F] dark:text-[#FFFFFFCF]">
           {folder.name}
         </p>
         <p className="text-sm text-[#4B5563] dark:text-[#A1A1AA]">
