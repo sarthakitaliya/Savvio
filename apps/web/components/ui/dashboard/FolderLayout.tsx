@@ -25,17 +25,6 @@ export function FolderLayout() {
           />
         ))
       }
-      {Array.from({ length: 6 }).map((_, index) => (
-        <FolderCard
-          folder={{
-            id: `folder-${index + 1}`,
-            name: `Folder ${index + 1}`,
-            _count: { bookmarks: Math.floor(Math.random() * 20) + 1}
-          }}
-          key={index}
-          onClick={() => console.log(`Clicked on Folder ${index + 1}`)}
-        />
-      ))}
     </div>
   );
 }
