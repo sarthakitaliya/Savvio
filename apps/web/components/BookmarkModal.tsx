@@ -139,9 +139,7 @@ export function BookmarkModal({ parentFolder }: { parentFolder?: string }) {
             <select
               className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full mb-4 bg-white dark:bg-[#121212] text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 appearance-none"
               value={selectedFolder || ""}
-              onChange={(e) => {setSelectedFolder(e.target.value) 
-                console.log("Selected folder:", e.target.value);
-              }}
+              onChange={(e) => setSelectedFolder(e.target.value)}
             >
               {folders.map((folder) => (
                 <option key={folder.id} value={folder.id}>
