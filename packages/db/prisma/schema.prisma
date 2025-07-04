@@ -63,6 +63,7 @@ model Bookmark {
   type         BookmarkType
   notes        String?
   previewImage String?
+  favicon      String?
   isFavorite   Boolean      @default(false)
   createdAt    DateTime     @default(now())
 

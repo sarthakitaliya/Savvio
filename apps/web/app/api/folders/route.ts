@@ -39,7 +39,6 @@ export async function GET(req: NextRequest) {
         createdAt: "desc",
       },
     });
-    console.log("Folder created:", folders);
 
     return NextResponse.json({ folders }, { status: 200 });
   } catch (error) {

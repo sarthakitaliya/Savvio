@@ -44,6 +44,8 @@ export interface Bookmark {
   title: string;
   url: string | null;
   notes: string | null;
+  previewImage?: string | null;
+  favicon?: string | null;
   folderId: string;
   userId: string;
   tags: Tag[];

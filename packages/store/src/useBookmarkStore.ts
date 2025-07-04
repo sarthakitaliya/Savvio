@@ -1,11 +1,12 @@
 import { create } from "zustand";
-import { getBookmarks, createBookmark, updateBookmark, deleteBookmark } from "@repo/api-client";
+import { getBookmarks, createBookmark, updateBookmark, deleteBookmark, getRecentBookmarks } from "@repo/api-client";
 import { useUiStore } from "./useUiStore";
 import type { Bookmark, CreateBookmarkPayload, DeleteBookmarkPayload, UpdateBookmarkPayload } from "@repo/types";
 
 interface BookmarkStore {
   bookmarks: Bookmark[];
   fetchBookmarks: () => Promise<void>;
+  getRecentBookmarks: (limit: number) => Promise<void>;
   addBookmark: (bookmarkData: CreateBookmarkPayload) => Promise<void>;
   editBookmark: (bookmarkData: UpdateBookmarkPayload) => Promise<void>;
   removeBookmark: (bookmarkData: DeleteBookmarkPayload) => Promise<void>;
@@ -24,6 +25,19 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     } catch (error: any) {
       console.error("Error fetching bookmarks:", error);
       setError(error.response?.data?.error || "Failed to fetch bookmarks");
+    } finally {
+      setLoading(false);
+    }
+  },
+
+  getRecentBookmarks: async (limit = 10) => {
+    setLoading(true);
+    try {
+      const { bookmarks } = await getRecentBookmarks(limit);
+      set({ bookmarks });
+    } catch (error: any) {
+      console.error("Error fetching recent bookmarks:", error);
+      setError(error.response?.data?.error || "Failed to fetch recent bookmarks");
     } finally {
       setLoading(false);
     }

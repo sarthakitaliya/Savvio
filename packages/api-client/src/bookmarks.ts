@@ -41,3 +41,13 @@ export const deleteBookmark = async (bookmarkData: DeleteBookmarkPayload) => {
     throw new Error(error.response?.data?.error || "Failed to delete bookmark");
   }
 };
+
+export const getRecentBookmarks = async (limit: number = 10) => {
+  try {
+    const response = await apiClient.get(`/bookmarks/recent`, { params: { limit } });
+    return response.data;
+  } catch (error: Error | any) {
+    console.error("Error fetching recent bookmarks:", error);
+    throw new Error(error.response?.data?.error || "Failed to fetch recent bookmarks");
+  }
+};

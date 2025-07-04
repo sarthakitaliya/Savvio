@@ -5,7 +5,7 @@ export interface Folder {
   name: string;
   color?: string | null;
   icon?: string | null;
-  __count: {
+  _count: {
     bookmarks: number;
   };    
   createdAt: string;
