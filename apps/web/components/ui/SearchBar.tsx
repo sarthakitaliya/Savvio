@@ -3,7 +3,7 @@ import { Search } from "lucide-react"
 
 export function SearchBar({ placeholder }: { placeholder: string }) {
   return (
-    <div className="relative bg-white dark:bg-[#232323] shadow-sm dark:shadow-md rounded-lg">
+    <div className="relative bg-white dark:bg-[#232323] shadow-sm dark:shadow-md rounded-lg mt-10">
       <Search className="absolute top-2.5 left-3 text-gray-500 dark:text-gray-400" />
       <input
         type="text"
