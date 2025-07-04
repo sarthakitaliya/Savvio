@@ -6,7 +6,7 @@ import { ColorsButton } from "./ColorsButton";
 import { toast } from "sonner";
 
 export function CreateFolderModal({ parentFolder }: { parentFolder?: string }) {
-  const { setShowModel, showModel, loading } = useUiStore();
+  const { setShowModal, showModal, loading } = useUiStore();
   const { addFolder } = useFolderStore();
   const [folderName, setFolderName] = useState("");
   const [color, setColor] = useState("");
@@ -26,7 +26,7 @@ export function CreateFolderModal({ parentFolder }: { parentFolder?: string }) {
         icon: icon || undefined,
       }).then(() => {
         if(!loading) {
-          setShowModel(false);
+          setShowModal(false);
           setFolderName("");
           setColor("");
           setIcon("Folder");
@@ -52,10 +52,10 @@ export function CreateFolderModal({ parentFolder }: { parentFolder?: string }) {
 
   return (
     <>
-      {showModel && (
+      {showModal && (
         <div
           className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
-          onClick={() => setShowModel(false)}
+          onClick={() => setShowModal(false)}
         >
           <div
             className="bg-white dark:bg-[#202020] border border-gray-300 dark:border-gray-700 rounded-lg p-6 max-w-md w-full mx-4"
@@ -96,7 +96,7 @@ export function CreateFolderModal({ parentFolder }: { parentFolder?: string }) {
               <button
                 type="button"
                 className="cursor-pointer px-5 py-2 rounded-xl bg-gray-200 text-gray-900 border border-gray-300 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:hover:bg-gray-600 transition-colors"
-                onClick={() => setShowModel(false)}
+                onClick={() => setShowModal(false)}
               >
                 Cancel
               </button>
