@@ -1,4 +1,5 @@
 
+import { AddBookmarkButton } from "../../components/AddBookmarkButton";
 import { RequireAuth } from "../../components/RequireAuth";
 import ToastListener from "../../components/ToastListener";
 import { NavBar } from "../../components/ui/NavBar";
@@ -15,6 +16,7 @@ export default async function DashboardLayout({
         <ToastListener/>
         <NavBar />
         {children}
+        <AddBookmarkButton/>
       </div>
     </RequireAuth>
   );
