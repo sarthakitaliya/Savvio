@@ -2,7 +2,9 @@ import { prismaClient } from "@repo/db";
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "../../../lib/middleware";
 import { detectType } from "../../../lib/utils";
+import { getLinkPreview } from "link-preview-js";
 import { z } from "zod";
+
 import type {
   CreateBookmarkPayload,
   DeleteBookmarkPayload,
@@ -74,14 +76,23 @@ export async function POST(req: NextRequest) {
     const bookmarkData = validation.data;
 
     let createdBookmark;
+    let previewData: any;
+
     if (bookmarkData.type === "url") {
-      const { url, title, folderId, tags } = bookmarkData;
+      const { url, title, folderId, tags } = bookmarkData;  
+      previewData = await getLinkPreview(url).catch((error) => {
+        console.error("Error fetching link preview:", error);
+        return null;
+      });
+      
       createdBookmark = await prismaClient.bookmark.create({
         data: {
           type: "url",
-          title: title || "",
+          title: title || (previewData && previewData?.title || "Untitled"),
           url,
           notes: null,
+          previewImage: previewData?.images?.[0] || null,
+          favicon: previewData?.favicons?.[0] || null,
           folderId,
           userId: session.user.id,
         },

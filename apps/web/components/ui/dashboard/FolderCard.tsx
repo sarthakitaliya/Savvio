@@ -1,21 +1,12 @@
 import { Folder } from "lucide-react";
 import { folderIcons } from "../../ColorsAndIcons";
+import { Folder as FolderType } from "@repo/types";
 
 export function FolderCard({
   folder,
   onClick,
 }: {
-  folder: {
-    id: string;
-    name: string;
-    parentId?: string | null;
-    icon?: string;
-    color?: string;
-    _count: {
-      bookmarks: number;
-    };
-    createdAt?: string;
-  };
+  folder: FolderType;
   onClick?: () => void;
 }) {
   const selectedIconObj = folderIcons.find((f) => f.name === folder.icon);
@@ -30,7 +21,7 @@ export function FolderCard({
           : "hover:brightness-90"
       }`}
       style={{ 
-        backgroundColor: hasColor ? folder.color : undefined,
+        backgroundColor: hasColor && folder.color ? folder.color : undefined,
       }}
       onClick={onClick}
     >

@@ -5,7 +5,7 @@ import { SearchBar } from "../../components/ui/SearchBar";
 import { FolderLayout } from "../../components/ui/dashboard/FolderLayout";
 import { RecentBookmarks } from "../../components/ui/dashboard/RecentBookmarks";
 import { useEffect } from "react";
-import { CreateFolderModal } from "../../components/CreateFolderModal";
+import { FolderModal } from "../../components/FolderModal";
 import { CreateFolderButton } from "../../components/ui/dashboard/CreateFolderButton";
 import { BookmarkModal } from "../../components/BookmarkModal";
 
@@ -19,7 +19,7 @@ export default function Dashboard() {
   
   return (
     <div className="m-5">
-      <CreateFolderModal />
+      <FolderModal/>
       <BookmarkModal/>
       <div className="max-w-md mx-auto pt-5">
         <SearchBar placeholder="Search your mark" />

@@ -1,6 +1,6 @@
 import { Loader2 } from "lucide-react";
 import { useUiStore, useBookmarkStore, useFolderStore } from "@repo/store";
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { toast } from "sonner";
 import type { CreateBookmarkPayload } from "@repo/types";
 
@@ -26,6 +26,12 @@ export function BookmarkModal({ parentFolder }: { parentFolder?: string }) {
       setTagInput("");
     }
   };
+  
+  useEffect(() => {
+    if (!selectedFolder && folders.length > 0) {
+      setSelectedFolder(parentFolder || folders[0]?.id || "");
+    }
+  }, [folders, parentFolder, selectedFolder]);
 
   const handleSubmit: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
@@ -54,30 +60,27 @@ export function BookmarkModal({ parentFolder }: { parentFolder?: string }) {
             folderId: selectedFolder,
             tags,
           };
-    console.log("Submitting bookmark with data:", {
-      title,
-      url,
-      notes,
-      selectedFolder,
-      tags,
-    });
 
     toast.promise(
-      addBookmark(payload).then(() => {
-        if (!loading) {
-          setShowBookmarkModal(false);
-          setTitle("");
-          setUrl("");
-          setNotes("");
-          setTags([]);
-          setTagInput("");
-          setSelectedFolder("");
-          setType("url");
-        }
-      }).catch((error) => {
-        console.error("Error creating bookmark:", error);
-        toast.error(error.response?.data?.error || "Failed to create bookmark.");
-      }),
+      addBookmark(payload)
+        .then(() => {
+          if (!loading) {
+            setShowBookmarkModal(false);
+            setTitle("");
+            setUrl("");
+            setNotes("");
+            setTags([]);
+            setTagInput("");
+            setSelectedFolder("");
+            setType("url");
+          }
+        })
+        .catch((error) => {
+          console.error("Error creating bookmark:", error);
+          toast.error(
+            error.response?.data?.error || "Failed to create bookmark."
+          );
+        }),
       {
         loading: "Creating bookmark...",
         success: "Bookmark created successfully!",
