@@ -50,3 +50,16 @@ export interface Bookmark {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface RecentBookmarkPayload {
+  id: string;
+  type: BookmarkType;
+  title: string;
+  url: string | null;
+  notes: string | null;
+  folderId: string;
+  userId: string;
+  tags: Tag[];
+  createdAt: string;    
+  updatedAt: string;
+}
