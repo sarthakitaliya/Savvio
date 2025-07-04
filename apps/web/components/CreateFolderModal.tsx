@@ -4,6 +4,7 @@ import { MouseEventHandler, useState } from "react";
 import { IconsButton } from "./IconsButton";
 import { ColorsButton } from "./ColorsButton";
 import { toast } from "sonner";
+import { CreateFolderPayload } from "@repo/types";
 
 export function CreateFolderModal({ parentFolder }: { parentFolder?: string }) {
   const { setShowFolderModal, showFolderModal, loading } = useUiStore();
@@ -18,14 +19,15 @@ export function CreateFolderModal({ parentFolder }: { parentFolder?: string }) {
       toast.error("Folder name is required.");
       return;
     }
+    const payload: CreateFolderPayload = {
+      name: folderName,
+      parentId: parentFolder || null,
+      color: color || undefined,
+      icon: icon || undefined,
+    };
     toast.promise(
-      addFolder({
-        name: folderName,
-        parentId: parentFolder || null,
-        color: color || undefined,
-        icon: icon || undefined,
-      }).then(() => {
-        if(!loading) {
+      addFolder(payload).then(() => {
+        if (!loading) {
           setShowFolderModal(false);
           setFolderName("");
           setColor("");

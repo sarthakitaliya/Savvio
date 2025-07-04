@@ -29,14 +29,7 @@ export function BookmarkModal({ parentFolder }: { parentFolder?: string }) {
 
   const handleSubmit: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    const payload: CreateBookmarkPayload = {
-      type,
-      title,
-      url,
-      notes,
-      folderId: selectedFolder  ,
-      tags,
-    };
+
     if (type === "url" && !url.trim()) {
       toast.error("URL is required.");
       return;
@@ -45,6 +38,22 @@ export function BookmarkModal({ parentFolder }: { parentFolder?: string }) {
       toast.error("Notes are required.");
       return;
     }
+    const payload: CreateBookmarkPayload =
+      type === "url"
+        ? {
+            type: "url",
+            title,
+            url,
+            folderId: selectedFolder,
+            tags,
+          }
+        : {
+            type: "notes",
+            title,
+            notes,
+            folderId: selectedFolder,
+            tags,
+          };
     console.log("Submitting bookmark with data:", {
       title,
       url,
@@ -53,31 +62,28 @@ export function BookmarkModal({ parentFolder }: { parentFolder?: string }) {
       tags,
     });
 
-    // toast.promise(
-    //   addBookmark({
-    //     title: title || undefined,
-    //     url: type === "URL" ? url : undefined,
-    //     notes: type === "notes" ? notes : undefined,
-    //     folderId: selectedFolder || parentFolder || null,
-    //     tags: tags.length > 0 ? tags : undefined,
-    //   }).then(() => {
-    //     if (!loading) {
-    //       setShowBookmarkModal(false);
-    //       setTitle("");
-    //       setUrl("");
-    //       setNotes("");
-    //       setTags([]);
-    //       setTagInput("");
-    //       setSelectedFolder(null);
-    //       setType("URL");
-    //     }
-    //   }),
-    //   {
-    //     loading: "Creating bookmark...",
-    //     success: "Bookmark created successfully!",
-    //     error: "Failed to create bookmark.",
-    //   }
-    // );
+    toast.promise(
+      addBookmark(payload).then(() => {
+        if (!loading) {
+          setShowBookmarkModal(false);
+          setTitle("");
+          setUrl("");
+          setNotes("");
+          setTags([]);
+          setTagInput("");
+          setSelectedFolder("");
+          setType("url");
+        }
+      }).catch((error) => {
+        console.error("Error creating bookmark:", error);
+        toast.error(error.response?.data?.error || "Failed to create bookmark.");
+      }),
+      {
+        loading: "Creating bookmark...",
+        success: "Bookmark created successfully!",
+        error: "Failed to create bookmark.",
+      }
+    );
   };
 
   return (
@@ -133,7 +139,9 @@ export function BookmarkModal({ parentFolder }: { parentFolder?: string }) {
             <select
               className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full mb-4 bg-white dark:bg-[#121212] text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 appearance-none"
               value={selectedFolder || ""}
-              onChange={(e) => setSelectedFolder(e.target.value)}
+              onChange={(e) => {setSelectedFolder(e.target.value) 
+                console.log("Selected folder:", e.target.value);
+              }}
             >
               {folders.map((folder) => (
                 <option key={folder.id} value={folder.id}>
