@@ -6,7 +6,7 @@ import { z } from "zod";
 const folderSchema = z.object({
   id: z.string().uuid().optional(),
   name: z.string().min(1).max(100),
-  parentId: z.string().uuid().optional(),
+  parentId: z.string().uuid().optional().nullable(),
   color: z.string().optional(),
   icon: z.string().optional(),
 });
