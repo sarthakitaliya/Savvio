@@ -26,7 +26,7 @@ export default function Dashboard() {
       </div>
       <FolderLayout />
       <div className="flex justify-center">
-        <CreateFolderButton />
+        <CreateFolderButton className="size-40" />
       </div>
       <RecentBookmarks />
     </div>

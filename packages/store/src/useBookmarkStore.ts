@@ -1,11 +1,23 @@
 import { create } from "zustand";
-import { getBookmarks, createBookmark, updateBookmark, deleteBookmark, getRecentBookmarks } from "@repo/api-client";
+import {
+  getBookmarks,
+  createBookmark,
+  updateBookmark,
+  deleteBookmark,
+  getRecentBookmarks,
+} from "@repo/api-client";
 import { useUiStore } from "./useUiStore";
-import type { Bookmark, CreateBookmarkPayload, DeleteBookmarkPayload, UpdateBookmarkPayload } from "@repo/types";
+import type {
+  Bookmark,
+  CreateBookmarkPayload,
+  DeleteBookmarkPayload,
+  UpdateBookmarkPayload,
+} from "@repo/types";
 
 interface BookmarkStore {
   bookmarks: Bookmark[];
   fetchBookmarks: (folderId: string) => Promise<void>;
+  clearBookmarks: () => void;
   getRecentBookmarks: (limit: number) => Promise<void>;
   addBookmark: (bookmarkData: CreateBookmarkPayload) => Promise<void>;
   editBookmark: (bookmarkData: UpdateBookmarkPayload) => Promise<void>;
@@ -19,8 +31,12 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
 
   fetchBookmarks: async (folderId) => {
     setLoading(true);
+    console.log("Fetching bookmarks for folder:", folderId);
+
     try {
       const { bookmarks } = await getBookmarks(folderId);
+      console.log("Fetched bookmarks:", bookmarks);
+
       set({ bookmarks });
     } catch (error: any) {
       console.error("Error fetching bookmarks:", error);
@@ -30,6 +46,10 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     }
   },
 
+  clearBookmarks: () => {
+    set({ bookmarks: [] });
+  },
+
   getRecentBookmarks: async (limit = 10) => {
     setLoading(true);
     try {
@@ -37,7 +57,9 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
       set({ bookmarks });
     } catch (error: any) {
       console.error("Error fetching recent bookmarks:", error);
-      setError(error.response?.data?.error || "Failed to fetch recent bookmarks");
+      setError(
+        error.response?.data?.error || "Failed to fetch recent bookmarks"
+      );
     } finally {
       setLoading(false);
     }

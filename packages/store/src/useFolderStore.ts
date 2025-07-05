@@ -28,6 +28,7 @@ interface FolderStore {
   editFolder: (folderData: UpdateFolderPayload) => Promise<void>;
   removeFolder: (folderData: DeleteFolderPayload) => Promise<void>;
   resolveFolderPath: (segments: string[]) => Promise<void>;
+  cleanUp: () => void;
 }
 const { setLoading, setError } = useUiStore.getState();
 
@@ -65,7 +66,6 @@ export const useFolderStore = create<FolderStore>((set) => ({
     setLoading(true);
     try {
       const { folder } = await resolveFolderPath(segments);
-      console.log(folder);
       set({ currentFolder: folder });
     } catch (error: any) {
       console.error("Error resolving folder path:", error);
@@ -117,4 +117,10 @@ export const useFolderStore = create<FolderStore>((set) => ({
       setLoading(false);
     }
   },
+  cleanUp: () => {
+    set({
+      currentFolder: null,
+      subfolders: undefined,
+    });
+  }
 }));
