@@ -21,17 +21,37 @@ export default function FolderPage() {
   const { fetchBookmarks, clearBookmarks } = useBookmarkStore();
 
   useEffect(() => {
-    if (segmentsArray.length > 0) {
-      cleanUp();
-      clearBookmarks();
-      resolveFolderPath(segmentsArray).then(() => {
-        if (currentFolder?.id) {
-          fetchSubfolders(currentFolder?.id);
-          fetchBookmarks(currentFolder?.id);
+    const resolveAndFetch = async () => {
+      try {
+        cleanUp();
+        clearBookmarks();
+        if (segmentsArray.length > 0) {
+          await resolveFolderPath(segmentsArray);
         }
-      });
+      } catch (error) {
+        console.error("Error resolving folder path:", error);
+      }
+    };
+
+    resolveAndFetch();
+  }, [segmentsArray, cleanUp, clearBookmarks, resolveFolderPath]);
+
+  useEffect(() => {
+    if (currentFolder?.id) {
+      const fetchData = async () => {
+        try {
+          await Promise.all([
+            fetchSubfolders(currentFolder.id),
+            fetchBookmarks(currentFolder.id),
+          ]);
+        } catch (error) {
+          console.error("Error fetching folder data:", error);
+        }
+      };
+
+      fetchData();
     }
-  }, [segmentsArray]);
+  }, [currentFolder?.id, fetchSubfolders, fetchBookmarks]);
 
   return (
     <div className="m-5">
