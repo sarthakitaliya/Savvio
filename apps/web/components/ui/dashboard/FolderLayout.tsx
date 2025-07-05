@@ -24,7 +24,6 @@ export function FolderLayout() {
           <FolderCard
             folder={folder}
             key={folder.id}
-            onClick={() => console.log(`Clicked on ${folder.name}`)}
           />
         ))
       }

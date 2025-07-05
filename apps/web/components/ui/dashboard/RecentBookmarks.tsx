@@ -22,7 +22,7 @@ export function RecentBookmarks() {
         Recent Bookmarks
       </h2>
       <ul className="space-y-3">
-        {bookmarks.slice(0, 5).map((bookmark) => (
+        {bookmarks.map((bookmark) => (
           <li key={bookmark.id}>
             <a
               href={bookmark?.url ?? undefined}
