@@ -1,9 +1,11 @@
 import { apiClient } from "./axiosInstance";
 import type { CreateBookmarkPayload, DeleteBookmarkPayload, UpdateBookmarkPayload } from "@repo/types";
 
-export const getBookmarks = async () => {
+export const getBookmarks = async (folderId: string) => {
   try {
-    const response = await apiClient.get(`/bookmarks`);
+    const response = await apiClient.get(`/bookmarks`, {
+      params: { folderId },
+    });
     return response.data;
   } catch (error: Error | any) {
     console.error("Error fetching bookmarks:", error);

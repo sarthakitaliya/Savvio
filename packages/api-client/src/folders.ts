@@ -40,3 +40,28 @@ export const deleteFolder = async (folderData: DeleteFolderPayload) => {
     throw new Error(error.response?.data?.error || "Failed to delete folder");
   }
 };
+
+export const resolveFolderPath = async (segments: string[]) => {
+  try {
+    const queryParam = segments.join(",");
+    const response = await apiClient.get(`/folders/resolve-path`, {
+      params: { segments: queryParam },
+    });
+    return response.data;
+  } catch (error: Error | any) {
+    console.error("Error resolving folder path:", error);
+    throw new Error(error.response?.data?.error || "Failed to resolve folder path");
+  }
+};
+
+export const getSubfolders = async (parentId: string) => {
+  try {
+    const response = await apiClient.get(`/folders/subfolders`, {
+      params: { parentId },
+    });
+    return response.data;
+  } catch (error: Error | any) {
+    console.error("Error fetching subfolders:", error);
+    throw new Error(error.response?.data?.error || "Failed to fetch subfolders");
+  }
+}

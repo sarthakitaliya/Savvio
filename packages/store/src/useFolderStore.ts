@@ -4,6 +4,8 @@ import {
   createFolder,
   updateFolder,
   deleteFolder,
+  resolveFolderPath,
+  getSubfolders,
 } from "@repo/api-client";
 import { useUiStore } from "./useUiStore";
 import type {
@@ -16,17 +18,23 @@ import type {
 
 interface FolderStore {
   folders: Folder[];
+  currentFolder: Folder | null;
+  subfolders?: Folder[];
   fetchFolders: () => Promise<void>;
+  fetchSubfolders: (parentId: string) => Promise<void>;
   addFolder: (
     folderData: CreateFolderPayload
   ) => Promise<void>;
   editFolder: (folderData: UpdateFolderPayload) => Promise<void>;
   removeFolder: (folderData: DeleteFolderPayload) => Promise<void>;
+  resolveFolderPath: (segments: string[]) => Promise<void>;
+  cleanUp: () => void;
 }
 const { setLoading, setError } = useUiStore.getState();
 
 export const useFolderStore = create<FolderStore>((set) => ({
   folders: [],
+  currentFolder: null,
 
   fetchFolders: async () => {
     setLoading(true);
@@ -36,6 +44,32 @@ export const useFolderStore = create<FolderStore>((set) => ({
     } catch (error: any) {
       console.error("Error fetching folders:", error);
       setError(error.response?.data?.error || "Failed to fetch folders");
+    } finally {
+      setLoading(false);
+    }
+  },
+
+  fetchSubfolders: async (parentId) => {
+    setLoading(true);
+    try {
+      const { folders } = await getSubfolders(parentId);
+      set({ subfolders: folders });
+    } catch (error: any) {
+      console.error("Error fetching subfolders:", error);
+      setError(error.response?.data?.error || "Failed to fetch subfolders");
+    } finally {
+      setLoading(false);
+    }
+  },
+
+  resolveFolderPath: async (segments) => {
+    setLoading(true);
+    try {
+      const { folder } = await resolveFolderPath(segments);
+      set({ currentFolder: folder });
+    } catch (error: any) {
+      console.error("Error resolving folder path:", error);
+      setError(error.response?.data?.error || "Failed to resolve folder path");
     } finally {
       setLoading(false);
     }
@@ -83,4 +117,10 @@ export const useFolderStore = create<FolderStore>((set) => ({
       setLoading(false);
     }
   },
+  cleanUp: () => {
+    set({
+      currentFolder: null,
+      subfolders: undefined,
+    });
+  }
 }));

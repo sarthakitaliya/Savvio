@@ -38,10 +38,21 @@ export async function GET(req: NextRequest) {
     if (!session || !session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
+    const url = new URL(req.url);
+    const folderId = url.searchParams.get("folderId");
+    if (!folderId) {
+      return NextResponse.json(
+        { error: "Folder ID is required" },
+        { status: 400 }
+      );
+    }
     const bookmarks = await prismaClient.bookmark.findMany({
       where: {
         userId: session.user.id,
+        folderId: folderId,
+      },
+      include:{
+        tags: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -79,16 +90,16 @@ export async function POST(req: NextRequest) {
     let previewData: any;
 
     if (bookmarkData.type === "url") {
-      const { url, title, folderId, tags } = bookmarkData;  
+      const { url, title, folderId, tags } = bookmarkData;
       previewData = await getLinkPreview(url).catch((error) => {
         console.error("Error fetching link preview:", error);
         return null;
       });
-      
+
       createdBookmark = await prismaClient.bookmark.create({
         data: {
           type: "url",
-          title: title || (previewData && previewData?.title || "Untitled"),
+          title: title || (previewData && previewData?.title) || "Untitled",
           url,
           notes: null,
           previewImage: previewData?.images?.[0] || null,

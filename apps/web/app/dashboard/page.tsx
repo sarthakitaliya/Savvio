@@ -22,11 +22,11 @@ export default function Dashboard() {
       <FolderModal/>
       <BookmarkModal/>
       <div className="max-w-md mx-auto pt-5">
-        <SearchBar placeholder="Search your mark" />
+        <SearchBar placeholder="Search your mark" className="mt-10" />
       </div>
       <FolderLayout />
       <div className="flex justify-center">
-        <CreateFolderButton />
+        <CreateFolderButton className="size-40" />
       </div>
       <RecentBookmarks />
     </div>

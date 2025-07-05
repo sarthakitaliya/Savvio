@@ -40,6 +40,7 @@
         "@tailwindcss/postcss": "^4.1.11",
         "autoprefixer": "^10.4.21",
         "better-auth": "^1.2.10",
+        "dayjs": "^1.11.13",
         "link-preview-js": "^3.1.0",
         "lucide-react": "^0.524.0",
         "next": "^15.3.0",
@@ -600,6 +601,8 @@
     "data-view-byte-length": ["data-view-byte-length@1.0.2", "", { "dependencies": { "call-bound": "^1.0.3", "es-errors": "^1.3.0", "is-data-view": "^1.0.2" } }, ""],
 
     "data-view-byte-offset": ["data-view-byte-offset@1.0.1", "", { "dependencies": { "call-bound": "^1.0.2", "es-errors": "^1.3.0", "is-data-view": "^1.0.1" } }, ""],
+
+    "dayjs": ["dayjs@1.11.13", "", {}, "sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg=="],
 
     "debug": ["debug@4.4.1", "", { "dependencies": { "ms": "^2.1.3" } }, ""],
 
