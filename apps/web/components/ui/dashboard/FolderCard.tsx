@@ -15,7 +15,7 @@ export function FolderCard({
 
   const handleClick = () => {
     console.log(`Clicked on ${folder.name}`);
-    router.push(`/dashboard/folders/${folder.name}`);
+    router.push(`/dashboard/${folder.name}`);
   };
 
   return (
