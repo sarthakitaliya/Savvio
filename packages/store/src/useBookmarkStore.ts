@@ -5,7 +5,7 @@ import type { Bookmark, CreateBookmarkPayload, DeleteBookmarkPayload, UpdateBook
 
 interface BookmarkStore {
   bookmarks: Bookmark[];
-  fetchBookmarks: () => Promise<void>;
+  fetchBookmarks: (folderId: string) => Promise<void>;
   getRecentBookmarks: (limit: number) => Promise<void>;
   addBookmark: (bookmarkData: CreateBookmarkPayload) => Promise<void>;
   editBookmark: (bookmarkData: UpdateBookmarkPayload) => Promise<void>;
@@ -17,10 +17,10 @@ const { setLoading, setError } = useUiStore.getState();
 export const useBookmarkStore = create<BookmarkStore>((set) => ({
   bookmarks: [],
 
-  fetchBookmarks: async () => {
+  fetchBookmarks: async (folderId) => {
     setLoading(true);
     try {
-      const { bookmarks } = await getBookmarks();
+      const { bookmarks } = await getBookmarks(folderId);
       set({ bookmarks });
     } catch (error: any) {
       console.error("Error fetching bookmarks:", error);
