@@ -6,7 +6,7 @@ import { ColorsButton } from "./ColorsButton";
 import { toast } from "sonner";
 import { CreateFolderPayload } from "@repo/types";
 
-export function FolderModal({ parentFolder }: { parentFolder?: string }) {
+export function FolderModal({ parentFolder }: { parentFolder?: { id: string, name: string } }) {
   const { setShowFolderModal, showFolderModal, loading } = useUiStore();
   const { addFolder } = useFolderStore();
   const [folderName, setFolderName] = useState("");
@@ -21,7 +21,7 @@ export function FolderModal({ parentFolder }: { parentFolder?: string }) {
     }
     const payload: CreateFolderPayload = {
       name: folderName,
-      parentId: parentFolder || null,
+      parentId: parentFolder?.id || null,
       color: color || undefined,
       icon: icon || undefined,
     };

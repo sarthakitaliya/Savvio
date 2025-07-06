@@ -79,6 +79,22 @@ export const useFolderStore = create<FolderStore>((set) => ({
     setLoading(true);
     try {
       const { folder } = await createFolder(folderData);
+      const folderWithCount: Folder = {
+        ...folder,
+        _count: {
+          bookmarks: 0,
+        },
+      };
+      set((state) => {
+        if (state.currentFolder?.id === folderData.parentId) {
+          return {
+            subfolders: [...(state.subfolders || []), folderWithCount],
+          };
+        }
+        return {
+          folders: [...state.folders, folderWithCount],
+        };
+      });
       set((state) => ({ folders: [...state.folders, folder] }));
     } catch (error: any) {
       console.error("Error creating folder:", error);
