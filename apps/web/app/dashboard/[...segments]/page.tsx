@@ -55,7 +55,7 @@ export default function FolderPage() {
 
   return (
     <div className="m-5">
-      <FolderModal parentFolder={undefined} />
+      <FolderModal parentFolder={{id: currentFolder?.id ?? "", name: currentFolder?.name ?? ""}} />
       <BookmarkModal />
       <Breadcrumbs segments={segmentsArray} />
       <div className="max-w-md mx-auto pt-5">
