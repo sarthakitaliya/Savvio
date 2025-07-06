@@ -1,22 +1,18 @@
 import { Folder } from "lucide-react";
 import { folderIcons } from "../../ColorsAndIcons";
 import { Folder as FolderType } from "@repo/types";
-import { useRouter } from "next/navigation";
 
 export function FolderCard({
   folder,
+  onClick
 }: {
   folder: FolderType;
+  onClick: () => void;
 }) {
   const selectedIconObj = folderIcons.find((f) => f.name === folder.icon);
   const IconComponent = selectedIconObj ? selectedIconObj.icon : Folder;
   const hasColor = Boolean(folder.color);
-  const router = useRouter();
 
-  const handleClick = () => {
-    console.log(`Clicked on ${folder.name}`);
-    router.push(`/dashboard/${folder.name}`);
-  };
 
   return (
     <div
@@ -28,7 +24,7 @@ export function FolderCard({
       style={{ 
         backgroundColor: hasColor && folder.color ? folder.color : undefined,
       }}
-      onClick={handleClick}
+      onClick={onClick}
     >
       <div className="text-3xl">
         <IconComponent className="sm:size-8" />
