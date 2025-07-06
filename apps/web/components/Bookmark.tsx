@@ -10,7 +10,7 @@ export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
       <a href={bookmark.url || undefined} target="_blank" className="block">
         <div className="flex items-center gap-2 mb-2">
           <img
-            src={bookmark?.favicon ?? undefined}
+            src={bookmark?.favicon ?? "/default-favicon.png"}
             alt="Bookmark favicon"
             className="w-4 h-4 object-contain"
           />
@@ -22,7 +22,7 @@ export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
           </div>
         </div>
         <img
-          src={bookmark?.previewImage ?? undefined}
+          src={bookmark?.previewImage ?? "/default-preview.png"}
           alt="Bookmark screenshot"
           className="w-full h-32 object-cover rounded-md mt-2"
         />
