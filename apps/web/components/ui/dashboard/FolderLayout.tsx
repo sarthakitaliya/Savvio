@@ -1,10 +1,15 @@
 import { useFolderStore } from "@repo/store";
 import { FolderCard } from "./FolderCard";
 import { FolderPlus } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function FolderLayout() {
   const { folders } = useFolderStore();
-    
+  const router = useRouter();
+  
+  const handleFolderClick = (folderName: string) => {
+    router.push(`/dashboard/${folderName}`);
+  };
   return (
     <div className="flex items-center justify-center flex-wrap gap-5 sm:gap-7 mt-20 mb-10 md:mx-5">
       {folders.length < 1 ? (
@@ -24,6 +29,7 @@ export function FolderLayout() {
           <FolderCard
             folder={folder}
             key={folder.id}
+            onClick={() => handleFolderClick(folder.name)}
           />
         ))
       }

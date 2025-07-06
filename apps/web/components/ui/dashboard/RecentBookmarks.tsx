@@ -32,7 +32,7 @@ export function RecentBookmarks() {
             >
               <div className="flex items-center space-x-2">
                 <img
-                  src={bookmark?.favicon ?? undefined}
+                  src={bookmark?.favicon ? bookmark.favicon : "/default-favicon.png"}
                   alt="Bookmark favicon"
                   className="w-4 h-4"
                 />
