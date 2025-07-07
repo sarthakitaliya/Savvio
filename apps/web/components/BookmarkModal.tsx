@@ -222,7 +222,7 @@ export function BookmarkModal({
                     {tag}
                     <button
                       type="button"
-                      className="ml-2 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100"
+                      className="ml-2 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 cursor-pointer"
                       onClick={() => setTags(tags.filter((t) => t !== tag))}
                     >
                       <X className="w-4 h-4" />
