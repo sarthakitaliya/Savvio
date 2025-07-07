@@ -16,7 +16,7 @@ const urlBookmarkSchema = z.object({
   url: z.string().url(),
   title: z.string().max(255).optional(),
   folderId: z.string().uuid(),
-  tags: z.array(z.string()).optional(),
+  tags: z.array(z.string()).max(3, { message: 'You can add up to 3 tags only.' }).optional(),
 });
 
 const noteBookmarkSchema = z.object({
@@ -24,7 +24,7 @@ const noteBookmarkSchema = z.object({
   title: z.string().max(255), // now required
   notes: z.string().max(500),
   folderId: z.string().uuid(),
-  tags: z.array(z.string()).optional(),
+  tags: z.array(z.string()).max(3, { message: 'You can add up to 3 tags only.' }).optional(),
 });
 
 const bookmarkSchema = z.discriminatedUnion("type", [

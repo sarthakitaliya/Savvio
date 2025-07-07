@@ -1,10 +1,16 @@
-import { Loader2 } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import { useUiStore, useBookmarkStore, useFolderStore } from "@repo/store";
 import { MouseEventHandler, useEffect, useState } from "react";
 import { toast } from "sonner";
 import type { CreateBookmarkPayload, Folder } from "@repo/types";
 
-export function BookmarkModal({ parentFolder, folders }: { parentFolder?: string | null; folders?: Folder[] }) {
+export function BookmarkModal({
+  parentFolder,
+  folders,
+}: {
+  parentFolder?: string | null;
+  folders?: Folder[];
+}) {
   const { setShowBookmarkModal, showBookmarkModal, loading } = useUiStore();
   const { addBookmark } = useBookmarkStore();
   const [type, setType] = useState<"url" | "notes">("url");
@@ -20,14 +26,18 @@ export function BookmarkModal({ parentFolder, folders }: { parentFolder?: string
       e.preventDefault();
       const value = tagInput.trim();
       if (value && !tags.includes(value)) {
-        setTags([...tags, value]);
+        if (tags.length < 3) {
+          setTags([...tags, value]);
+        } else {
+          toast.error("You can add up to 3 tags only.");
+        }
       }
       setTagInput("");
     }
   };
-  
+
   useEffect(() => {
-    if(folders && folders.length > 0) {
+    if (folders && folders.length > 0) {
       if (!selectedFolder && folders.length > 0) {
         setSelectedFolder(parentFolder || folders[0]?.id || "");
       }
@@ -145,11 +155,12 @@ export function BookmarkModal({ parentFolder, folders }: { parentFolder?: string
               value={selectedFolder || ""}
               onChange={(e) => setSelectedFolder(e.target.value)}
             >
-              {folders && folders.map((folder) => (
-                <option key={folder.id} value={folder.id}>
-                  {folder.name}
-                </option>
-              ))}
+              {folders &&
+                folders.map((folder) => (
+                  <option key={folder.id} value={folder.id}>
+                    {folder.name}
+                  </option>
+                ))}
             </select>
             <label className="block mb-1 text-gray-700 dark:text-gray-300 font-medium">
               Type
@@ -204,12 +215,19 @@ export function BookmarkModal({ parentFolder, folders }: { parentFolder?: string
             {tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-4">
                 {tags.map((tag) => (
-                  <span
+                  <div
                     key={tag}
-                    className="inline-block bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100 px-3 py-1 rounded-full text-sm"
+                    className="flex bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100 px-3 py-1 rounded-full text-sm"
                   >
                     {tag}
-                  </span>
+                    <button
+                      type="button"
+                      className="ml-2 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100"
+                      onClick={() => setTags(tags.filter((t) => t !== tag))}
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
                 ))}
               </div>
             )}
