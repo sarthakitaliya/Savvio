@@ -1,15 +1,18 @@
-import { useFolderStore } from "@repo/store";
+import { useBookmarkStore, useFolderStore } from "@repo/store";
 import { FolderPlus } from "lucide-react";
 import { FolderCard } from "./ui/dashboard/FolderCard";
 import { CreateFolderButton } from "./ui/dashboard/CreateFolderButton";
 import { usePathname, useRouter } from "next/navigation";
 
 export function SubFolders() {
-  const { subfolders } = useFolderStore();
+  const { subfolders, cleanUp } = useFolderStore();
+  const {clearBookmarks } = useBookmarkStore();
   const router = useRouter();
   const pathName = usePathname();
   
   const handleFolderClick = (folderName: string) => {
+    cleanUp();
+    clearBookmarks();
     router.push(`${pathName}/${encodeURIComponent(folderName)}`);
   };
 

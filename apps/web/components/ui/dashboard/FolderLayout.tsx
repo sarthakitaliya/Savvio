@@ -1,13 +1,16 @@
-import { useFolderStore } from "@repo/store";
+import { useBookmarkStore, useFolderStore } from "@repo/store";
 import { FolderCard } from "./FolderCard";
 import { FolderPlus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export function FolderLayout() {
-  const { folders } = useFolderStore();
+  const { folders, cleanUp } = useFolderStore();
+  const {clearBookmarks } = useBookmarkStore();
   const router = useRouter();
   
   const handleFolderClick = (folderName: string) => {
+    cleanUp(); 
+    clearBookmarks();
     router.push(`/dashboard/${folderName}`);
   };
   return (
