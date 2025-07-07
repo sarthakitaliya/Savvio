@@ -66,10 +66,14 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     setLoading(true);
     try {
       const { bookmark } = await createBookmark(bookmarkData);
-      const { currentFolder } = useFolderStore.getState();
+      const { currentFolder, fetchSubfolders } = useFolderStore.getState();
 
       if (currentFolder?.id === bookmark.folderId) {
         set((state) => ({ bookmarks: [...state.bookmarks, bookmark] }));
+      } else {
+        if (currentFolder) {
+          fetchSubfolders(currentFolder.id);
+        }
       }
     } catch (error: any) {
       console.error("Error creating bookmark:", error);
