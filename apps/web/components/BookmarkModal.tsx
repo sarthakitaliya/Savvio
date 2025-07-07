@@ -2,12 +2,11 @@ import { Loader2 } from "lucide-react";
 import { useUiStore, useBookmarkStore, useFolderStore } from "@repo/store";
 import { MouseEventHandler, useEffect, useState } from "react";
 import { toast } from "sonner";
-import type { CreateBookmarkPayload } from "@repo/types";
+import type { CreateBookmarkPayload, Folder } from "@repo/types";
 
-export function BookmarkModal({ parentFolder }: { parentFolder?: string }) {
+export function BookmarkModal({ parentFolder, folders }: { parentFolder?: string | null; folders?: Folder[] }) {
   const { setShowBookmarkModal, showBookmarkModal, loading } = useUiStore();
   const { addBookmark } = useBookmarkStore();
-  const { folders } = useFolderStore();
   const [type, setType] = useState<"url" | "notes">("url");
   const [selectedFolder, setSelectedFolder] = useState<string>("");
   const [title, setTitle] = useState("");
@@ -28,8 +27,10 @@ export function BookmarkModal({ parentFolder }: { parentFolder?: string }) {
   };
   
   useEffect(() => {
-    if (!selectedFolder && folders.length > 0) {
-      setSelectedFolder(parentFolder || folders[0]?.id || "");
+    if(folders && folders.length > 0) {
+      if (!selectedFolder && folders.length > 0) {
+        setSelectedFolder(parentFolder || folders[0]?.id || "");
+      }
     }
   }, [folders, parentFolder, selectedFolder]);
 
@@ -144,7 +145,7 @@ export function BookmarkModal({ parentFolder }: { parentFolder?: string }) {
               value={selectedFolder || ""}
               onChange={(e) => setSelectedFolder(e.target.value)}
             >
-              {folders.map((folder) => (
+              {folders && folders.map((folder) => (
                 <option key={folder.id} value={folder.id}>
                   {folder.name}
                 </option>

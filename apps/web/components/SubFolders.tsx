@@ -21,7 +21,7 @@ export function SubFolders() {
         subfolders.map((folder) => (
           <FolderCard folder={folder} key={folder.id} onClick={() => handleFolderClick(folder.name)} />
         ))}
-        <CreateFolderButton className="size-40" />
+        <CreateFolderButton className="sm:size-40 size-36" />
     </div>
   );
 }

@@ -23,7 +23,7 @@ export default function FolderPage() {
       ? [decodedSegments]
       : decodedSegments || [];
 
-  const { resolveFolderPath, currentFolder, fetchSubfolders, cleanUp } =
+  const { resolveFolderPath, currentFolder, fetchSubfolders, cleanUp, folders, subfolders } =
     useFolderStore();
   const { fetchBookmarks, clearBookmarks } = useBookmarkStore();
   const lastPathRef = useRef<string>("");
@@ -60,6 +60,8 @@ export default function FolderPage() {
             fetchSubfolders(currentFolder.id),
             fetchBookmarks(currentFolder.id),
           ]);
+          console.log("Fetched subfolders and bookmarks for folder:", currentFolder);
+
         } catch (error) {
           console.error("Error fetching folder data:", error);
         }
@@ -77,7 +79,7 @@ export default function FolderPage() {
           name: currentFolder?.name ?? "",
         }}
       />
-      <BookmarkModal />
+      <BookmarkModal parentFolder={currentFolder?.id} folders={currentFolder && subfolders ? [...subfolders,currentFolder] : [...folders]} />
       <Breadcrumbs segments={segmentsArray} />
       <div className="max-w-md mx-auto pt-5">
         <SearchBar

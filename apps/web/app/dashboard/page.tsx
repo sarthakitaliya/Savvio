@@ -20,7 +20,7 @@ export default function Dashboard() {
   return (
     <div className="m-5">
       <FolderModal/>
-      <BookmarkModal/>
+      <BookmarkModal folders={folders} />
       <div className="max-w-md mx-auto pt-5">
         <SearchBar placeholder="Search your mark" className="mt-10" />
       </div>

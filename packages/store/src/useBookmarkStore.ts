@@ -31,12 +31,8 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
 
   fetchBookmarks: async (folderId) => {
     setLoading(true);
-    console.log("Fetching bookmarks for folder:", folderId);
-
     try {
       const { bookmarks } = await getBookmarks(folderId);
-      console.log("Fetched bookmarks:", bookmarks);
-
       set({ bookmarks });
     } catch (error: any) {
       console.error("Error fetching bookmarks:", error);
