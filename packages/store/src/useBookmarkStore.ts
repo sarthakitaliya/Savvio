@@ -13,6 +13,7 @@ import type {
   DeleteBookmarkPayload,
   UpdateBookmarkPayload,
 } from "@repo/types";
+import { useFolderStore } from "./useFolderStore";
 
 interface BookmarkStore {
   bookmarks: Bookmark[];
@@ -25,6 +26,7 @@ interface BookmarkStore {
 }
 
 const { setLoading, setError } = useUiStore.getState();
+const { currentFolder } = useFolderStore.getState();
 
 export const useBookmarkStore = create<BookmarkStore>((set) => ({
   bookmarks: [],
@@ -65,7 +67,9 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     setLoading(true);
     try {
       const { bookmark } = await createBookmark(bookmarkData);
-      set((state) => ({ bookmarks: [...state.bookmarks, bookmark] }));
+      if (currentFolder?.id === bookmark.folderId) {
+        set((state) => ({ bookmarks: [...state.bookmarks, bookmark] }));
+      }
     } catch (error: any) {
       console.error("Error creating bookmark:", error);
       setError(error.response?.data?.error || "Failed to create bookmark");

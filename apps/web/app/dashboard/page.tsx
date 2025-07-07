@@ -22,7 +22,7 @@ export default function Dashboard() {
       <FolderModal/>
       <BookmarkModal folders={folders} />
       <div className="max-w-md mx-auto pt-5">
-        <SearchBar placeholder="Search your mark" className="mt-10" />
+        <SearchBar placeholder="Search your bookmarks" className="mt-10" />
       </div>
       <FolderLayout />
       <div className="flex justify-center">

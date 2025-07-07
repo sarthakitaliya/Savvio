@@ -33,7 +33,7 @@ export function FolderCard({
         <p className="sm:text-lg font-semibold text-[#1F1F1F] dark:text-[#FFFFFFCF]">
           {folder.name}
         </p>
-        <p className="text-sm text-[#4B5563] dark:text-[#A1A1AA]">
+        <p className="text-sm text-gray-700 dark:text-gray-300">
           {folder._count?.bookmarks}{" "}
           {folder._count?.bookmarks === 1 ? "bookmark" : "bookmarks"}
         </p>
