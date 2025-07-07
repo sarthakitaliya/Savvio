@@ -26,7 +26,6 @@ interface BookmarkStore {
 }
 
 const { setLoading, setError } = useUiStore.getState();
-const { currentFolder } = useFolderStore.getState();
 
 export const useBookmarkStore = create<BookmarkStore>((set) => ({
   bookmarks: [],
@@ -67,6 +66,8 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     setLoading(true);
     try {
       const { bookmark } = await createBookmark(bookmarkData);
+      const { currentFolder } = useFolderStore.getState();
+
       if (currentFolder?.id === bookmark.folderId) {
         set((state) => ({ bookmarks: [...state.bookmarks, bookmark] }));
       }
