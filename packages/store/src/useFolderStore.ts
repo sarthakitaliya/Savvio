@@ -95,7 +95,6 @@ export const useFolderStore = create<FolderStore>((set) => ({
           folders: [...state.folders, folderWithCount],
         };
       });
-      set((state) => ({ folders: [...state.folders, folder] }));
     } catch (error: any) {
       console.error("Error creating folder:", error);
       // setError(error.response?.data?.error || "Failed to create folder");

@@ -36,7 +36,7 @@ export function RecentBookmarks() {
                   alt="Bookmark favicon"
                   className="w-4 h-4"
                 />
-                <span className="text-sm text-[#1F1F1F] dark:text-[#FFFFFFCF]">
+                <span className="text-sm text-[#1F1F1F] dark:text-[#FFFFFFCF] truncate max-w-[200px]">
                   {bookmark.title}
                 </span>
               </div>
