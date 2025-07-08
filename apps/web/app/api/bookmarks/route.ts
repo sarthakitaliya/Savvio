@@ -22,7 +22,7 @@ const urlBookmarkSchema = z.object({
 const noteBookmarkSchema = z.object({
   type: z.literal("notes"),
   title: z.string().max(255), // now required
-  notes: z.string().max(500),
+  notes: z.string().max(2000, { message: 'Notes cannot exceed 2000 characters.' }),
   folderId: z.string().uuid(),
   tags: z.array(z.string()).max(3, { message: 'You can add up to 3 tags only.' }).optional(),
 });
