@@ -19,10 +19,14 @@ export async function GET(req: NextRequest) {
         createdAt: "desc",
       },
       take: limit,
-      include: {
-        tags: true,
-        folder: true,
-      },
+      select:{
+        id: true,
+        type: true,
+        title: true,
+        url: true,
+        notes: true,
+        favicon: true,
+      }
     });
     return NextResponse.json({ bookmarks }, { status: 200 });
   } catch (error) {

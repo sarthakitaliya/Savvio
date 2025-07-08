@@ -139,7 +139,7 @@ export async function POST(req: NextRequest) {
       createdBookmark = await prismaClient.bookmark.create({
         data: {
           type: "notes",
-          title,
+          title: title || "Untitled Note",
           url: null,
           notes,
           folderId,

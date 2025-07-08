@@ -58,10 +58,6 @@ export default function FolderPage() {
             fetchSubfolders(currentFolder.id),
             fetchBookmarks(currentFolder.id),
           ]);
-          console.log(
-            "Fetched subfolders and bookmarks for folder:",
-            currentFolder
-          );
         } catch (error) {
           console.error("Error fetching folder data:", error);
         }

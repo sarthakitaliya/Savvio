@@ -3,8 +3,11 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 import type { Bookmark } from "@repo/types";
 import { ArrowRight, NotebookPen } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
+  const router = useRouter();
+
   if (bookmark.type === "url") {
     return (
       <div className="w-full sm:w-64 max-w-xs flex-grow bg-white border-[0.1px] border-gray-300 dark:border-white/20 dark:bg-[#2A2A2A] p-4 rounded-2xl">
@@ -86,7 +89,12 @@ export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
             </div>
           )}
         </div>
-        <button className="text-sm flex justify-center items-center mt-auto px-4 py-2 text-white cursor-pointer hover:underline">
+        <button
+          className="text-sm flex justify-center items-center mt-auto px-4 py-2 text-white cursor-pointer hover:underline"
+          onClick={() => {
+            router.push(`/dashboard/note/${bookmark.id}`);
+          }}
+        >
           View Note <ArrowRight className="size-5" />
         </button>
       </div>

@@ -5,19 +5,24 @@ import {
   updateBookmark,
   deleteBookmark,
   getRecentBookmarks,
+  getNoteById,
 } from "@repo/api-client";
 import { useUiStore } from "./useUiStore";
 import type {
   Bookmark,
   CreateBookmarkPayload,
   DeleteBookmarkPayload,
+  recentBookmark,
   UpdateBookmarkPayload,
 } from "@repo/types";
 import { useFolderStore } from "./useFolderStore";
 
 interface BookmarkStore {
   bookmarks: Bookmark[];
+  notes: Bookmark;
+  recentBookmarks: recentBookmark[];
   fetchBookmarks: (folderId: string) => Promise<void>;
+  fetchNotes: (id: string) => Promise<Bookmark | void>;
   clearBookmarks: () => void;
   getRecentBookmarks: (limit: number) => Promise<void>;
   addBookmark: (bookmarkData: CreateBookmarkPayload) => Promise<void>;
@@ -29,7 +34,8 @@ const { setLoading, setError } = useUiStore.getState();
 
 export const useBookmarkStore = create<BookmarkStore>((set) => ({
   bookmarks: [],
-
+  notes: {} as Bookmark,
+  recentBookmarks: [],
   fetchBookmarks: async (folderId) => {
     setLoading(true);
     try {
@@ -43,6 +49,20 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     }
   },
 
+  fetchNotes: async (id) => {
+    setLoading(true);
+    try {
+      const { bookmark } = await getNoteById(id);
+      set({ notes: bookmark || "" });
+      return bookmark || "";
+    } catch (error: any) {
+      console.error("Error fetching note:", error);
+      setError(error.response?.data?.error || "Failed to fetch note");
+    } finally {
+      setLoading(false);
+    }
+  },
+
   clearBookmarks: () => {
     set({ bookmarks: [] });
   },
@@ -51,7 +71,7 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     setLoading(true);
     try {
       const { bookmarks } = await getRecentBookmarks(limit);
-      set({ bookmarks });
+      set({ recentBookmarks: bookmarks });
     } catch (error: any) {
       console.error("Error fetching recent bookmarks:", error);
       setError(

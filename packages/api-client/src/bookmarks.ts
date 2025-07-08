@@ -53,3 +53,15 @@ export const getRecentBookmarks = async (limit: number = 10) => {
     throw new Error(error.response?.data?.error || "Failed to fetch recent bookmarks");
   }
 };
+
+export const getNoteById = async (id: string) => {
+  try {
+    const response = await apiClient.get(`/bookmarks/note`, {
+      params: { id },
+    });
+    return response.data;
+  } catch (error: Error | any) {
+    console.error("Error fetching bookmark by ID:", error);
+    throw new Error(error.response?.data?.error || "Failed to fetch bookmark by ID");
+  }
+};
