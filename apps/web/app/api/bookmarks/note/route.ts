@@ -1,8 +1,13 @@
 import { prismaClient } from "@repo/db";
 import { NextRequest, NextResponse } from "next/server";
+import { requireAuth } from "../../../../lib/middleware";
 
 export async function GET(req: NextRequest) {
   try {
+    const session = await requireAuth(req);
+    if (!session || !session?.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
 
@@ -14,13 +19,16 @@ export async function GET(req: NextRequest) {
     }
 
     const bookmark = await prismaClient.bookmark.findUnique({
-      where: { id },
+      where: {
+        id,
+        userId: session.user.id,
+      },
       include: {
         tags: true,
       },
     });
     console.log("Fetched bookmark:", bookmark);
-    
+
     return NextResponse.json({ bookmark }, { status: 200 });
   } catch (error) {
     console.error("Error in GET request:", error);

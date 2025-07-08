@@ -19,10 +19,10 @@ import { useFolderStore } from "./useFolderStore";
 
 interface BookmarkStore {
   bookmarks: Bookmark[];
-  notes: Bookmark;
+  notes: Bookmark | null;
   recentBookmarks: recentBookmark[];
   fetchBookmarks: (folderId: string) => Promise<void>;
-  fetchNotes: (id: string) => Promise<Bookmark | void>;
+  fetchNotes: (id: string) => Promise<Bookmark | undefined>;
   clearBookmarks: () => void;
   getRecentBookmarks: (limit: number) => Promise<void>;
   addBookmark: (bookmarkData: CreateBookmarkPayload) => Promise<void>;
@@ -34,7 +34,7 @@ const { setLoading, setError } = useUiStore.getState();
 
 export const useBookmarkStore = create<BookmarkStore>((set) => ({
   bookmarks: [],
-  notes: {} as Bookmark,
+  notes: null,
   recentBookmarks: [],
   fetchBookmarks: async (folderId) => {
     setLoading(true);
@@ -53,11 +53,12 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     setLoading(true);
     try {
       const { bookmark } = await getNoteById(id);
-      set({ notes: bookmark || "" });
-      return bookmark || "";
+      set({ notes: bookmark || null });
+      return bookmark || null;
     } catch (error: any) {
       console.error("Error fetching note:", error);
       setError(error.response?.data?.error || "Failed to fetch note");
+      return undefined;
     } finally {
       setLoading(false);
     }

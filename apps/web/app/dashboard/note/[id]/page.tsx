@@ -15,7 +15,7 @@ export default function NotePage({ params }: { params: { id: string } }) {
     if (!note) {
       router.push("/dashboard/not-found");
     }
-  }, [params.id]);
+  }, [params.id, fetchNotes]);
   return (
     <div className="max-w-3xl mx-auto mt-10 p-6 rounded-lg shadow bg-white border-[0.1px] border-gray-300 dark:border-white/20 dark:bg-[#2A2A2A]">
       <div className="flex items-center gap-2 mb-5">
