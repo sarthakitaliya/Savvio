@@ -52,3 +52,12 @@ export interface Bookmark {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface recentBookmark {
+  id: string;
+  type: BookmarkType;
+  title: string;
+  url: string | null;
+  notes: string | null;
+  favicon?: string | null;
+}

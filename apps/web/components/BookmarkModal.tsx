@@ -51,10 +51,17 @@ export function BookmarkModal({
       toast.error("URL is required.");
       return;
     }
-    if (type === "notes" && !notes.trim()) {
-      toast.error("Notes are required.");
-      return;
+    if (type === "notes") {
+      if (!notes.trim()) {
+        toast.error("Notes are required.");
+        return;
+      }
+      if (notes.length > 2000) {
+        toast.error("Notes cannot exceed 2000 characters.");
+        return;
+      }
     }
+
     const payload: CreateBookmarkPayload =
       type === "url"
         ? {
@@ -242,11 +249,15 @@ export function BookmarkModal({
                 <textarea
                   id="notes"
                   rows={4}
+                  maxLength={2000}
                   placeholder="Enter your notes here..."
                   className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full mb-4 bg-white dark:bg-[#121212] text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                 ></textarea>
+                <p className="text-right text-sm text-gray-500 dark:text-gray-400">
+                  {notes.length} / 2000
+                </p>
               </>
             )}
             <div className="mt-6 flex justify-end space-x-3">

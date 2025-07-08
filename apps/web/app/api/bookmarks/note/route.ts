@@ -1,6 +1,6 @@
+import { prismaClient } from "@repo/db";
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "../../../../lib/middleware";
-import { prismaClient } from "@repo/db";
 
 export async function GET(req: NextRequest) {
   try {
@@ -9,28 +9,29 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     const { searchParams } = new URL(req.url);
-    const limit = Number(searchParams.get("limit") || 10);
+    const id = searchParams.get("id");
 
-    const bookmarks = await prismaClient.bookmark.findMany({
+    if (!id) {
+      return NextResponse.json(
+        { error: "Bookmark ID is required" },
+        { status: 400 }
+      );
+    }
+
+    const bookmark = await prismaClient.bookmark.findUnique({
       where: {
+        id,
         userId: session.user.id,
       },
-      orderBy: {
-        createdAt: "desc",
+      include: {
+        tags: true,
       },
-      take: limit,
-      select:{
-        id: true,
-        type: true,
-        title: true,
-        url: true,
-        notes: true,
-        favicon: true,
-      }
     });
-    return NextResponse.json({ bookmarks }, { status: 200 });
+    console.log("Fetched bookmark:", bookmark);
+
+    return NextResponse.json({ bookmark }, { status: 200 });
   } catch (error) {
-    console.error("Error in recent bookmarks API:", error);
+    console.error("Error in GET request:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

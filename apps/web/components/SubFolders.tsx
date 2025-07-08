@@ -16,7 +16,6 @@ export function SubFolders() {
     router.push(`${pathName}/${encodeURIComponent(folderSlug)}`);
   };
 
-  console.log("Subfolders:", subfolders);
   return (
     <div className="flex items-center flex-wrap gap-5 sm:gap-7 mt-15 mb-10 md:mx-5">
       {subfolders &&
