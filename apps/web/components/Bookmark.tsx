@@ -72,7 +72,7 @@ export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
             </span>
           </div>
         </div>
-        <p className="text-sm text-justify text-gray-500 dark:text-gray-400 mt-2 line-clamp-6 max-w-full overflow-hidden">
+        <p className="text-sm text-justify text-gray-500 dark:text-gray-400 mt-2 line-clamp-5 max-w-full overflow-hidden">
           {bookmark.notes}
         </p>
         <div>

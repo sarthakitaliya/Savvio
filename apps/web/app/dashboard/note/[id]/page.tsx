@@ -2,6 +2,7 @@
 
 import { useBookmarkStore } from "@repo/store";
 import { NotebookPen } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -26,8 +27,10 @@ export default function NotePage({ params }: { params: { id: string } }) {
           <h2 className="text-xl font-semibold mb-2">
             {notes.title || "Untitled"}
           </h2>
-          <p className="text-gray-700 dark:text-gray-300 text-justify">{notes.notes}</p>
-          <div className="mt-4">
+          <p className="text-gray-700 dark:text-gray-300 text-justify">
+            {notes.notes}
+          </p>
+          <div className="mt-4 flex items-center justify-between gap-2">
             {notes.tags && notes.tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {notes.tags.map((tag, index) => (
@@ -40,6 +43,11 @@ export default function NotePage({ params }: { params: { id: string } }) {
                 ))}
               </div>
             )}
+            <Link href={`/dashboard`}>
+              <button className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors cursor-pointer">
+                Got to Dashboard
+              </button>
+            </Link>
           </div>
         </div>
       ) : (
