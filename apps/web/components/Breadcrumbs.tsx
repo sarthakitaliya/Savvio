@@ -1,5 +1,5 @@
-export function Breadcrumbs({ segments }: { segments: string[] }) {
-  if (!segments || segments.length === 0) {
+export function Breadcrumbs({ slugs }: { slugs: string[] }) {
+  if (!slugs || slugs.length === 0) {
     return null;
   }
   return (
@@ -7,13 +7,15 @@ export function Breadcrumbs({ segments }: { segments: string[] }) {
       <a href="/dashboard" className="hover:underline">
         Dashboard
       </a>
-      {segments?.map((segment, i) => {
-        const href = `/dashboard/${segments.slice(0, i + 1).join("/")}`;
+      {slugs?.map((slug, i) => {
+        const href = `/dashboard/${slugs.slice(0, i + 1).join("/")}`;
+        // Strip nanoid suffix and replace hyphens with spaces for display
+        const displaySlug = slug.replace(/-[a-zA-Z0-9]{5}$/, '').replace(/-/g, ' ').trim();
         return (
           <span key={i}>
             {" / "}
             <a href={href} className="hover:underline">
-              {segment}
+              {displaySlug}
             </a>
           </span>
         );

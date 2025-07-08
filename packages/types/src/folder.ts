@@ -3,6 +3,7 @@ import type { Bookmark } from "./bookmark";
 export interface Folder {
   id: string;
   name: string;
+  slug: string;
   color?: string | null;
   icon?: string | null;
   _count: {

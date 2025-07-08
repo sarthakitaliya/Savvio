@@ -2,6 +2,8 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prismaClient } from "@repo/db";
 import { createAuthMiddleware } from "better-auth/api";
+import { nanoid } from "nanoid";
+import slugify from "slugify";
 
 export const auth = betterAuth({
   database: prismaAdapter(prismaClient, {
@@ -35,9 +37,17 @@ export const auth = betterAuth({
             },
           });
           if (!existingFolder) {
+            const slug =
+                  slugify("Unsorted", {
+                    lower: true,
+                    strict: true,
+                  }) +
+                  "-" +
+                  nanoid(5);
             const defaultFolder = await prismaClient.folder.create({
               data: {
                 name: "Unsorted",
+                slug,
                 userId: session.user.id,
               },
             });

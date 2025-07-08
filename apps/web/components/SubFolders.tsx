@@ -10,10 +10,10 @@ export function SubFolders() {
   const router = useRouter();
   const pathName = usePathname();
   
-  const handleFolderClick = (folderName: string) => {
+  const handleFolderClick = (folderSlug: string) => {
     cleanUp();
     clearBookmarks();
-    router.push(`${pathName}/${encodeURIComponent(folderName)}`);
+    router.push(`${pathName}/${encodeURIComponent(folderSlug)}`);
   };
 
   console.log("Subfolders:", subfolders);
@@ -22,7 +22,7 @@ export function SubFolders() {
       {subfolders &&
         subfolders?.length >= 1 &&
         subfolders.map((folder) => (
-          <FolderCard folder={folder} key={folder.id} onClick={() => handleFolderClick(folder.name)} />
+          <FolderCard folder={folder} key={folder.id} onClick={() => handleFolderClick(folder.slug)} />
         ))}
         <CreateFolderButton className="sm:size-40 size-36" />
     </div>

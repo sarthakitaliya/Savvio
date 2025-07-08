@@ -8,10 +8,10 @@ export function FolderLayout() {
   const {clearBookmarks } = useBookmarkStore();
   const router = useRouter();
   
-  const handleFolderClick = (folderName: string) => {
+  const handleFolderClick = (folderSlug: string) => {
     cleanUp(); 
     clearBookmarks();
-    router.push(`/dashboard/${folderName}`);
+    router.push(`/dashboard/${folderSlug}`);
   };
   return (
     <div className="flex items-center justify-center flex-wrap gap-5 sm:gap-7 mt-20 mb-10 md:mx-5">
@@ -32,7 +32,7 @@ export function FolderLayout() {
           <FolderCard
             folder={folder}
             key={folder.id}
-            onClick={() => handleFolderClick(folder.name)}
+            onClick={() => handleFolderClick(folder.slug)}
           />
         ))
       }

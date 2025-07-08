@@ -41,11 +41,11 @@ export const deleteFolder = async (folderData: DeleteFolderPayload) => {
   }
 };
 
-export const resolveFolderPath = async (segments: string[]) => {
+export const resolveFolderPath = async (slugs: string[]) => {
   try {
-    const queryParam = segments.join(",");
+    const queryParam = slugs.join(",");
     const response = await apiClient.get(`/folders/resolve-path`, {
-      params: { segments: queryParam },
+      params: { slug: queryParam },
     });
     return response.data;
   } catch (error: Error | any) {
