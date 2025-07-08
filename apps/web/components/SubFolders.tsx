@@ -1,16 +1,19 @@
-import { useFolderStore } from "@repo/store";
+import { useBookmarkStore, useFolderStore } from "@repo/store";
 import { FolderPlus } from "lucide-react";
 import { FolderCard } from "./ui/dashboard/FolderCard";
 import { CreateFolderButton } from "./ui/dashboard/CreateFolderButton";
 import { usePathname, useRouter } from "next/navigation";
 
 export function SubFolders() {
-  const { subfolders } = useFolderStore();
+  const { subfolders, cleanUp } = useFolderStore();
+  const {clearBookmarks } = useBookmarkStore();
   const router = useRouter();
   const pathName = usePathname();
   
-  const handleFolderClick = (folderName: string) => {
-    router.push(`${pathName}/${encodeURIComponent(folderName)}`);
+  const handleFolderClick = (folderSlug: string) => {
+    cleanUp();
+    clearBookmarks();
+    router.push(`${pathName}/${encodeURIComponent(folderSlug)}`);
   };
 
   console.log("Subfolders:", subfolders);
@@ -19,7 +22,7 @@ export function SubFolders() {
       {subfolders &&
         subfolders?.length >= 1 &&
         subfolders.map((folder) => (
-          <FolderCard folder={folder} key={folder.id} onClick={() => handleFolderClick(folder.name)} />
+          <FolderCard folder={folder} key={folder.id} onClick={() => handleFolderClick(folder.slug)} />
         ))}
         <CreateFolderButton className="sm:size-40 size-36" />
     </div>

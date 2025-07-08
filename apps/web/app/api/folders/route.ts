@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "../../../lib/middleware";
 import { z } from "zod";
 import type { CreateFolderPayload, UpdateFolderPayload } from "@repo/types";
+import slugify from "slugify";
+import { nanoid } from "nanoid";
 
 const folderSchema = z.object({
   id: z.string().uuid().optional(),
@@ -66,10 +68,17 @@ export async function POST(req: NextRequest) {
       );
     }
     const { name, parentId, color, icon } = validation.data;
-
+    const slug =
+      slugify(name, {
+        lower: true,
+        strict: true,
+      }) +
+      "-" +
+      nanoid(5);
     const folder = await prismaClient.folder.create({
       data: {
         name,
+        slug,
         color,
         icon,
         parentId: parentId || null,

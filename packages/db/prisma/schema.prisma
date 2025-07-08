@@ -29,6 +29,7 @@ model User {
 model Folder {
   id        String   @id @default(uuid())
   name      String
+  slug      String   @unique
   color     String?
   icon      String?
   createdAt DateTime @default(now())

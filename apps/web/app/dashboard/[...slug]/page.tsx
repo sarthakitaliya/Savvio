@@ -1,5 +1,5 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { SearchBar } from "../../../components/ui/SearchBar";
@@ -7,29 +7,27 @@ import { FolderModal } from "../../../components/FolderModal";
 import { BookmarkModal } from "../../../components/BookmarkModal";
 import { useBookmarkStore, useFolderStore } from "@repo/store";
 import { SubFolders } from "../../../components/SubFolders";
-import { CreateFolderButton } from "../../../components/ui/dashboard/CreateFolderButton";
 import { BookmarkLayout } from "../../../components/BookmarkLayout";
 
 export default function FolderPage() {
   const params = useParams();
-  const segments = params.segments;
-  const decodedSegments = segments
-    ? Array.isArray(segments)
-      ? segments.map((s) => decodeURIComponent(s))
-      : [decodeURIComponent(segments)]
-    : [];
-  const segmentsArray =
-    typeof decodedSegments === "string"
-      ? [decodedSegments]
-      : decodedSegments || [];
+  const slug = params.slug;
+  const slugArray = typeof slug === "string" ? [slug] : slug || [];
 
-  const { resolveFolderPath, currentFolder, fetchSubfolders, cleanUp, folders, subfolders } =
-    useFolderStore();
+  const {
+    resolveFolderPath,
+    currentFolder,
+    fetchSubfolders,
+    cleanUp,
+    folders,
+    subfolders,
+  } = useFolderStore();
   const { fetchBookmarks, clearBookmarks } = useBookmarkStore();
   const lastPathRef = useRef<string>("");
+  const router = useRouter();
 
   useEffect(() => {
-    const currentPath = segmentsArray.join("/");
+    const currentPath = slugArray.join("/");
 
     if (currentPath === lastPathRef.current) {
       // same path, skip resolving again
@@ -38,19 +36,19 @@ export default function FolderPage() {
 
     lastPathRef.current = currentPath;
     const resolveAndFetch = async () => {
-      try {
-        cleanUp();
-        clearBookmarks();
-        if (segmentsArray.length > 0) {
-          await resolveFolderPath(segmentsArray);
+      cleanUp();
+      clearBookmarks();
+      if (slugArray.length > 0) {
+        const resolvedFolder = await resolveFolderPath(slugArray); 
+        if (!resolvedFolder) {
+          router.push("/dashboard/not-found");
+          return;
         }
-      } catch (error) {
-        console.error("Error resolving folder path:", error);
       }
     };
 
     resolveAndFetch();
-  }, [segmentsArray, cleanUp, clearBookmarks, resolveFolderPath]);
+  }, [slugArray, cleanUp, clearBookmarks, resolveFolderPath]);
 
   useEffect(() => {
     if (currentFolder?.id) {
@@ -60,8 +58,10 @@ export default function FolderPage() {
             fetchSubfolders(currentFolder.id),
             fetchBookmarks(currentFolder.id),
           ]);
-          console.log("Fetched subfolders and bookmarks for folder:", currentFolder);
-
+          console.log(
+            "Fetched subfolders and bookmarks for folder:",
+            currentFolder
+          );
         } catch (error) {
           console.error("Error fetching folder data:", error);
         }
@@ -79,8 +79,15 @@ export default function FolderPage() {
           name: currentFolder?.name ?? "",
         }}
       />
-      <BookmarkModal parentFolder={currentFolder?.id} folders={currentFolder && subfolders ? [...subfolders,currentFolder] : [...folders]} />
-      <Breadcrumbs segments={segmentsArray} />
+      <BookmarkModal
+        parentFolder={currentFolder?.id}
+        folders={
+          currentFolder && subfolders
+            ? [...subfolders, currentFolder]
+            : [...folders]
+        }
+      />
+      <Breadcrumbs slugs={slugArray} />
       <div className="max-w-md mx-auto pt-5">
         <SearchBar
           placeholder={`Search in ${currentFolder?.name || "folder"}`}

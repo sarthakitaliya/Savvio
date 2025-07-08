@@ -43,11 +43,13 @@
         "dayjs": "^1.11.13",
         "link-preview-js": "^3.1.0",
         "lucide-react": "^0.524.0",
+        "nanoid": "^5.1.5",
         "next": "^15.3.0",
         "next-themes": "^0.4.6",
         "postcss": "^8.5.6",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
+        "slugify": "^1.6.6",
         "sonner": "^2.0.6",
         "tailwindcss": "^4.1.11",
         "zod": "^3.25.67",
@@ -1026,7 +1028,7 @@
 
     "mute-stream": ["mute-stream@0.0.8", "", {}, ""],
 
-    "nanoid": ["nanoid@3.3.11", "", { "bin": "bin/nanoid.cjs" }, ""],
+    "nanoid": ["nanoid@5.1.5", "", { "bin": { "nanoid": "bin/nanoid.js" } }, "sha512-Ir/+ZpE9fDsNH0hQ3C68uyThDXzYcim2EqcZ8zn8Chtt1iylPT9xXJB0kPCnqzgcEGikO9RxSrh63MsmVCU7Fw=="],
 
     "nanostores": ["nanostores@0.11.4", "", {}, "sha512-k1oiVNN4hDK8NcNERSZLQiMfRzEGtfnvZvdBvey3SQbgn8Dcrk0h1I6vpxApjb10PFUflZrgJ2WEZyJQ+5v7YQ=="],
 
@@ -1229,6 +1231,8 @@
     "simple-swizzle": ["simple-swizzle@0.2.2", "", { "dependencies": { "is-arrayish": "^0.3.1" } }, ""],
 
     "slash": ["slash@3.0.0", "", {}, ""],
+
+    "slugify": ["slugify@1.6.6", "", {}, "sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw=="],
 
     "smart-buffer": ["smart-buffer@4.2.0", "", {}, ""],
 
@@ -1502,6 +1506,8 @@
 
     "parse5/entities": ["entities@6.0.1", "", {}, ""],
 
+    "postcss/nanoid": ["nanoid@3.3.11", "", { "bin": "bin/nanoid.cjs" }, ""],
+
     "postcss/picocolors": ["picocolors@1.1.1", "", {}, ""],
 
     "rc/strip-json-comments": ["strip-json-comments@2.0.1", "", {}, ""],
@@ -1559,6 +1565,8 @@
     "log-symbols/chalk/escape-string-regexp": ["escape-string-regexp@1.0.5", "", {}, ""],
 
     "log-symbols/chalk/supports-color": ["supports-color@5.5.0", "", { "dependencies": { "has-flag": "^3.0.0" } }, ""],
+
+    "next/postcss/nanoid": ["nanoid@3.3.11", "", { "bin": "bin/nanoid.cjs" }, ""],
 
     "next/postcss/picocolors": ["picocolors@1.1.1", "", {}, ""],
 

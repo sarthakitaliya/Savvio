@@ -1,4 +1,3 @@
-
 import { prismaClient } from "@repo/db";
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "../../../../lib/middleware";
@@ -11,22 +10,22 @@ export async function GET(req: NextRequest) {
     }
 
     const url = new URL(req.url);
-    const segmentsParam = url.searchParams.get("segments");
-    if (!segmentsParam) {
+    const slugsParams = url.searchParams.get("slug");
+    if (!slugsParams) {
       return NextResponse.json(
-        { error: "Missing segments query parameter" },
+        { error: "Missing slugs query parameter" },
         { status: 400 }
       );
     }
 
-    const segments = segmentsParam.split(",").map((s) => s.trim());
+    const slugs = slugsParams.split(",").map((s) => s.trim());
     let parentId: string | null = null;
     let currentFolder = null;
 
-    for (const segment of segments) {
+    for (const slug of slugs) {
       currentFolder = await prismaClient.folder.findFirst({
         where: {
-          name: segment,
+          slug: slug,
           parentId,
           userId: session.user.id,
         },
@@ -34,7 +33,7 @@ export async function GET(req: NextRequest) {
 
       if (!currentFolder) {
         return NextResponse.json(
-          { error: `Folder '${segment}' not found` },
+          { error: `Folder '${slug}' not found` },
           { status: 404 }
         );
       }
