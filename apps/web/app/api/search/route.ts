@@ -38,7 +38,6 @@ export async function GET(req: NextRequest) {
     }
 
     const { q, scope, folderId } = query.data;
-    console.log(query.data);
 
     const searchClause = {
       OR: [

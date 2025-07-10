@@ -17,7 +17,7 @@ export function SearchBar({
 }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
-  const { fetchSearchResults, searchResults, error, isLoading, setLoading } =
+  const { fetchSearchResults, isLoading, setLoading } =
     useSearchStore();
 
   useEffect(() => {
@@ -31,8 +31,6 @@ export function SearchBar({
         q: query,
         scope,
         folderId: scope === "folder" ? folderId : undefined,
-      }).then(() => {
-        setLoading(false);
       });
     }, 600);
 
