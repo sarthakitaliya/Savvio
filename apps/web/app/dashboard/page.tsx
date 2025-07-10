@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { FolderModal } from "../../components/FolderModal";
 import { CreateFolderButton } from "../../components/ui/dashboard/CreateFolderButton";
 import { BookmarkModal } from "../../components/BookmarkModal";
+import { AddBookmarkButton } from "../../components/AddBookmarkButton";
 
 
 export default function Dashboard() {
@@ -19,6 +20,7 @@ export default function Dashboard() {
   
   return (
     <div className="m-5">
+      <AddBookmarkButton/>
       <FolderModal/>
       <BookmarkModal folders={folders} />
       <div className="max-w-md mx-auto pt-5">

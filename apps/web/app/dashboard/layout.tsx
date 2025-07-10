@@ -16,7 +16,6 @@ export default async function DashboardLayout({
         <ToastListener/>
         <NavBar />
         {children}
-        <AddBookmarkButton/>
       </div>
     </RequireAuth>
   );
