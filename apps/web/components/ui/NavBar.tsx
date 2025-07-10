@@ -1,12 +1,15 @@
 "use client";
 import { useThemeStore, useUserStore } from "@repo/store";
-import { Bookmark, Moon, Sun, User, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import ThemeToggle from "../Theme-toggle";
 import { Menu } from "@headlessui/react";
 import { authClient } from "../../lib/auth-client";
 import { useRouter } from "next/navigation";
+import { Logo } from "../logo";
+import Link from "next/link";
+
 
 export function NavBar() {
   const { user, logout } = useUserStore();
@@ -14,7 +17,7 @@ export function NavBar() {
 
   const handleLogout = async () => {
     try {
-      await authClient.signOut({ 
+      await authClient.signOut({
         fetchOptions: {
           onSuccess: () => {
             logout();
@@ -22,8 +25,8 @@ export function NavBar() {
           },
           onError: (error) => {
             console.error("Logout failed:", error);
-          }
-        }
+          },
+        },
       });
     } catch (error) {
       console.error("Logout error:", error);
@@ -32,12 +35,12 @@ export function NavBar() {
 
   return (
     <div className="h-14 flex justify-between items-center px-7 py-10 border-b border-gray-200 dark:border-gray-700">
-      <div className="flex items-center gap-2 font-semibold text-lg">
-        <Bookmark />
-        BookMeMark
-      </div>
+      <Link href="/dashboard" className="flex items-center font-semibold text-lg">
+        <Logo />
+        Savvio
+      </Link>
       <div className="flex items-center gap-4">
-        <ThemeToggle/>
+        <ThemeToggle />
         <Menu as="div" className="relative">
           <Menu.Button className="flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-[#2F2F2F] rounded-full p-1 transition-colors cursor-pointer">
             <Image
