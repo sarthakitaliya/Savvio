@@ -8,6 +8,7 @@ import { BookmarkModal } from "../../../components/BookmarkModal";
 import { useBookmarkStore, useFolderStore } from "@repo/store";
 import { SubFolders } from "../../../components/SubFolders";
 import { BookmarkLayout } from "../../../components/BookmarkLayout";
+import { AddBookmarkButton } from "../../../components/AddBookmarkButton";
 
 export default function FolderPage() {
   const params = useParams();
@@ -39,7 +40,7 @@ export default function FolderPage() {
       cleanUp();
       clearBookmarks();
       if (slugArray.length > 0) {
-        const resolvedFolder = await resolveFolderPath(slugArray); 
+        const resolvedFolder = await resolveFolderPath(slugArray);
         if (!resolvedFolder) {
           router.push("/dashboard/not-found");
           return;
@@ -69,6 +70,8 @@ export default function FolderPage() {
 
   return (
     <div className="m-5">
+      <AddBookmarkButton />
+
       <FolderModal
         parentFolder={{
           id: currentFolder?.id ?? "",
