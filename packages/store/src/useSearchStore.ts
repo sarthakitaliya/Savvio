@@ -1,32 +1,31 @@
 import { create } from "zustand";
 import type { SearchResult, SearchPayload } from "@repo/types";
 import { searchBookmarks } from "@repo/api-client";
+import { useUiStore } from "./useUiStore";
 
 interface SearchStore {
   searchResults: SearchResult[];
   isLoading: boolean;
-  error: string | null;
   fetchSearchResults: (payload: SearchPayload) => Promise<void>;
   setLoading: (loading: boolean) => void;
-  setError: (error: string | null) => void;
   clearSearchResults: () => void;
 }
+const { setError } = useUiStore.getState();
 
 export const useSearchStore = create<SearchStore>((set) => ({
   searchResults: [],
   isLoading: false,
-  error: null,
   fetchSearchResults: async (payload) => {
     try {
       const results = await searchBookmarks(payload);
       set({ searchResults: results });
     } catch (error: any) {
-      set({ error: error.message || "Failed to fetch search results" });
+      setError(error.response?.data?.error || "Failed to fetch search results");
+      set({ searchResults: [] });
     } finally {
       set({ isLoading: false });
     }
   },
   setLoading: (loading) => set({ isLoading: loading }),
-  setError: (error) => set({ error }),
-  clearSearchResults: () => set({ searchResults: [], error: null }),
+  clearSearchResults: () => set({ searchResults: [], isLoading: false }),
 }));

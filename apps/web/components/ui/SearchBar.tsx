@@ -17,7 +17,7 @@ export function SearchBar({
 }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
-  const { fetchSearchResults, isLoading, setLoading } =
+  const { fetchSearchResults, isLoading, setLoading, clearSearchResults } =
     useSearchStore();
 
   useEffect(() => {
@@ -42,6 +42,7 @@ export function SearchBar({
   const clearSearch = () => {
     setQuery("");
     setOpen(false);
+    clearSearchResults();
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
