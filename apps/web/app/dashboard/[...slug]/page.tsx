@@ -87,6 +87,8 @@ export default function FolderPage() {
       <div className="max-w-md mx-auto pt-5">
         <SearchBar
           placeholder={`Search in ${currentFolder?.name || "folder"}`}
+          scope="folder"
+          folderId={currentFolder?.id}
           className="mt-10 mb-15"
         />
       </div>
