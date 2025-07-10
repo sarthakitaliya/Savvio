@@ -59,7 +59,7 @@ export function NavBar() {
                         ? "bg-gray-100 dark:bg-[#3A3A3A]"
                         : "text-[#1F1F1F] dark:text-[#FFFFFFCF]"
                     }`}
-                    onClick={() => console.log("My Profile clicked")}
+                    onClick={() => router.push("/dashboard/profile")}
                   >
                     My Profile
                   </button>
