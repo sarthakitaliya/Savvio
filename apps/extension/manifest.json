@@ -1,11 +1,22 @@
 {
   "manifest_version": 3,
-  "name": "Bookmark Manager",
+  "name": "Savvio",
   "version": "1.0.0",
   "description": "Save bookmarks from any tab",
   "action": {
-    "default_popup": "index.html"
+    "default_popup": "popup.html"
   },
+  "background": {
+    "service_worker": "src/background.ts"
+  },
+  "key": "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCqhetg88iZbFqIYu7pdAEae5zkJEiRKodA0JSs+CmqgQVDJebcz/BtaKYAN75dl9jSgS2lCGuuujuPGEWZ9W2DCScIs0wNJMdbS3WIHsoj86SYSO5PsCylTQkcaeg3I2A2LQVcBO7P6txzzszT0AOtSNPPj0RvSj/wKGsbPwJHgfeFyA/hi6MKC8whEsESQeNojXGQAuom13PmtY9IeKWQDwxn6SeneiNTTXa7m5ruOJNNS7qlMZ+rD82I2X6Tt/qBfHNGuDYR21/UzdLSKLGzm+1tvA7C8mkFnaoY736K/HscRN7H894G17YnXMCXItUjLH+ynezNNkZdvZN24s99AgMBAAECggEBAKDTYWW1RrJ8oP4U4ONJR2kkwJnjJpXTGHEmx7JC83kd6kqkSpJjg4yMsFNwP5iiCBqxPs1xna3TcyzIZYyJDtoRHcF06PtUfrk5+AWDlH5H4irGTgzWSaU1fKxRrnOiZ7Fw0Kcy99Ec3wJSPphejbk3AJ23r4GO87KbTDkMOigZf00KeQz1HBkc/DfkpwrdMX/nNhWEaNc8Xn9UeIU/ZyTwxP6r75IXAeyytpkBXKneBxZvu2nTQLPBfaRNcesi7C802QF+V9e4occwEIYH59PQJwzNsya31YNCGYTk0Ur7P/5BWxcHITF2lZc1k+3CIn0iF8SblmZwhbKHFcklIMECgYEA2lajPcR34wEg3VI/IRYeeEgnSj0EKewe9Qsieg9xrWmcFsUMy/yoZlUIc532DG+5MgyaPIEGnlCCm7/9uvin+x0twGHrfL+Pj3wQE2mzLE5i6ww246OiY9qhjWO/7qNxewwqQhjbPNK5PNgoClZYdUM6+49cAgzlVVvGM8QyGcUCgYEAx+/b9YtURhn+Ypk+5meOoTAmtfITo+jkSo6ooPc5TEaF3vM7MbyAhvpj6ZACF6eY4XQnrn5dHBSJ/cPxHi7Nd7/zg4LRRjbiXhw/cV6Ioa8+YbYQ9cqvTcJw5bOYDpvjUpfMPrtDgQDcqnB75So+InsbSS53uNwi70FqDo+IElkCgYAYoUde82fWyszLSrjmYZlkVjdgb4ulswY2/F+SR2W6ezxpcSclZ8YTbSo76KjV9FB+7d8ETkXR3CEvsrPLwLsqX7tGhYVMGEv4krU5i2Xz7I/KFiGnAlGSVBp/Wa5QHE3z5IZr2GP684aD75psuBrYd5ISyLRHYu8H9wdf1ZUVRQKBgCBKzFL/WvArmJuiNreN+EpudYIjhCqQHfcwzWmaJIX+Sfb1gBULZhLm9CYwHTZm2llnolUbkbxMUPFMqW//jS4PMayG/3gAu1UJ6PFNnHHI1SGA/4JDZ0b+5a8j76ZEZVXcsJ9dLYzzb7CTlF8yEHEPQxvxxmJ0I6xS+2c4pXiZAoGADs0FrnlqKLo5gD70fYQdzZ4WudN7kWdgWluelPiG+JosXF/4VqbBvnfwigYhjk6x8ouf91zly3VKuR/sYGycxoPIEQAqbP8EwhSZqVWp2GBVfAxANe9VPlRDnUei4qDUSKMA8ZKgDhKhf+6XOHulNJZn7AdB0QfjRp5Vr6f+FlQ=",
   "permissions": ["tabs", "storage", "activeTab"],
-  "host_permissions": ["<all_urls>"]
+  "host_permissions": ["<all_urls>"],
+  "externally_connectable": {
+    "matches": [
+      "http://localhost:3000/*",
+      "https://savvio.com/*"
+    ],
+    "ids": ["*"]
+  }
 }
