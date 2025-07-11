@@ -32,7 +32,7 @@ export function SearchBar({
         scope,
         folderId: scope === "folder" ? folderId : undefined,
       });
-    }, 600);
+    }, 300);
 
     return () => {
       clearTimeout(debounceTimer);
