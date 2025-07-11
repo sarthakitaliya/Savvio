@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { signIn } from "../../lib/auth-client";
+import { signIn, useSession } from "../../lib/auth-client";
 import { GoogleIcon } from "../../public/icons/google";
 import Link from "next/link";
 import { useUiStore } from "@repo/store";
@@ -10,21 +10,32 @@ import { useRouter } from "next/navigation";
 export default function LoginPage() {
   const [isExtensionLogin, setIsExtensionLogin] = useState(false);
   const router = useRouter();
-  
+
   const { setError } = useUiStore();
+  const { data: session, isPending } = useSession();
+
   const handleGoogleLogin = async () => {
-    if(window.location.pathname.includes("source=extension")) {
+    if (window.location.pathname.includes("source=extension")) {
       setIsExtensionLogin(true);
     }
-    await signIn.social(
-      {
-        provider: "google",
-        callbackURL: isExtensionLogin ? "/login/extension-callback" : "/dashboard",
-        errorCallbackURL: "/auth/error",
-      },
-    );
+    await signIn.social({
+      provider: "google",
+      callbackURL: isExtensionLogin
+        ? "/login/extension-callback"
+        : "/dashboard",
+      errorCallbackURL: "/auth/error",
+    });
   };
 
+  useEffect(() => {
+    if (session && session.user) {
+      if (isExtensionLogin) {
+        router.push("/login/extension-callback");
+      } else {
+        router.push("/dashboard");
+      }
+    }
+  }, [session, router]);
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get("source");
