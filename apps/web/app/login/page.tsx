@@ -18,7 +18,7 @@ export default function LoginPage() {
     <div className="flex flex-col min-h-screen w-full ">
       {/* Centered login box */}
       <div className="flex flex-grow flex-col justify-center items-center gap-6">
-        <div className="text-4xl font-bold">Login to Mark</div>
+        <div className="text-4xl font-bold">Login to Savvio</div>
 
         <div className="w-64">
           <button
