@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
+import { authClient } from './auth/auth-client'
+import ThemeToggle from './components/ThemeToggle';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const fetchFolder = async () => {
+    const res = await fetch('http://localhost:3000/api/folders', {method: 'GET'})
+    if (!res.ok) {
+      console.error('Error fetching folder:', res.statusText);
+    }
+    return await res.json();
+  };
+  const [folder, setFolder] = useState(null);
+  useEffect(() => {
+    const folder = fetchFolder();
+    folder.then(data => {
+      console.log('Fetched folder:', data);
+      setFolder(data);
+    }).catch(error => {
+      console.error('Error fetching folder:', error);
+    });
+  }, []);
 
+  const { data, isPending, error } = authClient.useSession();
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='w-80  overflow-y-auto overflow-x-hidden flex flex-col gap-4'>
+      <h1 className='text-4xl'>Session</h1>
+      <ThemeToggle/>
+      {folder && <p>Fetched folder: {JSON.stringify(folder)}</p>}
+      {isPending && <p>Loading...</p>}
+      {error && <p>Error: {error.message}</p>}
+      {data && <p>Signed in as {data.user.name}</p>}
+    </div>
   )
 }
 
