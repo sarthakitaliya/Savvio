@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import { Logo } from "../logo";
 import Link from "next/link";
 
-
 export function NavBar() {
   const { user, logout } = useUserStore();
   const router = useRouter();
@@ -20,8 +19,8 @@ export function NavBar() {
       await authClient.signOut({
         fetchOptions: {
           onSuccess: () => {
-            logout();
             router.push("/login");
+            logout();
           },
           onError: (error) => {
             console.error("Logout failed:", error);
@@ -35,7 +34,10 @@ export function NavBar() {
 
   return (
     <div className="h-14 flex justify-between items-center px-7 py-10 border-b border-gray-200 dark:border-gray-700">
-      <Link href="/dashboard" className="flex items-center font-semibold text-lg">
+      <Link
+        href="/dashboard"
+        className="flex items-center font-semibold text-lg"
+      >
         <Logo />
         Savvio
       </Link>

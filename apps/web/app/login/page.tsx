@@ -13,9 +13,11 @@ export default function LoginPage() {
 
   const { setError } = useUiStore();
   const { data: session, isPending } = useSession();
-
+  console.log(isExtensionLogin, "isExtensionLogin");
+  
   const handleGoogleLogin = async () => {
-    if (window.location.pathname.includes("source=extension")) {
+    if (window.location.search.includes("source=extension")) {
+      
       setIsExtensionLogin(true);
     }
     await signIn.social({
@@ -35,7 +37,7 @@ export default function LoginPage() {
         router.push("/dashboard");
       }
     }
-  }, [session, router]);
+  }, [session, isPending]);
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get("source");
