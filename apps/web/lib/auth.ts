@@ -21,7 +21,7 @@ export const auth = betterAuth({
   },
   // plugins: [bearer()],
   trustedOrigins:[
-    `chrome-extension://nnocloacehlgacidcajngieopaallbop`,
+    `chrome-extension://${process.env.CHROME_EXTENSION_ID}`,
   ],
   hooks: {
     after: createAuthMiddleware(async (ctx) => {

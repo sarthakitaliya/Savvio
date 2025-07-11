@@ -22,19 +22,6 @@ export default function LoginPage() {
         callbackURL: isExtensionLogin ? "/login/extension-callback" : "/dashboard",
         errorCallbackURL: "/auth/error",
       },
-      {
-        onSuccess: (ctx) => {
-          if (isExtensionLogin && chrome?.runtime?.id) {
-            const token = ctx.response.headers.get("set-auth-token");
-            const extensionId = process.env.NEXT_PUBLIC_SAVVIO_EXTENSION_ID;
-            router.push(`/login/extension-callback?token=${encodeURIComponent(token || "")}`);
-          }
-        },
-        onError: (error) => {
-          console.error("Login failed", error);
-          setError("Login failed. Please try again.");
-        },
-      }
     );
   };
 

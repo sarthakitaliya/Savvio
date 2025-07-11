@@ -17,8 +17,6 @@ export function RequireAuth({ children }: { children: React.ReactNode }) {
       return;
     }
     if (session && session.user) {
-      console.log("Session user:", session);
-      
       setUser(session.user);
     }
   }, [session, isPending]);
