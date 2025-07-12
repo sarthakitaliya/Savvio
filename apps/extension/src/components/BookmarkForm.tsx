@@ -1,9 +1,15 @@
-import { useBookmarkStore } from "@repo/store";
+import { useBookmarkStore, useFolderStore } from "@repo/store";
 import type { CreateBookmarkPayload } from "@repo/types";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export function BookmarkForm({ activeTab, tabInfo }: { activeTab: "url" | "note"; tabInfo: { title: string; url: string; favIconUrl?: string } }) {
+export function BookmarkForm({
+  activeTab,
+  tabInfo,
+}: {
+  activeTab: "url" | "note";
+  tabInfo: { title: string; url: string; favIconUrl?: string };
+}) {
   const [selectedFolder, setSelectedFolder] = useState<string>("");
   const [title, setTitle] = useState(tabInfo.title);
   const [url, setUrl] = useState(tabInfo.url);
@@ -12,7 +18,8 @@ export function BookmarkForm({ activeTab, tabInfo }: { activeTab: "url" | "note"
   const [tagInput, setTagInput] = useState("");
   const [error, setError] = useState<string | null>(null);
   const { addBookmark } = useBookmarkStore();
-    
+  const { fetchFolders, folders } = useFolderStore();
+
   useEffect(() => {
     setTimeout(() => {
       setError(null);
@@ -22,7 +29,14 @@ export function BookmarkForm({ activeTab, tabInfo }: { activeTab: "url" | "note"
   useEffect(() => {
     setTitle(tabInfo.title);
     setUrl(tabInfo.url);
+    if (activeTab === "note") {
+      setTitle("");
+    }
   }, [tabInfo.title, tabInfo.url]);
+
+  useEffect(() => {
+    fetchFolders();
+  }, [fetchFolders]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,10 +49,10 @@ export function BookmarkForm({ activeTab, tabInfo }: { activeTab: "url" | "note"
       setError("Please enter a valid URL starting with http:// or https://");
       return;
     }
-    if(!selectedFolder.trim()) {
-        setError("Please select a folder.");
-        return;
-        }
+    if (!selectedFolder.trim()) {
+      setError("Please select a folder.");
+      return;
+    }
 
     if (activeTab === "note") {
       if (!notes.trim()) {
@@ -149,14 +163,18 @@ export function BookmarkForm({ activeTab, tabInfo }: { activeTab: "url" | "note"
         </label>
         <select
           id="folder"
-          className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full"
+          className="border border-gray-300 dark:border-gray-600 rounded-md p-2 w-full appearance-none"
           value={selectedFolder}
           onChange={(e) => setSelectedFolder(e.target.value)}
         >
-          <option value="">Select a folder</option>
-          <option value="folder1">Folder 1</option>
-          <option value="folder2">Folder 2</option>
-          <option value="folder3">Folder 3</option>
+          <option value="" disabled>
+            Select a folder
+          </option>
+          {folders.map((folder) => (
+            <option key={folder.id} value={folder.id}>
+              {folder.name}
+            </option>
+          ))}
         </select>
         <label htmlFor="tags" className="block text-sm font-medium mt-2 mb-1">
           Tags (optional)
