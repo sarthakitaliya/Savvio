@@ -66,11 +66,7 @@ export function SearchBar() {
         </button>
       ) : null}
       {open && !error && <SearchResults />}
-      {error && (
-        <div className="absolute top-full left-0 right-0 mt-1 p-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-600 dark:text-red-400 text-sm">
-          {error}
-        </div>
-      )}
+
     </div>
   );
 }

@@ -1,9 +1,11 @@
-import { useBookmarkStore } from "@repo/store";
+import { useBookmarkStore, useUiStore } from "@repo/store";
 import { ArrowRight, NotebookPen } from "lucide-react";
 import { useEffect } from "react";
+import Loading from "./Loading";
 
 export function BrowsePanel() {
   const { recentBookmarks, getRecentBookmarks } = useBookmarkStore();
+  const {loading} = useUiStore();
   const limit = 7;
 
   useEffect(() => {
@@ -16,6 +18,10 @@ export function BrowsePanel() {
     };
     fetchRecentBookmarks();
   }, [getRecentBookmarks, limit]);
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div className="mt-4 px-4 mb-5">
       <h1 className="text-lg font-semibold mb-4">Recent Bookmarks</h1>

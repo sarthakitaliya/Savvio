@@ -14,7 +14,7 @@ interface UiStore {
 }
 
 export const useUiStore = create<UiStore>((set) => ({
-    loading: false,
+    loading: true,
     showFolderModal: false,
     showBookmarkModal: false,
     error: null,

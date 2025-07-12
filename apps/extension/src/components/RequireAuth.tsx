@@ -1,13 +1,12 @@
 import { authClient } from "../auth/auth-client";
+import Loading from "./Loading";
 
 export function RequireAuth({ children }: { children: React.ReactNode }) {
   const { data: session, isPending } = authClient.useSession();
 
   if (isPending) {
     return (
-      <div className="w-80 h-[450px] flex items-center justify-center bg-[#2A2A2A]">
-        <span className="text-gray-500 dark:text-gray-400">Loading...</span>
-      </div>
+      <Loading />
     );
   }
 
