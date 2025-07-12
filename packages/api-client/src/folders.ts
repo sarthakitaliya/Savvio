@@ -1,4 +1,4 @@
-import type { CreateFolderPayload, DeleteFolderPayload, Folder, UpdateFolderPayload } from "@repo/types";
+import type { CreateFolderPayload, DeleteFolderPayload, UpdateFolderPayload } from "@repo/types";
 import { apiClient } from "./axiosInstance";
 
 export const getFolders = async () => {

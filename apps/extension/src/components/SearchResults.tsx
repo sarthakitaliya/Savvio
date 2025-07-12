@@ -1,7 +1,6 @@
 import { useSearchStore } from "@repo/store";
 import { ArrowRight, Folder, NotebookPen } from "lucide-react";
 import { folderIcons } from "./ColorsAndIcons";
-import Link from "next/link";
 
 export function SearchResults() {
   const { searchResults, isLoading } = useSearchStore();
@@ -41,14 +40,16 @@ export function SearchResults() {
                 {item.type === "bookmark" ? (
                   <div>
                     {item.bookmarkType === "notes" ? (
-                      <Link
-                        href={`/dashboard/note/${item.id}`}
+                      <a
+                        href={`${import.meta.env.VITE_WEB_APP_URL}/dashboard/note/${item.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex gap-5 items-center"
                       >
                         <NotebookPen className="w-4 h-4 text-[#4B5563] dark:text-[#A1A1AA]" />
                         <span className="truncate">{item.title}</span>
                         <ArrowRight className="w-4 h-4 self-end ml-auto" />
-                      </Link>
+                      </a>
                     ) : (
                       <a
                         href={`${item.url}`}
@@ -67,14 +68,14 @@ export function SearchResults() {
                     )}
                   </div>
                 ) : (
-                  <Link
-                    href={`/dashboard/${item.slug}`}
+                  <a
+                    href={`${import.meta.env.VITE_WEB_APP_URL}/dashboard/${item.slug}`} target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-5"
                   >
                     <IconComponent className="w-4 h-4 text-[#4B5563] dark:text-[#A1A1AA]" />
                     <p>{item.name}</p>
                     <ArrowRight className="w-4 h-4 self-end ml-auto" />
-                  </Link>
+                  </a>
                 )}
               </li>
             );
