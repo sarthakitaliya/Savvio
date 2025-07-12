@@ -1,4 +1,4 @@
-export function CurrentURL({ tabInfo }: { tabInfo: { title: string; url: string; favIconUrl?: string } }) {
+export function CurrentURL({ tabInfo }: { tabInfo: { title: string; url: string; favIconUrl?: string  } }) {
     
   return (
     <div className="flex items-center bg-white dark:bg-[#2A2A2A] p-3 rounded-lg shadow">
