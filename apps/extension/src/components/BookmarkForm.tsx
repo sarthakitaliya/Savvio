@@ -1,4 +1,4 @@
-import { useBookmarkStore, useFolderStore } from "@repo/store";
+import { useBookmarkStore, useFolderStore, useUiStore } from "@repo/store";
 import type { CreateBookmarkPayload } from "@repo/types";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -19,6 +19,7 @@ export function BookmarkForm({
   const [error, setError] = useState<string | null>(null);
   const { addBookmark } = useBookmarkStore();
   const { fetchFolders, folders } = useFolderStore();
+  const { loading } = useUiStore();
 
   useEffect(() => {
     setTimeout(() => {
@@ -212,7 +213,7 @@ export function BookmarkForm({
           type="submit"
           className="mt-4 font-semibold bg-blue-500 text-white py-2 px-4 rounded w-full"
         >
-          Save
+            {loading ? "Saving..." : "Save Bookmark"}
         </button>
       </form>
     </div>
