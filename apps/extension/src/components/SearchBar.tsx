@@ -1,4 +1,4 @@
-import { useSearchStore } from "@repo/store";
+import { useSearchStore, useUiStore } from "@repo/store";
 import { Loader2, Search, X } from "lucide-react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -7,8 +7,9 @@ import { SearchResults } from "./SearchResults";
 export function SearchBar() {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
-  const { fetchSearchResults, isLoading, clearSearchResults, setLoading } = useSearchStore();
-
+  const { fetchSearchResults, isLoading, clearSearchResults, setLoading } =
+    useSearchStore();
+  const { error, setError } = useUiStore();
 
   useEffect(() => {
     if (!query.trim()) {
@@ -40,9 +41,10 @@ export function SearchBar() {
   const clearSearch = () => {
     setQuery("");
     setOpen(false);
+    setError(null);
     clearSearchResults();
   };
-  
+
   return (
     <div className="relative mt-4 shadow-sm dark:shadow-md rounded-lg">
       <Search className="absolute top-3 left-3 text-gray-500 dark:text-gray-400 size-4" />
@@ -63,7 +65,12 @@ export function SearchBar() {
           <X className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 size-4" />
         </button>
       ) : null}
-      {open && <SearchResults />}
+      {open && !error && <SearchResults />}
+      {error && (
+        <div className="absolute top-full left-0 right-0 mt-1 p-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-600 dark:text-red-400 text-sm">
+          {error}
+        </div>
+      )}
     </div>
   );
 }
