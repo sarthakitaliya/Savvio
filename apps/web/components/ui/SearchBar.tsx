@@ -1,4 +1,4 @@
-import { useSearchStore } from "@repo/store";
+import { useSearchStore, useUiStore } from "@repo/store";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { X, Loader2 } from "lucide-react";
@@ -19,6 +19,7 @@ export function SearchBar({
   const [open, setOpen] = useState(false);
   const { fetchSearchResults, isLoading, setLoading, clearSearchResults } =
     useSearchStore();
+  const { setError } = useUiStore();
 
   useEffect(() => {
     if (!query.trim()) {
@@ -43,6 +44,7 @@ export function SearchBar({
     setQuery("");
     setOpen(false);
     clearSearchResults();
+    setError(null);
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
