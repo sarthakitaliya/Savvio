@@ -3,21 +3,26 @@ import type { CreateBookmarkPayload } from "@repo/types";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export function BookmarkForm({ activeTab }: { activeTab: "url" | "note" }) {
+export function BookmarkForm({ activeTab, tabInfo }: { activeTab: "url" | "note"; tabInfo: { title: string; url: string; favIconUrl?: string } }) {
   const [selectedFolder, setSelectedFolder] = useState<string>("");
-  const [title, setTitle] = useState("");
-  const [url, setUrl] = useState("");
+  const [title, setTitle] = useState(tabInfo.title);
+  const [url, setUrl] = useState(tabInfo.url);
   const [notes, setNotes] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
   const [error, setError] = useState<string | null>(null);
   const { addBookmark } = useBookmarkStore();
-
+    
   useEffect(() => {
     setTimeout(() => {
       setError(null);
     }, 3000);
   }, [error]);
+
+  useEffect(() => {
+    setTitle(tabInfo.title);
+    setUrl(tabInfo.url);
+  }, [tabInfo.title, tabInfo.url]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,7 +39,7 @@ export function BookmarkForm({ activeTab }: { activeTab: "url" | "note" }) {
         setError("Please select a folder.");
         return;
         }
-        
+
     if (activeTab === "note") {
       if (!notes.trim()) {
         setError("Notes are required.");
