@@ -39,15 +39,7 @@ function App() {
                 <Settings size={18} />
               </button>
               {session && (
-<<<<<<< HEAD
                 <a href={`${apiUrl}/dashboard/profile`} target="_blank" rel="noopener noreferrer">
-=======
-                <a
-                  href={`${import.meta.env.VITE_WEB_APP_URL}/dashboard/profile`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
->>>>>>> 55f5acc (fix: wrap application title in a link for navigation)
                   <img
                     src={session.user.image || "/default-avatar.png"}
                     alt="User Avatar"
