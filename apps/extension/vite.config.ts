@@ -8,6 +8,9 @@ import path from "path";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), crx({ manifest }), tailwindcss()],
+  define:{
+    "process.env": {}
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -13,6 +13,7 @@
     "@crxjs/vite-plugin": "^2.0.2",
     "@tailwindcss/vite": "^4.1.11",
     "@types/chrome": "^0.0.332",
+    "lucide-react": "^0.525.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.11"
@@ -22,6 +23,7 @@
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
+    "@repo/store": "*",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
