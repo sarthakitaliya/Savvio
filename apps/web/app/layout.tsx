@@ -17,9 +17,6 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Savvio",
   description: "Savvio is a modern bookmark manager that lets you save, organize, and discover your favorite links with ease and style.",
-  icons:{
-    icon: "/logo.svg",
-  }
 };
 
 export default function RootLayout({
