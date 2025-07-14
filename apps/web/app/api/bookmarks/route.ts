@@ -10,6 +10,13 @@ import type {
   UpdateBookmarkPayload,
 } from "@repo/types";
 
+type previewDataType = {
+  title?: string;
+  description?: string;
+  images?: string[];
+  favicons?: string[];
+};
+
 const urlBookmarkSchema = z.object({
   type: z.literal("url"),
   url: z.string().url(),
@@ -33,7 +40,7 @@ const bookmarkSchema = z.discriminatedUnion("type", [
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await requireAuth(req);
+    const session = await requireAuth();
     if (!session || !session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -70,7 +77,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await requireAuth(req);
+    const session = await requireAuth();
     if (!session || !session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -86,7 +93,7 @@ export async function POST(req: NextRequest) {
     const bookmarkData = validation.data;
 
     let createdBookmark;
-    let previewData: any;
+    let previewData: previewDataType | null = null;
 
     if (bookmarkData.type === "url") {
       const { url, title, folderId, tags } = bookmarkData;
@@ -189,7 +196,7 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    const session = await requireAuth(req);
+    const session = await requireAuth();
     if (!session || !session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -224,7 +231,7 @@ export async function PUT(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
-    const session = await requireAuth(req);
+    const session = await requireAuth();
     if (!session || !session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

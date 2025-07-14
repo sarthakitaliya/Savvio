@@ -19,7 +19,7 @@ export function RequireAuth({ children }: { children: React.ReactNode }) {
     if (session && session.user) {
       setUser(session.user);
     }
-  }, [session, isPending]);
+  }, [session, isPending, setUser, router]);
 
   if (isPending) {
     return <Loading />;
