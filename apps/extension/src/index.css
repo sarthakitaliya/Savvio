@@ -6,8 +6,7 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Custom scrollbar styles for light theme */
-::-webkit-scrollbar {
+/* Custom scrollbar styles for light theme */::-webkit-scrollbar {
   width: 8px;
 }
 
@@ -37,14 +36,4 @@ body {
 
 .dark ::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
-}
-
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 #f1f5f9;
-}
-
-.dark * {
-  scrollbar-color: #6b7280 #374151;
 }
