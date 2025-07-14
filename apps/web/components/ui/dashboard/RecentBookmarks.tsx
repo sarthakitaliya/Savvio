@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, NotebookPen, BookmarkPlus, Sparkles } from "lucide-react";
+import { ArrowRight, NotebookPen, BookmarkPlus } from "lucide-react";
 import { useBookmarkStore, useUiStore } from "@repo/store";
 import { useEffect } from "react";
 

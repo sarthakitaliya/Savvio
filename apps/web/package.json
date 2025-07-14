@@ -10,6 +10,9 @@
     "lint": "next lint --max-warnings 0",
     "check-types": "tsc --noEmit"
   },
+  "turbo": {
+  "env": ["GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "CHROME_EXTENSION_ID"]
+  },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
     "@repo/ui": "*",

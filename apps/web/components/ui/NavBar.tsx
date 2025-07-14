@@ -1,7 +1,6 @@
 "use client";
-import { useThemeStore, useUserStore } from "@repo/store";
+import { useUserStore } from "@repo/store";
 import { ChevronDown } from "lucide-react";
-import { useTheme } from "next-themes";
 import Image from "next/image";
 import ThemeToggle from "../Theme-toggle";
 import { Menu } from "@headlessui/react";

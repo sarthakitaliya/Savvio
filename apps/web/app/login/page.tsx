@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { signIn, useSession } from "../../lib/auth-client";
 import { GoogleIcon } from "../../public/icons/google";
 import Link from "next/link";
-import { useUiStore } from "@repo/store";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "../../components/Theme-toggle";
 
@@ -12,7 +11,6 @@ export default function LoginPage() {
   const [isExtensionLogin, setIsExtensionLogin] = useState(false);
   const router = useRouter();
 
-  const { setError } = useUiStore();
   const { data: session, isPending } = useSession();
   console.log(isExtensionLogin, "isExtensionLogin");
 

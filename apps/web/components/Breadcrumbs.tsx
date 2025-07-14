@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function Breadcrumbs({ slugs }: { slugs: string[] }) {
   if (!slugs || slugs.length === 0) {
     return null;
@@ -14,9 +16,9 @@ export function Breadcrumbs({ slugs }: { slugs: string[] }) {
         return (
           <span key={i}>
             {" / "}
-            <a href={href} className="hover:underline">
+            <Link href={href} className="hover:underline">
               {displaySlug}
-            </a>
+            </Link>
           </span>
         );
       })}

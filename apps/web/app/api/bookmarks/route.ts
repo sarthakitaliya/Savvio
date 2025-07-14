@@ -1,7 +1,6 @@
 import { prismaClient } from "@repo/db";
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "../../../lib/middleware";
-import { detectType } from "../../../lib/utils";
 import { getLinkPreview } from "link-preview-js";
 import { z } from "zod";
 

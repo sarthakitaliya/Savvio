@@ -21,7 +21,7 @@ export default function ProfilePage() {
           logout();
           router.push("/");
         },
-        onError: (error) => {
+        onError: () => {
           setError("Logout failed. Please try again.");
         },
       },

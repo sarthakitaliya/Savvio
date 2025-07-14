@@ -1,6 +1,6 @@
 "use client";
 
-import { useFolderStore, useUiStore, useUserStore } from "@repo/store";
+import { useFolderStore} from "@repo/store";
 import { SearchBar } from "../../components/ui/SearchBar";
 import { FolderLayout } from "../../components/ui/dashboard/FolderLayout";
 import { RecentBookmarks } from "../../components/ui/dashboard/RecentBookmarks";

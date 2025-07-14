@@ -1,5 +1,4 @@
 import { useBookmarkStore, useFolderStore } from "@repo/store";
-import { FolderPlus } from "lucide-react";
 import { FolderCard } from "./ui/dashboard/FolderCard";
 import { CreateFolderButton } from "./ui/dashboard/CreateFolderButton";
 import { usePathname, useRouter } from "next/navigation";
