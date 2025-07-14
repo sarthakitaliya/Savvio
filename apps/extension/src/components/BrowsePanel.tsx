@@ -7,6 +7,7 @@ export function BrowsePanel() {
   const { recentBookmarks, getRecentBookmarks } = useBookmarkStore();
   const {loading} = useUiStore();
   const limit = 7;
+  const apiUrl = import.meta.env.VITE_WEB_APP_URL;
 
   useEffect(() => {
     const fetchRecentBookmarks = async () => {
@@ -66,7 +67,7 @@ export function BrowsePanel() {
               <li key={bookmark.id}>
                 {isNote ? (
                   <a
-                    href={`${import.meta.env.VITE_WEB_APP_URL}/dashboard/note/${bookmark.id}`}
+                    href={`${apiUrl}/dashboard/note/${bookmark.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

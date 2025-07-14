@@ -4,6 +4,7 @@ import { folderIcons } from "./ColorsAndIcons";
 
 export function SearchResults() {
   const { searchResults, isLoading } = useSearchStore();
+  const apiUrl = import.meta.env.VITE_WEB_APP_URL;
 
   return (
     <div className="absolute z-10 w-full mt-2 bg-white dark:bg-[#2A2A2A] border border-gray-200 dark:border-[#444] shadow-lg rounded-lg max-h-60 overflow-y-auto">
@@ -41,7 +42,7 @@ export function SearchResults() {
                   <div>
                     {item.bookmarkType === "notes" ? (
                       <a
-                        href={`${import.meta.env.VITE_WEB_APP_URL}/dashboard/note/${item.id}`}
+                        href={`${apiUrl}/dashboard/note/${item.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex gap-5 items-center"
@@ -69,7 +70,7 @@ export function SearchResults() {
                   </div>
                 ) : (
                   <a
-                    href={`${import.meta.env.VITE_WEB_APP_URL}/dashboard/${item.slug}`} target="_blank" rel="noopener noreferrer"
+                    href={`${apiUrl}/dashboard/${item.slug}`} target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-5"
                   >
                     <IconComponent className="w-4 h-4 text-[#4B5563] dark:text-[#A1A1AA]" />
