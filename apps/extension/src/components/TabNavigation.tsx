@@ -2,8 +2,8 @@ export function TabNavigation({
   activeTab,
   setActiveTab,
 }: {
-  activeTab: "quick-save" | "browse";
-  setActiveTab: (tab: "quick-save" | "browse") => void;
+  activeTab: "quick-save" | "browse" | "settings";
+  setActiveTab: (tab: "quick-save" | "browse" | "settings") => void;
 }) {
   return (
     <div className="flex border-b border-gray-200 dark:border-gray-700 shadow">
