@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { FormTabNavigation } from "./FormTabNavigation";
 import { CurrentURL } from "./CurrentURL";
 import { BookmarkForm } from "./BookmarkForm";
-import { getCurrentTab } from "../utils/getCurrentTab";
 
 export function QuickSavePanel() {
   const [activeTab, setActiveTab] = useState<"url" | "note">("url");
@@ -16,19 +15,19 @@ export function QuickSavePanel() {
   });
 
   useEffect(() => {
-    getCurrentTab()
-      .then((tab) => {
-        if (tab) {
-          setTabInfo({
-            title: tab.title || "",
-            url: tab.url || "",
-            favIconUrl: tab.favIconUrl || "/default-favicon.png",
-          });
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching current tab:", error);
-      });
+    chrome.runtime.sendMessage({ type: "GET_CURRENT_TAB" }, (response) => {
+      if (response.tab) {
+        setTabInfo({
+          title: response.tab.title || "Untitled",
+          url: response.tab.url || "No URL available",
+          favIconUrl: response.tab.favIconUrl || "/default-favicon.png",
+        });
+      }
+
+      if (chrome.runtime.lastError) {
+        console.error("Error getting current tab:", chrome.runtime.lastError);
+      }
+    });
   }, []);
 
   return (

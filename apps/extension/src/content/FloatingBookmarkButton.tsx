@@ -1,17 +1,17 @@
-import { Bookmark, BookmarkIcon, Folder as FolderIcon, X } from "lucide-react";
+import { BookmarkIcon, Folder as FolderIcon, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import type { Folder } from "@prisma/client";
 import { folderIcons } from "../components/ColorsAndIcons";
-import { useUiStore } from "@repo/store";
-import Loading from "../components/Loading";
+import { Loading } from "./Loding";
+import type { CreateBookmarkPayload } from "@repo/types";
 
 const styles = {
   floatingBtn: {
     position: "fixed" as const,
     bottom: 20,
     right: 20,
-    width: 56,
-    height: 56,
+    width: 42,
+    height: 42,
     background: "linear-gradient(to bottom right, #3b82f6, #9333ea)",
     borderRadius: "50%",
     display: "flex",
@@ -33,9 +33,10 @@ const styles = {
   },
   floatingDropdown: {
     position: "fixed" as const,
-    bottom: 90,
+    bottom: 70,
     right: 20,
-    width: 320,
+    width: 280,
+    maxHeight: 300,
     background: "#202020",
     borderRadius: 18,
     boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
@@ -53,7 +54,6 @@ const styles = {
     borderBottom: "1px solid #333",
   },
   floatingDropdownTitle: {
-    fontSize: "1.08rem",
     fontWeight: 600,
     color: "#fff",
   },
@@ -101,14 +101,16 @@ const styles = {
     filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.08))",
   },
   floatingDropdownUrl: {
-    padding: "14px 24px",
+    padding: "10px 20px",
+    maxWidth: "100%",
     borderTop: "1px solid #333",
     background: "#181818",
     borderRadius: "0 0 18px 18px",
-    fontSize: "0.85rem",
+    fontSize: "10px",
     color: "#bdbdbd",
-    wordBreak: "break-all" as const,
-    lineHeight: 1.5,
+    whiteSpace: "nowrap" as const,
+    overflow: "hidden" as const,
+    textOverflow: "ellipsis" as const,
   },
 };
 
@@ -135,8 +137,8 @@ export default function FloatingBookmarkButton({
   const [btnHover, setBtnHover] = useState(false);
   const [closeHover, setCloseHover] = useState(false);
   const [folderHover, setFolderHover] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const currentUrl = window.location?.href || "No URL available";
-  const {loading} = useUiStore();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -173,17 +175,65 @@ export default function FloatingBookmarkButton({
     }
   };
 
-  const handleFolderClick = (folderId: string, folderName: string) => {
-    setNotification({ message: `Saved to ${folderName}!`, type: "success" });
-    console.log(`Bookmark saved to folder ID: ${folderId}`);
+  const handleSaveBookmark = async (folderId: string, folderName: string) => {
     setIsDropdownOpen(false);
+    setLoading(true);
+
+    const payload: CreateBookmarkPayload = {
+      type: "url",
+      url: window.location.href,
+      folderId,
+      tags: [],
+    };
+
+    chrome.runtime.sendMessage(
+      { type: "ADD_BOOKMARK", payload },
+      (response) => {
+        setLoading(false);
+        if (chrome.runtime.lastError) {
+          console.error("Error adding bookmark:", chrome.runtime.lastError);
+          setNotification({
+            message: "Failed to save bookmark.",
+            type: "error",
+          });
+          return;
+        }
+        if (response.success) {
+          setNotification({
+            message: `Bookmark saved to ${folderName}`,
+            type: "success",
+          });
+        } else if (response.error) {
+          setNotification({
+            message: response.error,
+            type: "error",
+          });
+        }
+      }
+    );
   };
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "b" && (event.ctrlKey || event.metaKey)) {
+        event.preventDefault();
+        setIsDropdownOpen((prev) => !prev);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <>
       {/* Dropdown */}
       {isDropdownOpen && (
-        <div ref={dropdownRef} style={styles.floatingDropdown} onMouseDown={(e) => e.stopPropagation()}>
+        <div
+          ref={dropdownRef}
+          style={styles.floatingDropdown}
+          onMouseDown={(e) => e.stopPropagation()}
+        >
           {/* Header */}
           <div style={styles.floatingDropdownHeader}>
             <span style={styles.floatingDropdownTitle}>Save to folder</span>
@@ -203,7 +253,14 @@ export default function FloatingBookmarkButton({
           {/* Folders */}
           <div style={styles.floatingDropdownList}>
             {loading ? (
-              <div style={{ padding: "16px 24px", color: "#999" }}>
+              <div
+                style={{
+                  padding: "16px 24px",
+                  color: "#999",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
                 <Loading />
               </div>
             ) : folders.length > 0 ? (
@@ -215,7 +272,7 @@ export default function FloatingBookmarkButton({
                   <div
                     key={folder.id}
                     onMouseDown={(e) => e.stopPropagation()}
-                    onClick={() => handleFolderClick(folder.id, folder.name)}
+                    onClick={() => handleSaveBookmark(folder.id, folder.name)}
                     style={{
                       ...styles.floatingDropdownFolder,
                       ...(folderHover === folder.id
@@ -255,8 +312,7 @@ export default function FloatingBookmarkButton({
         onMouseEnter={() => setBtnHover(true)}
         onMouseLeave={() => setBtnHover(false)}
       >
-        <BookmarkIcon size={24} />
-
+        {loading ? <Loading /> : <BookmarkIcon size={20} />}
       </button>
       {/* Notification */}
       {notification && (

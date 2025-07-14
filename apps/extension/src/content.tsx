@@ -18,6 +18,9 @@ if (!blockedSites.some((site) => window.location.hostname.includes(site))) {
     margin: 0;
     padding: 0;
   }
+    .heading{
+        font-size: 120px;  
+    }
 `;
     shadowRoot.appendChild(style);
     const root = document.createElement("div");
