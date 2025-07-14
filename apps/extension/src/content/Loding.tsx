@@ -1,5 +1,4 @@
 import { LoaderCircle } from "lucide-react";
-import "../index.css"
 
 
 export function Loading() {
