@@ -40,6 +40,8 @@ export const useFolderStore = create<FolderStore>((set) => ({
     setLoading(true);
     try {
       const { folders } = await getFolders();
+      // console.log("Fetched folders:", folders);
+      
       set({ folders });
     } catch (error: any) {
       console.error("Error fetching folders:", error);
