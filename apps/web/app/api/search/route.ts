@@ -18,7 +18,7 @@ type BookmarkWithTags = Bookmark & {
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await requireAuth(req);
+    const session = await requireAuth();
     if (!session || !session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

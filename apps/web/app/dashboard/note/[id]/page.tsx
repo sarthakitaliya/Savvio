@@ -20,7 +20,7 @@ export default function NotePage() {
     if (!note) {
       router.push("/dashboard/not-found");
     }
-  }, [id, fetchNotes]);
+  }, [id, fetchNotes, router]);
   return (
     <div className="max-w-3xl mx-auto mt-10 p-6 rounded-lg shadow bg-white border-[0.1px] border-gray-300 dark:border-white/20 dark:bg-[#2A2A2A]">
       <div className="flex items-center gap-2 mb-5">

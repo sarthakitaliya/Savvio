@@ -16,7 +16,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchFolders()
-  }, []);
+  }, [fetchFolders]);
   
   return (
     <div className="m-5">

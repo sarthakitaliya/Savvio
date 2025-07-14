@@ -49,7 +49,7 @@ export default function FolderPage() {
     };
 
     resolveAndFetch();
-  }, [slugArray, cleanUp, clearBookmarks, resolveFolderPath]);
+  }, [slugArray, cleanUp, clearBookmarks, resolveFolderPath, router]);
 
   useEffect(() => {
     if (currentFolder?.id) {

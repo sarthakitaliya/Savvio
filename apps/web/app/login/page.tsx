@@ -35,7 +35,7 @@ export default function LoginPage() {
         router.push("/dashboard");
       }
     }
-  }, [session, isPending]);
+  }, [session, isPending, isExtensionLogin, router]);
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const source = urlParams.get("source");

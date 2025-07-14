@@ -18,9 +18,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: false,
   },
-  trustedOrigins:[
-    `chrome-extension://${process.env.CHROME_EXTENSION_ID}`,
-  ],
+  trustedOrigins: [`chrome-extension://${process.env.CHROME_EXTENSION_ID}`],
   hooks: {
     after: createAuthMiddleware(async (ctx) => {
       const session = ctx.context.session;
@@ -41,13 +39,13 @@ export const auth = betterAuth({
           });
           if (!existingFolder) {
             const slug =
-                  slugify("Unsorted", {
-                    lower: true,
-                    strict: true,
-                  }) +
-                  "-" +
-                  nanoid(5);
-            const defaultFolder = await prismaClient.folder.create({
+              slugify("Unsorted", {
+                lower: true,
+                strict: true,
+              }) +
+              "-" +
+              nanoid(5);
+            await prismaClient.folder.create({
               data: {
                 name: "Unsorted",
                 slug,
