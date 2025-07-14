@@ -2,9 +2,16 @@ import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import { ContentPage } from "./content/content";
 
-const blockedSites = ["savvio.com", "localhost"];
+const blockedSites = [
+  "savvio.com",
+  "localhost",
+  "accounts.google.com/o/oauth2/auth/oauthchooseaccount",
+  "accounts.google.com/o/oauth2/auth",
+];
 
-if (!blockedSites.some((site) => window.location.hostname.includes(site))) {
+const blocked = blockedSites.some((site) => window.location.href.includes(site))
+
+if (!blocked) {
   if (!document.getElementById("savvio-extension-root")) {
     const host = document.createElement("div");
     const shadowRoot = host.attachShadow({ mode: "open" });
