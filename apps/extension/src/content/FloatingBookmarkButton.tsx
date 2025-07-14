@@ -1,8 +1,9 @@
-import { useFolderStore } from "@repo/store";
-import { Folder as FolderIcon, X } from "lucide-react";
+import { Bookmark, BookmarkIcon, Folder as FolderIcon, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import type { Folder } from "@prisma/client";
 import { folderIcons } from "../components/ColorsAndIcons";
+import { useUiStore } from "@repo/store";
+import Loading from "../components/Loading";
 
 const styles = {
   floatingBtn: {
@@ -113,42 +114,48 @@ const styles = {
 
 export default function FloatingBookmarkButton({
   folders,
+  notification,
+  setNotification,
 }: {
   folders: Folder[];
-}) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [notification, setNotification] = useState<{
+  notification: {
     message: string;
     type: "success" | "error";
-  } | null>(null);
+  } | null;
+  setNotification: React.Dispatch<
+    React.SetStateAction<{
+      message: string;
+      type: "success" | "error";
+    } | null>
+  >;
+}) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [btnHover, setBtnHover] = useState(false);
   const [closeHover, setCloseHover] = useState(false);
   const [folderHover, setFolderHover] = useState<string | null>(null);
   const currentUrl = window.location?.href || "No URL available";
+  const {loading} = useUiStore();
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
+      const target = event.target as Node;
       if (
         dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node) &&
+        !dropdownRef.current.contains(target) &&
         buttonRef.current &&
-        !buttonRef.current.contains(event.target as Node)
+        !buttonRef.current.contains(target)
       ) {
         setIsDropdownOpen(false);
       }
     }
-    if (isDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
+
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isDropdownOpen]);
+  }, []);
 
   // Auto-dismiss notifications
   useEffect(() => {
@@ -161,7 +168,9 @@ export default function FloatingBookmarkButton({
   }, [notification]);
 
   const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+    if (!isDropdownOpen) {
+      setIsDropdownOpen(true);
+    }
   };
 
   const handleFolderClick = (folderId: string, folderName: string) => {
@@ -174,7 +183,7 @@ export default function FloatingBookmarkButton({
     <>
       {/* Dropdown */}
       {isDropdownOpen && (
-        <div ref={dropdownRef} style={styles.floatingDropdown}>
+        <div ref={dropdownRef} style={styles.floatingDropdown} onMouseDown={(e) => e.stopPropagation()}>
           {/* Header */}
           <div style={styles.floatingDropdownHeader}>
             <span style={styles.floatingDropdownTitle}>Save to folder</span>
@@ -193,29 +202,41 @@ export default function FloatingBookmarkButton({
           </div>
           {/* Folders */}
           <div style={styles.floatingDropdownList}>
-            {folders.map((folder) => {
-              const IconComponent =
-                folderIcons.find((f) => f.name === folder.icon)?.icon || FolderIcon;
-              return (
-                <div
-                  key={folder.id}
-                  onClick={() => handleFolderClick(folder.id, folder.name)}
-                  style={{
-                    ...styles.floatingDropdownFolder,
-                    ...(folderHover === folder.id
-                      ? styles.floatingDropdownFolderHover
-                      : {}),
-                  }}
-                  onMouseEnter={() => setFolderHover(folder.id)}
-                  onMouseLeave={() => setFolderHover(null)}
-                >
-                  <span style={styles.floatingDropdownFolderIcon}>
-                    <IconComponent size={20} />
-                  </span>
-                  <span>{folder.name}</span>
-                </div>
-              );
-            })}
+            {loading ? (
+              <div style={{ padding: "16px 24px", color: "#999" }}>
+                <Loading />
+              </div>
+            ) : folders.length > 0 ? (
+              folders.map((folder) => {
+                const IconComponent =
+                  folderIcons.find((f) => f.name === folder.icon)?.icon ||
+                  FolderIcon;
+                return (
+                  <div
+                    key={folder.id}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    onClick={() => handleFolderClick(folder.id, folder.name)}
+                    style={{
+                      ...styles.floatingDropdownFolder,
+                      ...(folderHover === folder.id
+                        ? styles.floatingDropdownFolderHover
+                        : {}),
+                    }}
+                    onMouseEnter={() => setFolderHover(folder.id)}
+                    onMouseLeave={() => setFolderHover(null)}
+                  >
+                    <span style={styles.floatingDropdownFolderIcon}>
+                      <IconComponent size={20} />
+                    </span>
+                    <span>{folder.name}</span>
+                  </div>
+                );
+              })
+            ) : (
+              <div style={{ padding: "16px 24px", color: "#888" }}>
+                No folders available
+              </div>
+            )}
           </div>
 
           {/* Current URL */}
@@ -234,17 +255,8 @@ export default function FloatingBookmarkButton({
         onMouseEnter={() => setBtnHover(true)}
         onMouseLeave={() => setBtnHover(false)}
       >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          className="text-white"
-        >
-          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-        </svg>
+        <BookmarkIcon size={24} />
+
       </button>
       {/* Notification */}
       {notification && (

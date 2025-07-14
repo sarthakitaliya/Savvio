@@ -17,6 +17,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       })
       .catch((error) => {
         console.error("Error fetching folders:", error);
+        sendResponse({ error: "Failed to fetch folders." });
       });
     return true;
   }
