@@ -3,6 +3,7 @@ import Loading from "./Loading";
 
 export function RequireAuth({ children }: { children: React.ReactNode }) {
   const { data: session, isPending } = authClient.useSession();
+  const apiUrl = import.meta.env.VITE_WEB_APP_URL;
 
   if (isPending) {
     return (
@@ -17,7 +18,7 @@ export function RequireAuth({ children }: { children: React.ReactNode }) {
           Log in to Savvio to save and manage your bookmarks.
         </p>
         <a
-          href={`${import.meta.env.VITE_WEB_APP_URL}/login?source=extension`}
+          href={`${apiUrl}/login?source=extension`}
           target="_blank"
           rel="noopener noreferrer"
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"

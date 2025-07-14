@@ -14,6 +14,7 @@ function App() {
     "quick-save"
   );
   const { data: session } = authClient.useSession();
+  const apiUrl = import.meta.env.VITE_WEB_APP_URL;
 
   return (
     <div className="w-80 h-[450px] overflow-y-auto overflow-x-hidden flex flex-col">
@@ -31,7 +32,7 @@ function App() {
                 <Settings size={18} />
               </button>
               {session && (
-                <a href={`${import.meta.env.VITE_WEB_APP_URL}/dashboard/profile`} target="_blank" rel="noopener noreferrer">
+                <a href={`${apiUrl}/dashboard/profile`} target="_blank" rel="noopener noreferrer">
                   <img
                     src={session.user.image || "/default-avatar.png"}
                     alt="User Avatar"
