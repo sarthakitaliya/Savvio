@@ -17,6 +17,8 @@ export const getBookmarks = async (folderId: string) => {
 export const createBookmark = async (bookmarkData: CreateBookmarkPayload) => {
     try {
         const response = await apiClient.post(`/bookmarks`, bookmarkData);
+        console.log("Bookmark created successfully:", bookmarkData);
+        
         return response.data;
     } catch (error: Error | any) {
         console.error("Error creating bookmark:", error);
