@@ -1,5 +1,4 @@
 import { betterAuth } from "better-auth";
-import { bearer } from "better-auth/plugins";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prismaClient } from "@repo/db";
 import { createAuthMiddleware } from "better-auth/api";
@@ -19,7 +18,6 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: false,
   },
-  // plugins: [bearer()],
   trustedOrigins:[
     `chrome-extension://${process.env.CHROME_EXTENSION_ID}`,
   ],

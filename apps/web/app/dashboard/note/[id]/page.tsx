@@ -3,19 +3,24 @@
 import { useBookmarkStore } from "@repo/store";
 import { NotebookPen } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function NotePage({ params }: { params: { id: string } }) {
+export default function NotePage() {
+  const { id }: { id: string } = useParams();
   const { fetchNotes, notes } = useBookmarkStore();
   const router = useRouter();
 
   useEffect(() => {
-    const note = fetchNotes(params.id);
+    if (!id) {
+      router.push("/dashboard/not-found");
+      return;
+    }
+    const note = fetchNotes(id);
     if (!note) {
       router.push("/dashboard/not-found");
     }
-  }, [params.id, fetchNotes]);
+  }, [id, fetchNotes]);
   return (
     <div className="max-w-3xl mx-auto mt-10 p-6 rounded-lg shadow bg-white border-[0.1px] border-gray-300 dark:border-white/20 dark:bg-[#2A2A2A]">
       <div className="flex items-center gap-2 mb-5">

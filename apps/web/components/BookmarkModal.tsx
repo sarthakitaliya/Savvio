@@ -1,5 +1,5 @@
 import { Loader2, X } from "lucide-react";
-import { useUiStore, useBookmarkStore, useFolderStore } from "@repo/store";
+import { useUiStore, useBookmarkStore } from "@repo/store";
 import { MouseEventHandler, useEffect, useState } from "react";
 import { toast } from "sonner";
 import type { CreateBookmarkPayload, Folder } from "@repo/types";

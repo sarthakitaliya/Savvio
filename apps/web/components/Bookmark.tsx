@@ -11,7 +11,7 @@ export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
   if (bookmark.type === "url") {
     return (
       <div className="w-full sm:w-64 max-w-xs flex-grow bg-white border-[0.1px] border-gray-300 dark:border-white/20 dark:bg-[#2A2A2A] p-4 rounded-2xl">
-        <a href={bookmark.url || undefined} target="_blank" className="block">
+        <a href={bookmark.url || undefined} target="_blank" rel="noopener noreferrer" className="block">
           <div className="flex items-center gap-2 mb-2">
             <img
               src={

@@ -8,7 +8,7 @@ import { useSession } from "../lib/auth-client";
 export function RequireAuth({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { data: session, isPending } = useSession();
-  const { setUser, user } = useUserStore();
+  const { setUser} = useUserStore();
 
   useEffect(() => {
 
