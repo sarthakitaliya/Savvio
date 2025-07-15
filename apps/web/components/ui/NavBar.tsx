@@ -38,7 +38,9 @@ export function NavBar() {
         className="flex items-center font-semibold text-lg"
       >
         <Logo />
-        Savvio
+        <span className="text-xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-500">
+          Savvio
+        </span>
       </Link>
       <div className="flex items-center gap-4">
         <ThemeToggle />
