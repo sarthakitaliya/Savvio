@@ -23,7 +23,7 @@ export default function HowItWorks() {
 
   return (
     <section className="py-16 mt-15">
-      <div className="max-w-2xl mx-auto text-center mb-15">
+      <div className="max-w-2xl mx-auto text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-semibold text-center">
           How Savvio Works
         </h2>

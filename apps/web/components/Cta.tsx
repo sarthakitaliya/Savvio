@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Cta() {
   return (
-    <section className="bg-white dark:bg-[#2A2A2A] shadow-2xl py-16 px-6 text-center mt-30 rounded-3xl">
+    <section className="bg-white dark:bg-[#2A2A2A] shadow-2xl py-16 px-6 text-center mt-32 rounded-3xl">
       <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white mb-6">
         Ready to organize your web journey?
       </h2>
