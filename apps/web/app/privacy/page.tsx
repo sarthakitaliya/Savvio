@@ -12,7 +12,7 @@ export default function PrivacyPage() {
       </Head>
       <main className="max-w-3xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-center text-indigo-700 mb-8">Privacy Policy</h1>
-        <p className="text-center text-gray-500 mb-12">Effective date: 14/07/2025</p>
+        <p className="text-center text-gray-500 mb-12">Effective date: 15/07/2025</p>
 
         <div className="space-y-8 text-gray-700 dark:text-gray-300">
           <div>
@@ -20,14 +20,13 @@ export default function PrivacyPage() {
             <ul className="list-disc list-inside space-y-1">
               <li>URLs and page titles you choose to save via the extension</li>
               <li>User preferences and settings</li>
-              <li>Diagnostic and usage data to improve the Service</li>
             </ul>
           </div>
 
           <div>
             <h2 className="text-2xl font-semibold text-blue-600 mb-2">How We Use Your Information</h2>
             <ul className="list-disc list-inside space-y-1">
-              <li>To provide and improve our Service</li>
+              <li>To provide our Service</li>
               <li>To save your bookmarks and notes</li>
               <li>To communicate with you about updates or support</li>
             </ul>
@@ -35,12 +34,7 @@ export default function PrivacyPage() {
 
           <div>
             <h2 className="text-2xl font-semibold text-blue-600 mb-2">Data Storage and Security</h2>
-            <p>Your data is stored securely. We do not sell or share your personal information with third parties except as required by law.</p>
-          </div>
-
-          <div>
-            <h2 className="text-2xl font-semibold text-blue-600 mb-2">Third-Party Services</h2>
-            <p>Our Service may contain links to other websites. We are not responsible for their privacy practices.</p>
+            <p>Your data is stored securely. We do not share your personal information with third parties for any purpose.</p>
           </div>
 
           <div>
@@ -50,7 +44,7 @@ export default function PrivacyPage() {
 
           <div>
             <h2 className="text-2xl font-semibold text-blue-600 mb-2">Contact Us</h2>
-            <p>If you have any questions, contact us at <a href="mailto:support@savvio.com" className="text-indigo-600 hover:underline">support@savvio.com</a>.</p>
+            <p>If you have any questions, contact us at <a href="mailto:sarthak.italiya2005@gmail.com" className="text-indigo-600 hover:underline">sarthak.italiya2005@gmail.com</a>.</p>
           </div>
         </div>
       </main>
