@@ -45,7 +45,7 @@ export default function LoginPage() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen w-full ">
+    <div className="flex flex-col min-h-screen w-full">
       <div className="fixed top-4 right-4 z-50">
         <ThemeToggle />
       </div>

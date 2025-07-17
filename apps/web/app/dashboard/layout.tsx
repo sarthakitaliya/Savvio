@@ -1,4 +1,3 @@
-
 import { RequireAuth } from "../../components/RequireAuth";
 import ToastListener from "../../components/ToastListener";
 import { NavBar } from "../../components/ui/NavBar";
@@ -10,11 +9,11 @@ export default async function DashboardLayout({
 }) {
   return (
     <RequireAuth>
-      <div>
-        <ToastListener/>
-        <NavBar />
-        {children}
-      </div>
+        <div>
+          <ToastListener />
+          <NavBar />
+          {children}
+        </div>
     </RequireAuth>
   );
 }

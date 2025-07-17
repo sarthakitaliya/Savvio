@@ -12,7 +12,7 @@
     "check-types": "tsc --noEmit"
   },
   "turbo": {
-  "env": ["GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "CHROME_EXTENSION_ID"]
+    "env": ["GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "CHROME_EXTENSION_ID"]
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
@@ -21,6 +21,7 @@
     "autoprefixer": "^10.4.21",
     "better-auth": "^1.2.10",
     "dayjs": "^1.11.13",
+    "framer-motion": "^12.23.6",
     "link-preview-js": "^3.1.0",
     "lucide-react": "^0.524.0",
     "nanoid": "^5.1.5",
