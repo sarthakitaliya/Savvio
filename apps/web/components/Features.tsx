@@ -39,28 +39,25 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="py-16 mt-20">
-      <div className="max-w-2xl mx-auto text-center mb-15">
+    <section className="py-16 px-4 mt-20">
+      <div className="max-w-sm mx-auto text-center mb-15">
         <h2 className="text-3xl font-semibold text-gray-900 dark:text-white tracking-tight">
           Key Features
         </h2>
-        <p className=" text-gray-600 dark:text-gray-400 max-w-xl mx-auto mb-10">
+        <p className=" text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-10">
           A seamless way to save, search, and organize your web experience.
         </p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {features.map((feature, idx) => (
-          <div
-            key={idx}
-            className="bg-gray-50 dark:bg-[#2A2A2A] border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow hover:shadow-md transition"
-          >
-            <div className="mb-4">{feature.icon}</div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-              {feature.title}
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
-              {feature.description}
+      <div className="grid grid-cols-1 sm:grid-cols-2 px-5 lg:px-60">
+        {features.map((features, index) => (
+          <div key={index} className="flex flex-col items-center border border-[#CECEEA] text-center p-8">
+            <div className="mb-2">
+              {features.icon}
+            </div>
+            <h3 className="text-lg font-semibold">{features.title}</h3>
+            <p className="text-sm text-gray-600 mt-1 max-w-xs">
+              {features.description}
             </p>
           </div>
         ))}
