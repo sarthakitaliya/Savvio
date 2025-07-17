@@ -25,7 +25,7 @@ export default function Hero() {
           </Link>
         </div>
       </div>
-      <div className="relative w-full md:w-2xl h-96">
+      <div className="relative w-full lg:w-5xl h-96">
         <Image
           src="/hero-image.png"
           alt="Hero Image"
