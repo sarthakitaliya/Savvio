@@ -19,9 +19,9 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section className="mt-30 p-10 sm:px-6 lg:px-8 space-y-24">
+    <section className="mt-10 px-7 sm:p-10 sm:px-6 lg:px-8 space-y-24">
       <div className="text-center">
-        <h1 className="text-5xl font-bold">How Savvio Works</h1>
+        <h1 className="text-3xl sm:text-5xl font-bold">How Savvio Works</h1>
         <p className="text-[#696969] text-sm mt-2">Just 3 steps to a more organized digital life.</p>
       </div>
 
