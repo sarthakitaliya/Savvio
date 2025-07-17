@@ -15,6 +15,7 @@ export default function Home() {
       <BookmarksBroken/>
       <Features/>
       <FAQSection />
+      <Footer />
     </div>
   );
 }
