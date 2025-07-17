@@ -1,4 +1,5 @@
 import BookmarksBroken from "../components/BookmarksBroken";
+import FAQSection from "../components/FAQ";
 import Features from "../components/Features";
 import Footer from "../components/Footer";
 import Hero from "../components/hero";
@@ -13,6 +14,7 @@ export default function Home() {
       <HowItWorks />
       <BookmarksBroken/>
       <Features/>
+      <FAQSection />
     </div>
   );
 }
