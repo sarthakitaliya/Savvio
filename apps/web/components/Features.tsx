@@ -41,7 +41,7 @@ export default function Features() {
   return (
     <section className="py-16 px-4 mt-20">
       <div className="max-w-sm mx-auto text-center mb-15">
-        <h2 className="text-3xl font-semibold text-[#696969] dark:text-white tracking-tight">
+        <h2 className="text-4xl font-semibold tracking-tight">
           Key Features
         </h2>
         <p className="text-[#696969] dark:text-gray-400 max-w-md mx-auto mb-10">
