@@ -40,7 +40,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" enableSystem defaultTheme="system">
           <Toaster richColors={true} position="top-right" />
           <div
-            className={`${plusJakartaSans.className} ${shantellSans.variable} overflow-hidden`}
+            className={`${plusJakartaSans.className} ${shantellSans.variable} overflow-hidden bg-[#F5F5F4] text-[#1F1F1F] dark:bg-[#202020] dark:text-white min-h-screen`}
           >
             {children}
           </div>

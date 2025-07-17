@@ -32,7 +32,7 @@ export default function Hero() {
           width={1200}
           height={600}
           layout="responsive"
-          className="mt-10 rounded-lg shadow-lg"
+          className="mt-10 rounded-3xl dark:border dark:border-gray-600 shadow-lg"
         />
       </div>
     </div>
