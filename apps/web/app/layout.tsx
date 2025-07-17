@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Plus_Jakarta_Sans, Shantell_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "sonner";
 
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta-sans",
+});
+const shantellSans = Shantell_Sans({
+  subsets: ["latin"],
+  variable: "--font-shantell-sans",
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -16,7 +25,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Savvio",
-  description: "Savvio is a modern bookmark manager that lets you save, organize, and discover your favorite links with ease and style.",
+  description:
+    "Savvio is a modern bookmark manager that lets you save, organize, and discover your favorite links with ease and style.",
 };
 
 export default function RootLayout({
@@ -26,11 +36,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-[#F5F5F4] text-[#1F1F1F] dark:bg-[#202020] dark:text-white">
+      <body className="bg-[#F5F5F4] min-h-screen">
         <ThemeProvider attribute="class" enableSystem defaultTheme="system">
           <Toaster richColors={true} position="top-right" />
           <div
-            className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden`}
+            className={`${plusJakartaSans.className} ${shantellSans.variable} overflow-hidden`}
           >
             {children}
           </div>

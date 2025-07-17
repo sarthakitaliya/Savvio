@@ -23,7 +23,7 @@ export function RecentBookmarks() {
 
   return (
     <div className="mt-8 max-w-xl mx-auto px-4">
-      <h2 className="text-lg font-semibold text-[#1F1F1F] dark:text-[#FFFFFFCF] mb-4">
+      <h2 className="text-lg font-semibold mb-4">
         Recent Bookmarks
       </h2>
 
