@@ -4,34 +4,34 @@ import { Save, Folder, Monitor, Search, Sparkles, Lock } from "lucide-react";
 
 const features = [
   {
-    icon: <Save size={32} className="text-purple-600" />,
+    icon: <Save size={32} className="text-[#5D43E7]" />,
     title: "One-Click Save",
     description:
-      "Bookmark any page instantly from the extension’s floating button.",
+      "Bookmark any page instantly from the extension's floating button.",
   },
   {
-    icon: <Folder size={32} className="text-purple-600" />,
+    icon: <Folder size={32} className="text-[#5D43E7]" />,
     title: "Organized Folders",
     description: "Group and manage your bookmarks with easy-to-create folders.",
   },
   {
-    icon: <Monitor size={32} className="text-purple-600" />,
+    icon: <Monitor size={32} className="text-[#5D43E7]" />,
     title: "Sync",
     description: "Extension and dashboard stay in sync—never lose a bookmark.",
   },
   {
-    icon: <Search size={32} className="text-purple-600" />,
+    icon: <Search size={32} className="text-[#5D43E7]" />,
     title: "Quick Search",
     description:
       "Search saved pages quickly from the dashboard or extension popup.",
   },
   {
-    icon: <Sparkles size={32} className="text-purple-600" />,
+    icon: <Sparkles size={32} className="text-[#5D43E7]" />,
     title: "Notes & Highlights",
     description: "Save not just links, but also notes and ideas.",
   },
   {
-    icon: <Lock size={32} className="text-purple-600" />,
+    icon: <Lock size={32} className="text-[#5D43E7]" />,
     title: "Privacy Focused",
     description: "Your data stays private and secure, only accessible to you.",
   },
