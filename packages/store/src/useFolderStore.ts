@@ -15,16 +15,15 @@ import type {
   UpdateFolderPayload,
 } from "@repo/types";
 
-
 interface FolderStore {
   folders: Folder[];
   currentFolder: Folder | null;
   subfolders?: Folder[];
+  folderLoading: boolean;
+  setFolderLoading: (loading: boolean) => void;
   fetchFolders: () => Promise<void>;
   fetchSubfolders: (parentId: string) => Promise<void>;
-  addFolder: (
-    folderData: CreateFolderPayload
-  ) => Promise<void>;
+  addFolder: (folderData: CreateFolderPayload) => Promise<void>;
   editFolder: (folderData: UpdateFolderPayload) => Promise<void>;
   removeFolder: (folderData: DeleteFolderPayload) => Promise<void>;
   resolveFolderPath: (segments: string[]) => Promise<Folder | null>;
@@ -35,24 +34,27 @@ const { setLoading, setError } = useUiStore.getState();
 export const useFolderStore = create<FolderStore>((set) => ({
   folders: [],
   currentFolder: null,
+  folderLoading: false,
+  
+  setFolderLoading: (loading: boolean) => set({ folderLoading: loading }),
 
   fetchFolders: async () => {
-    setLoading(true);
+    set({ folderLoading: true });
     try {
       const { folders } = await getFolders();
       // console.log("Fetched folders:", folders);
-      
+
       set({ folders });
     } catch (error: any) {
       console.error("Error fetching folders:", error);
       setError(error.response?.data?.error || "Failed to fetch folders");
     } finally {
-      setLoading(false);
+      set({ folderLoading: false });
     }
   },
 
   fetchSubfolders: async (parentId) => {
-    setLoading(true);
+    set({ folderLoading: true });
     try {
       const { folders } = await getSubfolders(parentId);
       set({ subfolders: folders });
@@ -60,7 +62,7 @@ export const useFolderStore = create<FolderStore>((set) => ({
       console.error("Error fetching subfolders:", error);
       setError(error.response?.data?.error || "Failed to fetch subfolders");
     } finally {
-      setLoading(false);
+      set({ folderLoading: false });
     }
   },
 
@@ -140,5 +142,5 @@ export const useFolderStore = create<FolderStore>((set) => ({
       currentFolder: null,
       subfolders: undefined,
     });
-  }
+  },
 }));

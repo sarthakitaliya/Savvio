@@ -21,6 +21,8 @@ interface BookmarkStore {
   bookmarks: Bookmark[];
   notes: Bookmark | null;
   recentBookmarks: recentBookmark[];
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
   fetchBookmarks: (folderId: string) => Promise<void>;
   fetchNotes: (id: string) => Promise<Bookmark | undefined>;
   clearBookmarks: () => void;
@@ -30,14 +32,16 @@ interface BookmarkStore {
   removeBookmark: (bookmarkData: DeleteBookmarkPayload) => Promise<void>;
 }
 
-const { setLoading, setError } = useUiStore.getState();
+const { setError } = useUiStore.getState();
 
 export const useBookmarkStore = create<BookmarkStore>((set) => ({
   bookmarks: [],
   notes: null,
   recentBookmarks: [],
+  loading: false,
+  setLoading: (loading: boolean) => set({ loading }),
   fetchBookmarks: async (folderId) => {
-    setLoading(true);
+    set({ loading: true });
     try {
       const { bookmarks } = await getBookmarks(folderId);
       set({ bookmarks });
@@ -45,12 +49,12 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
       console.error("Error fetching bookmarks:", error);
       setError(error.response?.data?.error || "Failed to fetch bookmarks");
     } finally {
-      setLoading(false);
+      set({ loading: false });
     }
   },
 
   fetchNotes: async (id) => {
-    setLoading(true);
+    set({ loading: true });
     try {
       const { bookmark } = await getNoteById(id);
       set({ notes: bookmark || null });
@@ -60,7 +64,7 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
       setError(error.response?.data?.error || "Failed to fetch note");
       return undefined;
     } finally {
-      setLoading(false);
+      set({ loading: false });
     }
   },
 
@@ -69,7 +73,7 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
   },
 
   getRecentBookmarks: async (limit = 10) => {
-    setLoading(true);
+    set({ loading: true });
     try {
       const { bookmarks } = await getRecentBookmarks(limit);
       set({ recentBookmarks: bookmarks });
@@ -79,12 +83,12 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
         error.response?.data?.error || "Failed to fetch recent bookmarks"
       );
     } finally {
-      setLoading(false);
+      set({ loading: false });
     }
   },
 
   addBookmark: async (bookmarkData) => {
-    setLoading(true);
+    set({ loading: true });
     try {
       const { bookmark } = await createBookmark(bookmarkData);
       const { currentFolder, fetchSubfolders } = useFolderStore.getState();
@@ -100,12 +104,12 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
       console.error("Error creating bookmark:", error);
       setError(error.response?.data?.error || "Failed to create bookmark");
     } finally {
-      setLoading(false);
+      set({ loading: false });
     }
   },
 
   editBookmark: async (bookmarkData) => {
-    setLoading(true);
+    set({ loading: true });
     try {
       const { bookmark } = await updateBookmark(bookmarkData);
       set((state) => ({
@@ -117,12 +121,12 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
       console.error("Error updating bookmark:", error);
       setError(error.response?.data?.error || "Failed to update bookmark");
     } finally {
-      setLoading(false);
+      set({ loading: false });
     }
   },
 
   removeBookmark: async (bookmarkData) => {
-    setLoading(true);
+    set({ loading: true });
     try {
       await deleteBookmark(bookmarkData);
       set((state) => ({
@@ -132,7 +136,7 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
       console.error("Error deleting bookmark:", error);
       setError(error.response?.data?.error || "Failed to delete bookmark");
     } finally {
-      setLoading(false);
+      set({ loading: false });
     }
   },
 }));

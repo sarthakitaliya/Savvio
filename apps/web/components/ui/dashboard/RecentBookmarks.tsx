@@ -3,9 +3,10 @@ import { ArrowRight, NotebookPen, BookmarkPlus } from "lucide-react";
 import { useBookmarkStore, useUiStore } from "@repo/store";
 import { useEffect } from "react";
 import Image from "next/image";
+import { RecentBookmarkSkeleton } from "./RecentBookmarkSkeleton";
 
 export function RecentBookmarks() {
-  const { recentBookmarks, getRecentBookmarks } = useBookmarkStore();
+  const { recentBookmarks, getRecentBookmarks, loading } = useBookmarkStore();
   const { setShowBookmarkModal } = useUiStore();
   const limit = 5;
 
@@ -24,11 +25,14 @@ export function RecentBookmarks() {
 
   return (
     <div className="mt-8 max-w-xl mx-auto px-4">
-      <h2 className="text-lg font-semibold mb-4">
-        Recent Bookmarks
-      </h2>
-
-      {hasBookmarks ? (
+      <h2 className="text-lg font-semibold mb-4">Recent Bookmarks</h2>
+      {loading ? (
+        <div className="flex flex-col gap-4">
+          {[...Array(4)].map((_, idx) => (
+            <RecentBookmarkSkeleton key={idx} />
+          ))}
+        </div>
+      ) : hasBookmarks ? (
         <ul className="space-y-3">
           {recentBookmarks.map((bookmark) => {
             const isNote = bookmark.type === "notes";
@@ -67,19 +71,19 @@ export function RecentBookmarks() {
               </div>
             );
 
-            return (
+            return isNote ? (
               <li key={bookmark.id}>
-                {isNote ? (
-                  <Link href={`/dashboard/note/${bookmark.id}`}>{content}</Link>
-                ) : (
-                  <a
-                    href={bookmark?.url ?? undefined}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {content}
-                  </a>
-                )}
+                <Link href={`/dashboard/note/${bookmark.id}`}>{content}</Link>
+              </li>
+            ) : (
+              <li key={bookmark.id}>
+                <a
+                  href={bookmark?.url ?? undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {content}
+                </a>
               </li>
             );
           })}
