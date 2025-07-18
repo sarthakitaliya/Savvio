@@ -27,11 +27,11 @@ export function BrowsePanel() {
     <div className="mt-4 px-4 mb-5">
       <h1 className="text-lg font-semibold mb-4">Recent Bookmarks</h1>
       {
-        recentBookmarks.length === 0 && (
+        recentBookmarks && recentBookmarks.length === 0 && (
           <p className="text-gray-500 text-center">No recent bookmarks found.</p>
         )
       }
-      {recentBookmarks.length > 0 && (
+      {recentBookmarks && recentBookmarks.length > 0 && (
         <ul className="space-y-3">
           {recentBookmarks.map((bookmark) => {
             const isNote = bookmark.type === "notes";
