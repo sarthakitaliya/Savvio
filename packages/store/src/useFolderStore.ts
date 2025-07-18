@@ -47,7 +47,7 @@ export const useFolderStore = create<FolderStore>((set) => ({
       console.error("Error fetching folders:", error);
       setError(error.response?.data?.error || "Failed to fetch folders");
     } finally {
-      // set({ folderLoading: false });
+      set({ folderLoading: false });
     }
   },
 
