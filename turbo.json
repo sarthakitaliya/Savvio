@@ -1,5 +1,13 @@
 {
   "$schema": "https://turborepo.com/schema.json",
+  "globalEnv": [
+    "DATABASE_URL",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "BETTER_AUTH_URL",
+    "BETTER_AUTH_SECRET",
+    "CHROME_EXTENSION_ID"
+  ],
   "ui": "tui",
   "tasks": {
     "build": {
