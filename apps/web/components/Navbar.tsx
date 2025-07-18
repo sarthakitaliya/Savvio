@@ -1,6 +1,4 @@
 import Link from "next/link";
-import ThemeToggle from "./Theme-toggle";
-import { Logo } from "./logo";
 import Image from "next/image";
 
 export default function NavBar() {

@@ -2,6 +2,7 @@ import { useSearchStore } from "@repo/store";
 import { ArrowRight, Folder, NotebookPen } from "lucide-react";
 import { folderIcons } from "./ColorsAndIcons";
 import Link from "next/link";
+import Image from "next/image";
 
 export function SearchResults() {
   const { searchResults, isLoading } = useSearchStore();
@@ -56,8 +57,10 @@ export function SearchResults() {
                         rel="noopener noreferrer"
                         className="flex gap-5 items-center"
                       >
-                        <img
+                        <Image
                           src={item.favicon || "/default-favicon.png"}
+                          width={16}
+                          height={16}
                           alt="Bookmark favicon"
                           className="w-4 h-4 object-contain"
                         />
