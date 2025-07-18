@@ -17,7 +17,7 @@ export function FolderLayout() {
   return (
     <div className="flex items-center justify-center flex-wrap gap-5 sm:gap-7 mt-20 mb-10 md:mx-5">
       {folderLoading ? (
-        <div className="flex w-full flex-wrap justify-center gap-5 sm:gap-7 ">
+        <div className="flex w-full flex-wrap justify-center gap-2 sm:gap-7 ">
           {[...Array(4)].map((_, index) => <FolderSkeleton key={index} />)}
         </div>
       ) : folders.length < 1 ? (
