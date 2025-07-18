@@ -55,6 +55,7 @@ export default function HowItWorks() {
                 muted
                 loop
                 playsInline
+                preload="none"
                 className="w-full h-full object-cover"
               />
             </div>
