@@ -44,7 +44,7 @@ export default function Footer() {
               Dashboard
             </Link>
             <Link
-              href="/privacy-policy"
+              href="/privacy"
               className="text-gray-600 hover:text-indigo-600 dark:text-gray-400"
             >
               Privacy Policy
