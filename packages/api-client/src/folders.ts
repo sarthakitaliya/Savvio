@@ -3,6 +3,8 @@ import { apiClient } from "./axiosInstance";
 
 export const getFolders = async () => {
   try {
+    console.log("API_URL:", process.env.API_URL);
+
     const response = await apiClient.get(`/folders`);
     return response.data;
   } catch (error: Error | any) {

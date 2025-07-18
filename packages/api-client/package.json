@@ -4,7 +4,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
-  },  
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@repo/types": "*"
@@ -13,6 +13,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "axios": "^1.10.0"
+    "axios": "^1.10.0",
+    "dot-env": "^0.0.1"
   }
 }

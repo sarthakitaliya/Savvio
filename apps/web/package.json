@@ -21,6 +21,7 @@
     "autoprefixer": "^10.4.21",
     "better-auth": "^1.2.10",
     "dayjs": "^1.11.13",
+    "dot-env": "^0.0.1",
     "framer-motion": "^12.23.6",
     "link-preview-js": "^3.1.0",
     "lucide-react": "^0.524.0",
