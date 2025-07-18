@@ -171,7 +171,7 @@ export function BookmarkForm({
           <option value="" disabled>
             Select a folder
           </option>
-          {folders.map((folder) => (
+          {folders && folders.map((folder) => (
             <option key={folder.id} value={folder.id}>
               {folder.name}
             </option>

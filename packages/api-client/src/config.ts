@@ -1,0 +1,1 @@
+export const API_URL = "https://savvio.sarthak-dev.me/api";
