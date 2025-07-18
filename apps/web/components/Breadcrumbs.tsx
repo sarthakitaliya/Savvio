@@ -6,9 +6,9 @@ export function Breadcrumbs({ slugs }: { slugs: string[] }) {
   }
   return (
     <div className="text-sm text-gray-500 mt-8 mx-3">
-      <a href="/dashboard" className="hover:underline">
+      <Link href="/dashboard" className="hover:underline">
         Dashboard
-      </a>
+      </Link>
       {slugs?.map((slug, i) => {
         const href = `/dashboard/${slugs.slice(0, i + 1).join("/")}`;
         // Strip nanoid suffix and replace hyphens with spaces for display

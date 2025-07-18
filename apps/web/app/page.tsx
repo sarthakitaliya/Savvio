@@ -8,7 +8,7 @@ import NavBar from "../components/Navbar";
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="scroll-smooth">
       <NavBar />
       <Hero />
       <HowItWorks />

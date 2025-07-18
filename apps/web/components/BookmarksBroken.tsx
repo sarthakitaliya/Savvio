@@ -6,7 +6,7 @@ export default function BookmarksBroken() {
       <div className="w-[85vw] sm:w-5/6  md:w-[400px] md:h-[465px] lg:h-[510px] lg:w-[500px] bg-[#F8F9FD] border border-[#CECEEA] p-10 rounded-3xl overflow-hidden">
         <h2 className="text-2xl sm:text-4xl font-bold dark:text-black">Bookmarks Are Broken.</h2>
         <p className="text-[#696969] text-sm sm:text-base mt-2 relative z-99">
-          Browsers, devices, tabs — they don't talk. Your bookmarks are
+          Browsers, devices, tabs — they don&apos;t talk. Your bookmarks are
           scattered, hard to find, and impossible to organize.
         </p>
         <video

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, NotebookPen, BookmarkPlus } from "lucide-react";
 import { useBookmarkStore, useUiStore } from "@repo/store";
 import { useEffect } from "react";
+import Image from "next/image";
 
 export function RecentBookmarks() {
   const { recentBookmarks, getRecentBookmarks } = useBookmarkStore();
@@ -38,12 +39,14 @@ export function RecentBookmarks() {
                   {isNote ? (
                     <NotebookPen className="w-4 h-4 text-[#4B5563] dark:text-[#A1A1AA]" />
                   ) : (
-                    <img
+                    <Image
                       src={
                         bookmark?.favicon
                           ? bookmark.favicon
                           : "/default-favicon.png"
                       }
+                      width={16}
+                      height={16}
                       alt="Bookmark favicon"
                       className="w-4 h-4"
                     />

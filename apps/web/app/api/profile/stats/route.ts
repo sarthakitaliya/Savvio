@@ -1,9 +1,9 @@
 import { prismaClient } from "@repo/db";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { requireAuth } from "../../../../lib/middleware";
 
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const session = await requireAuth();
     if (!session?.user) {

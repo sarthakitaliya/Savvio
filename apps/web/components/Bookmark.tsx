@@ -4,6 +4,7 @@ dayjs.extend(relativeTime);
 import type { Bookmark } from "@repo/types";
 import { ArrowRight, NotebookPen } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
   const router = useRouter();
@@ -13,10 +14,12 @@ export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
       <div className="w-full sm:w-64 max-w-xs flex-grow bg-white border-[0.1px] border-gray-300 dark:border-white/20 dark:bg-[#2A2A2A] p-4 rounded-2xl">
         <a href={bookmark.url || undefined} target="_blank" rel="noopener noreferrer" className="block">
           <div className="flex items-center gap-2 mb-2">
-            <img
+            <Image
               src={
                 bookmark?.favicon ? bookmark.favicon : "/default-favicon.png"
               }
+              width={16}
+              height={16}
               alt="Bookmark favicon"
               className="w-4 h-4 object-contain"
             />
@@ -29,12 +32,14 @@ export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
               </span>
             </div>
           </div>
-          <img
+          <Image
             src={
               bookmark?.previewImage
                 ? bookmark.previewImage
                 : "/default-preview.png"
             }
+            width={320}
+            height={120}
             alt="Bookmark screenshot"
             className="w-full h-32 object-cover rounded-md mt-2"
           />

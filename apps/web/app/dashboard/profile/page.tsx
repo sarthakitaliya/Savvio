@@ -4,6 +4,7 @@ import { signOut } from "../../../lib/auth-client";
 import { useRouter } from "next/navigation";
 import { Bookmark, Folder } from "lucide-react";
 import { useEffect } from "react";
+import Image from "next/image";
 
 export default function ProfilePage() {
   const { user, logout, getProfileStats, stats } = useUserStore();
@@ -31,10 +32,12 @@ export default function ProfilePage() {
   return (
     <div className="flex justify-center mt-16 px-4">
       <div className="bg-white dark:bg-[#1F1F1F] border border-[#E5E7EB] dark:border-[#333333] shadow-lg rounded-lg p-8 w-full max-w-md flex flex-col items-center">
-        <img
+        <Image
           src={user?.image || "/default-avatar.png"}
-          alt={user?.name}
-          className="w-28 h-28 rounded-full object-cover border-4 border-gray-300 dark:border-gray-600"
+          alt="User Avatar"
+          className="rounded-full object-cover border-4 border-gray-300 dark:border-gray-600"
+          width={112}
+          height={112}
         />
         <h1 className="mt-4 text-2xl font-bold text-gray-900 dark:text-gray-100">
           {user?.name}

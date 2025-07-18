@@ -14,7 +14,7 @@ const folderSchema = z.object({
   icon: z.string().optional(),
 });
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const session = await requireAuth();
     if (!session || !session?.user) {

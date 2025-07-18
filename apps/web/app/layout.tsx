@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { Plus_Jakarta_Sans, Shantell_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
@@ -12,15 +11,6 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 const shantellSans = Shantell_Sans({
   subsets: ["latin"],
   variable: "--font-shantell-sans",
-});
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
 });
 
 export const metadata: Metadata = {
