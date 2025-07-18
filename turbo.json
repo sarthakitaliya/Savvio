@@ -6,7 +6,8 @@
     "GOOGLE_CLIENT_SECRET",
     "BETTER_AUTH_URL",
     "BETTER_AUTH_SECRET",
-    "CHROME_EXTENSION_ID"
+    "CHROME_EXTENSION_ID",
+    "API_URL"
   ],
   "ui": "tui",
   "tasks": {

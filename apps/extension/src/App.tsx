@@ -21,7 +21,14 @@ function App() {
       <RequireAuth>
         <div className="p-4 bg-white dark:bg-[#2A2A2A] border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
-            <h1 className="text-xl font-bold">Savvio</h1>
+            <a
+              href={`${import.meta.env.VITE_WEB_APP_URL}/dashboard`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="no-underline"
+            >
+              <h1 className="text-xl font-bold">Savvio</h1>
+            </a>
             <div className="flex items-center space-x-2">
               <ThemeToggle />
               <button
@@ -32,7 +39,15 @@ function App() {
                 <Settings size={18} />
               </button>
               {session && (
+<<<<<<< HEAD
                 <a href={`${apiUrl}/dashboard/profile`} target="_blank" rel="noopener noreferrer">
+=======
+                <a
+                  href={`${import.meta.env.VITE_WEB_APP_URL}/dashboard/profile`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+>>>>>>> 55f5acc (fix: wrap application title in a link for navigation)
                   <img
                     src={session.user.image || "/default-avatar.png"}
                     alt="User Avatar"
