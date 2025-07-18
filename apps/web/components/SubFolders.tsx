@@ -30,7 +30,7 @@ export function SubFolders() {
             onClick={() => handleFolderClick(folder.slug)}
           />
         ))}
-      <CreateFolderButton className="sm:size-40 size-36" />
+      {!folderLoading && <CreateFolderButton className="sm:size-40 size-36" />}
     </div>
   );
 }

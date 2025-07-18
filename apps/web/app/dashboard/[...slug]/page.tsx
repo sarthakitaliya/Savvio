@@ -23,7 +23,8 @@ export default function FolderPage() {
     folders,
     subfolders,
   } = useFolderStore();
-  const { fetchBookmarks, clearBookmarks } = useBookmarkStore();
+  const { fetchBookmarks, clearBookmarks, setLoading } = useBookmarkStore();
+  const { setFolderLoading } = useFolderStore();
   const lastPathRef = useRef<string>("");
   const router = useRouter();
 
@@ -67,6 +68,11 @@ export default function FolderPage() {
       fetchData();
     }
   }, [currentFolder?.id, fetchSubfolders, fetchBookmarks]);
+
+    useEffect(() => {
+      setLoading(true);
+      setFolderLoading(true);
+    }, []);
 
   return (
     <div className="m-5">
