@@ -49,6 +49,7 @@
         "autoprefixer": "^10.4.21",
         "better-auth": "^1.2.10",
         "dayjs": "^1.11.13",
+        "dot-env": "^0.0.1",
         "framer-motion": "^12.23.6",
         "link-preview-js": "^3.1.0",
         "lucide-react": "^0.524.0",
@@ -79,6 +80,7 @@
       "name": "@repo/api-client",
       "dependencies": {
         "axios": "^1.10.0",
+        "dot-env": "^0.0.1",
       },
       "devDependencies": {
         "@repo/types": "*",
@@ -664,6 +666,8 @@
     "domutils": ["domutils@3.2.2", "", { "dependencies": { "dom-serializer": "^2.0.0", "domelementtype": "^2.3.0", "domhandler": "^5.0.3" } }, ""],
 
     "dot-case": ["dot-case@2.1.1", "", { "dependencies": { "no-case": "^2.2.0" } }, ""],
+
+    "dot-env": ["dot-env@0.0.1", "", {}, "sha512-SajHtzm3v7yjMH8DW9xY+4i7Zv/cN3aMtLVy0mRMuZu8L9qRCR7CNqcl4KBbG27e5Up4BpSlEyPXXLNbSAe2DQ=="],
 
     "dotenv": ["dotenv@16.0.3", "", {}, ""],
 
