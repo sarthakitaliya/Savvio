@@ -48,7 +48,7 @@ export function SearchResults() {
                         className="flex gap-5 items-center"
                       >
                         <NotebookPen className="w-4 h-4 text-[#4B5563] dark:text-[#A1A1AA]" />
-                        <span className="truncate">{item.title}</span>
+                        <span className="truncate max-w-[170px]">{item.title}</span>
                         <ArrowRight className="w-4 h-4 self-end ml-auto" />
                       </a>
                     ) : (
@@ -63,7 +63,7 @@ export function SearchResults() {
                           alt="Bookmark favicon"
                           className="w-4 h-4 object-contain"
                         />
-                        <span className="truncate">{item.title}</span>
+                        <span className="truncate max-w-[170px]">{item.title}</span>
                         <ArrowRight className="w-4 h-4 self-end ml-auto" />
                       </a>
                     )}
@@ -74,7 +74,7 @@ export function SearchResults() {
                     className="flex items-center gap-5"
                   >
                     <IconComponent className="w-4 h-4 text-[#4B5563] dark:text-[#A1A1AA]" />
-                    <p>{item.name}</p>
+                    <p className="truncate max-w-[170px]">{item.name}</p>
                     <ArrowRight className="w-4 h-4 self-end ml-auto" />
                   </a>
                 )}
