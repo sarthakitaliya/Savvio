@@ -128,8 +128,13 @@ export const useFolderStore = create<FolderStore>((set) => ({
       set((state) => ({
         folders: state.folders.filter((folder) => folder.id !== folderData.id),
       }));
+      set((state) => ({
+        subfolders: state.subfolders?.filter(
+          (folder) => folder.id !== folderData.id
+        ),
+      }));
     } catch (error: any) {
-      throw error; 
+      throw error;
     } finally {
       setLoading(false);
     }
