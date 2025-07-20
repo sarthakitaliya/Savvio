@@ -110,7 +110,7 @@ export function FolderModal({
               value={folderName}
               onChange={(e) => setFolderName(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === "Enter") handleSubmit(e as any);
+                if (e.key === "Enter") handleSubmit(e as unknown as React.MouseEvent<HTMLButtonElement>);
               }}
             />
             <label className="block mb-2 text-gray-700 dark:text-gray-300 font-medium">
