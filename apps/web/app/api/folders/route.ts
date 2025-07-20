@@ -146,6 +146,16 @@ export async function DELETE(req: NextRequest) {
         { status: 400 }
       );
     }
+    const folderCount = await prismaClient.folder.count({
+      where: { userId: session.user.id, parentId: null },
+    });
+
+    if (folderCount <= 1) {
+      return NextResponse.json(
+        { error: "You must have at least one folder." },
+        { status: 400 }
+      );
+    }
 
     await prismaClient.folder.delete({
       where: { id },

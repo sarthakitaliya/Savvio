@@ -25,7 +25,7 @@ interface FolderStore {
   fetchSubfolders: (parentId: string) => Promise<void>;
   addFolder: (folderData: CreateFolderPayload) => Promise<void>;
   editFolder: (folderData: UpdateFolderPayload) => Promise<void>;
-  removeFolder: (folderData: DeleteFolderPayload) => Promise<void>;
+  deleteFolder: (folderData: DeleteFolderPayload) => Promise<void>;
   resolveFolderPath: (segments: string[]) => Promise<Folder | null>;
   cleanUp: () => void;
 }
@@ -35,7 +35,7 @@ export const useFolderStore = create<FolderStore>((set) => ({
   folders: [],
   currentFolder: null,
   folderLoading: false,
-  
+
   setFolderLoading: (loading: boolean) => set({ folderLoading: loading }),
 
   fetchFolders: async () => {
@@ -121,7 +121,7 @@ export const useFolderStore = create<FolderStore>((set) => ({
     }
   },
 
-  removeFolder: async (folderData) => {
+  deleteFolder: async (folderData) => {
     setLoading(true);
     try {
       await deleteFolder(folderData);
@@ -129,8 +129,7 @@ export const useFolderStore = create<FolderStore>((set) => ({
         folders: state.folders.filter((folder) => folder.id !== folderData.id),
       }));
     } catch (error: any) {
-      console.error("Error deleting folder:", error);
-      setError(error.response?.data?.error || "Failed to delete folder");
+      throw error; 
     } finally {
       setLoading(false);
     }

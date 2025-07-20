@@ -2,6 +2,8 @@ import { Folder, MoreVertical } from "lucide-react";
 import { folderIcons } from "../../ColorsAndIcons";
 import { Folder as FolderType } from "@repo/types";
 import { useEffect, useRef } from "react";
+import { useFolderStore } from "@repo/store";
+import { toast } from "sonner";
 
 export function FolderCard({
   folder,
@@ -19,6 +21,7 @@ export function FolderCard({
   const selectedIconObj = folderIcons.find((f) => f.name === folder.icon);
   const IconComponent = selectedIconObj ? selectedIconObj.icon : Folder;
   const hasColor = Boolean(folder.color);
+  const { deleteFolder } = useFolderStore();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -47,8 +50,13 @@ export function FolderCard({
 
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log("Delete clicked");
-    setMenuOpenId(null);
+    toast.promise(deleteFolder({ id: folder.id }), {
+      loading: "Deleting folder...",
+      success: "Folder deleted successfully",
+      error: (error) => {
+        return error.message || "Failed to delete folder";
+      },
+    });
   };
 
   return (
@@ -81,7 +89,7 @@ export function FolderCard({
         {menuOpenId === folder.id && (
           <div
             onMouseDown={(e) => e.stopPropagation()}
-            className="custom-folder-dropdown absolute right-0 top-8 mt-1 w-38 md:w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 divide-y divide-gray-200 dark:divide-gray-700"
+            className="custom-folder-dropdown absolute -right-2 top-8 mt-1 w-38 md:w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 divide-y divide-gray-200 dark:divide-gray-700"
           >
             <p
               className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer rounded-md"
