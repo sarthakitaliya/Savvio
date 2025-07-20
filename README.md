@@ -1,5 +1,9 @@
 # Savvio
 
+## 🚧 Project Status
+
+This project is currently under active development. Features and UI may change frequently. Stay tuned for updates!
+
 **Savvio** is a minimal, fast bookmarking platform focused on making saving and organizing content effortless.
 
 - Chrome Extension (Vite + React)
