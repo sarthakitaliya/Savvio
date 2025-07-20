@@ -14,6 +14,7 @@ import type {
   Folder,
   UpdateFolderPayload,
 } from "@repo/types";
+import { useBookmarkStore } from "./useBookmarkStore";
 
 interface FolderStore {
   folders: Folder[];
@@ -26,6 +27,7 @@ interface FolderStore {
   setFolderLoading: (loading: boolean) => void;
   fetchFolders: () => Promise<void>;
   fetchSubfolders: (parentId: string) => Promise<void>;
+  setSubfolders: (subfolders: Folder[]) => void;
   addFolder: (folderData: CreateFolderPayload) => Promise<void>;
   updateFolder: (folderData: UpdateFolderPayload) => Promise<void>;
   deleteFolder: (folderData: DeleteFolderPayload) => Promise<void>;
@@ -69,6 +71,8 @@ export const useFolderStore = create<FolderStore>((set) => ({
     }
   },
 
+  setSubfolders: (subfolders) => set({ subfolders }),
+  
   resolveFolderPath: async (segments) => {
     setLoading(true);
     try {
@@ -115,9 +119,26 @@ export const useFolderStore = create<FolderStore>((set) => ({
     setLoading(true);
     try {
       const { folder } = await updateFolder(folderData);
-      set((state) => ({
-        folders: state.folders.map((f) => (f.id === folder.id ? folder : f)),
-      }));
+      set((state) => {
+        const olderFolder = state.folders.find((f) => f.id === folder.id);
+        const oldSubfolder = state.subfolders?.find((f) => f.id === folder.id);
+        const folderWithOldCount = {
+          ...folder,
+          _count: olderFolder?._count ?? { bookmarks: 0 },
+        };
+        const subFolderWithOldCount = {
+          ...folder,
+          _count: oldSubfolder?._count ?? { bookmarks: 0 },
+        };
+        return {
+          folders: state.folders.map((f) =>
+            f.id === folder.id ? folderWithOldCount : f
+          ),
+          subfolders: state.subfolders?.map((f) =>
+            f.id === folder.id ? subFolderWithOldCount : f
+          ),
+        };
+      });
     } catch (error: any) {
       console.error("Error updating folder:", error);
       throw error;
@@ -132,12 +153,17 @@ export const useFolderStore = create<FolderStore>((set) => ({
       await deleteFolder(folderData);
       set((state) => ({
         folders: state.folders.filter((folder) => folder.id !== folderData.id),
-      }));
-      set((state) => ({
         subfolders: state.subfolders?.filter(
           (folder) => folder.id !== folderData.id
         ),
       }));
+
+      const { recentBookmarks, setRecentBookmarks } =
+        useBookmarkStore.getState();
+        const updatedRecentBookmarks = recentBookmarks.filter(
+          (bookmark) => bookmark.folderId !== folderData.id
+        );
+      setRecentBookmarks(updatedRecentBookmarks);
     } catch (error: any) {
       throw error;
     } finally {

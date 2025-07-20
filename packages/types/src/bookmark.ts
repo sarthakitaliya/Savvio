@@ -60,4 +60,5 @@ export interface recentBookmark {
   url: string | null;
   notes: string | null;
   favicon?: string | null;
+  folderId: string;
 }

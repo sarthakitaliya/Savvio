@@ -27,6 +27,7 @@ interface BookmarkStore {
   fetchNotes: (id: string) => Promise<Bookmark | undefined>;
   clearBookmarks: () => void;
   getRecentBookmarks: (limit: number) => Promise<void>;
+  setRecentBookmarks: (bookmarks: recentBookmark[]) => void;
   addBookmark: (bookmarkData: CreateBookmarkPayload) => Promise<void>;
   editBookmark: (bookmarkData: UpdateBookmarkPayload) => Promise<void>;
   removeBookmark: (bookmarkData: DeleteBookmarkPayload) => Promise<void>;
@@ -87,19 +88,52 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     }
   },
 
+  setRecentBookmarks: (bookmarks) => {
+    set({ recentBookmarks: bookmarks });
+  },
   addBookmark: async (bookmarkData) => {
     set({ loading: true });
     try {
       const { bookmark } = await createBookmark(bookmarkData);
-      const { currentFolder, fetchSubfolders } = useFolderStore.getState();
+      const { currentFolder, subfolders, folders } = useFolderStore.getState();
 
       if (currentFolder?.id === bookmark.folderId) {
         set((state) => ({ bookmarks: [...state.bookmarks, bookmark] }));
       } else {
         if (currentFolder) {
-          fetchSubfolders(currentFolder.id);
+          if (
+            subfolders?.find(
+              (folder: { id: string }) => folder.id === bookmark.folderId
+            )
+          ) {
+            useFolderStore.setState((state: any) => ({
+              subfolders: state.subfolders.map((folder: any) =>
+                folder.id === bookmark.folderId
+                  ? {
+                      ...folder,
+                      _count: { bookmarks: folder._count.bookmarks + 1 },
+                    }
+                  : folder
+              ),
+            }));
+          }
+        } else if (folders.find((folder) => folder.id === bookmark.folderId)) {
+          useFolderStore.setState((state: any) => ({
+            folders: state.folders.map((folder: any) =>
+              folder.id === bookmark.folderId
+                ? {
+                    ...folder,
+                    _count: { bookmarks: folder._count.bookmarks + 1 },
+                  }
+                : folder
+            ),
+          }));
         }
       }
+
+      set((state) => ({
+        recentBookmarks: [bookmark, ...state.recentBookmarks.slice(0, 5)],
+      }));
     } catch (error: any) {
       console.error("Error creating bookmark:", error);
       setError(error.response?.data?.error || "Failed to create bookmark");

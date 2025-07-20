@@ -26,6 +26,7 @@ export async function GET(req: NextRequest) {
         url: true,
         notes: true,
         favicon: true,
+        folderId: true,
       }
     });
     return NextResponse.json({ bookmarks }, { status: 200 });
