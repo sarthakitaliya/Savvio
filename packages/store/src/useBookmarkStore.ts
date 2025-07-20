@@ -95,15 +95,42 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     set({ loading: true });
     try {
       const { bookmark } = await createBookmark(bookmarkData);
-      const { currentFolder, fetchSubfolders } = useFolderStore.getState();
+      const { currentFolder, subfolders, folders } = useFolderStore.getState();
 
       if (currentFolder?.id === bookmark.folderId) {
         set((state) => ({ bookmarks: [...state.bookmarks, bookmark] }));
       } else {
         if (currentFolder) {
-          fetchSubfolders(currentFolder.id);
+          if (
+            subfolders?.find(
+              (folder: { id: string }) => folder.id === bookmark.folderId
+            )
+          ) {
+            useFolderStore.setState((state: any) => ({
+              subfolders: state.subfolders.map((folder: any) =>
+                folder.id === bookmark.folderId
+                  ? {
+                      ...folder,
+                      _count: { bookmarks: folder._count.bookmarks + 1 },
+                    }
+                  : folder
+              ),
+            }));
+          }
+        } else if (folders.find((folder) => folder.id === bookmark.folderId)) {
+          useFolderStore.setState((state: any) => ({
+            folders: state.folders.map((folder: any) =>
+              folder.id === bookmark.folderId
+                ? {
+                    ...folder,
+                    _count: { bookmarks: folder._count.bookmarks + 1 },
+                  }
+                : folder
+            ),
+          }));
         }
       }
+
       set((state) => ({
         recentBookmarks: [bookmark, ...state.recentBookmarks.slice(0, 5)],
       }));

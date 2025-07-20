@@ -27,6 +27,7 @@ interface FolderStore {
   setFolderLoading: (loading: boolean) => void;
   fetchFolders: () => Promise<void>;
   fetchSubfolders: (parentId: string) => Promise<void>;
+  setSubfolders: (subfolders: Folder[]) => void;
   addFolder: (folderData: CreateFolderPayload) => Promise<void>;
   updateFolder: (folderData: UpdateFolderPayload) => Promise<void>;
   deleteFolder: (folderData: DeleteFolderPayload) => Promise<void>;
@@ -70,6 +71,8 @@ export const useFolderStore = create<FolderStore>((set) => ({
     }
   },
 
+  setSubfolders: (subfolders) => set({ subfolders }),
+  
   resolveFolderPath: async (segments) => {
     setLoading(true);
     try {
