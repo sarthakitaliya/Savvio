@@ -20,7 +20,13 @@ export default function PrivacyPage() {
             <ul className="list-disc list-inside space-y-1">
               <li>URLs and page titles you choose to save via the extension</li>
               <li>User preferences and settings</li>
+              <li>Notes or personal content you choose to save</li>
             </ul>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-semibold text-blue-600 mb-2">What We Don't Collect</h2>
+            <p>We do <strong>not</strong> collect or access your browsing history, passwords, or personal messages. Your saved content is only what you explicitly choose to add.</p>
           </div>
 
           <div>
@@ -33,8 +39,23 @@ export default function PrivacyPage() {
           </div>
 
           <div>
+            <h2 className="text-2xl font-semibold text-blue-600 mb-2">User Control and Data Deletion</h2>
+            <p>You can delete your bookmarks and folders anytime via the dashboard. If you want to delete your account and all associated data, please contact us at the email below.</p>
+          </div>
+
+          <div>
             <h2 className="text-2xl font-semibold text-blue-600 mb-2">Data Storage and Security</h2>
             <p>Your data is stored securely. We do not share your personal information with third parties for any purpose.</p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-semibold text-blue-600 mb-2">Data Retention</h2>
+            <p>We retain your data only as long as your account is active or as needed to provide you the service.</p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-semibold text-blue-600 mb-2">Cookies and Local Storage</h2>
+            <p>We use local storage to remember your preferences (e.g. theme settings). We do not use tracking cookies.</p>
           </div>
 
           <div>
