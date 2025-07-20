@@ -3,14 +3,18 @@ import { FolderCard } from "./FolderCard";
 import { FolderPlus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FolderSkeleton } from "./FolderSkeleton";
+import { useState } from "react";
 
 export function FolderLayout() {
   const { folders, cleanUp, folderLoading } = useFolderStore();
   const {clearBookmarks } = useBookmarkStore();
   const router = useRouter();
-  
+  const [menuOpenId, setMenuOpenId] = useState<string | null>(null);
+
   const handleFolderClick = (folderSlug: string) => {
-    cleanUp(); 
+    console.log("Folder clicked:", folderSlug);
+    
+    cleanUp();
     clearBookmarks();
     router.push(`/dashboard/${folderSlug}`);
   };
@@ -38,6 +42,8 @@ export function FolderLayout() {
             folder={folder}
             key={folder.id}
             onClick={() => handleFolderClick(folder.slug)}
+            menuOpenId={menuOpenId}
+            setMenuOpenId={setMenuOpenId}
           />
         ))
       }
