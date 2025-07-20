@@ -1,18 +1,41 @@
 import { Loader2 } from "lucide-react";
 import { useFolderStore, useUiStore } from "@repo/store";
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { IconsButton } from "./IconsButton";
 import { ColorsButton } from "./ColorsButton";
 import { toast } from "sonner";
 import { CreateFolderPayload } from "@repo/types";
 
-export function FolderModal({ parentFolder }: { parentFolder?: { id: string, name: string } }) {
+export function FolderModal({
+  parentFolder,
+}: {
+  parentFolder?: { id: string; name: string };
+}) {
   const { setShowFolderModal, showFolderModal, loading } = useUiStore();
-  const { addFolder } = useFolderStore();
+  const { addFolder, editingFolder, updateFolder, clearEditingFolder } =
+    useFolderStore();
   const [folderName, setFolderName] = useState("");
   const [color, setColor] = useState("");
   const [icon, setIcon] = useState("Folder");
 
+  useEffect(() => {
+    if (editingFolder) {
+      setFolderName(editingFolder.name);
+      setColor(editingFolder.color || "");
+      setIcon(editingFolder.icon || "Folder");
+    } else {
+      setFolderName("");
+      setColor("");
+      setIcon("Folder");
+    }
+  }, [editingFolder, showFolderModal, clearEditingFolder]);
+
+  const resetForm = () => {
+    setFolderName("");
+    setColor("");
+    setIcon("Folder");
+    clearEditingFolder();
+  };
   const handleSubmit: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     if (!folderName.trim()) {
@@ -25,19 +48,24 @@ export function FolderModal({ parentFolder }: { parentFolder?: { id: string, nam
       color: color || undefined,
       icon: icon || undefined,
     };
+
+    const action = editingFolder
+      ? updateFolder({ ...payload, id: editingFolder.id })
+      : addFolder(payload);
     toast.promise(
-      addFolder(payload).then(() => {
-        if (!loading) {
-          setShowFolderModal(false);
-          setFolderName("");
-          setColor("");
-          setIcon("Folder");
-        }
-      }),
+      action,
       {
-        loading: "Creating folder...",
-        success: "Folder created successfully!",
-        error: "Failed to create folder.",
+        loading: editingFolder ? "Updating folder..." : "Creating folder...",
+        success: () => {
+          setShowFolderModal(false);
+          resetForm();
+          return editingFolder
+            ? "Folder updated successfully"
+            : "Folder created successfully";
+        },
+        error: (error) => {
+          return error.message || "Failed to process folder";
+        },
       }
     );
   };
@@ -55,14 +83,17 @@ export function FolderModal({ parentFolder }: { parentFolder?: { id: string, nam
       {showFolderModal && (
         <div
           className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
-          onClick={() => setShowFolderModal(false)}
+          onClick={() => {
+            setShowFolderModal(false);
+            clearEditingFolder();
+          }}
         >
           <div
             className="bg-white dark:bg-[#202020] border border-gray-300 dark:border-gray-700 rounded-lg p-6 max-w-md w-full mx-4"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
-              Create New Folder
+              {editingFolder ? "Edit Folder" : "Create Folder"}
             </h2>
 
             <label
@@ -78,6 +109,9 @@ export function FolderModal({ parentFolder }: { parentFolder?: { id: string, nam
               placeholder="Folder Name"
               value={folderName}
               onChange={(e) => setFolderName(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleSubmit(e as any);
+              }}
             />
             <label className="block mb-2 text-gray-700 dark:text-gray-300 font-medium">
               Icon (optional)
@@ -96,7 +130,10 @@ export function FolderModal({ parentFolder }: { parentFolder?: { id: string, nam
               <button
                 type="button"
                 className="cursor-pointer px-5 py-2 rounded-xl bg-gray-200 text-gray-900 border border-gray-300 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:hover:bg-gray-600 transition-colors"
-                onClick={() => setShowFolderModal(false)}
+                onClick={() => {
+                  setShowFolderModal(false);
+                  clearEditingFolder();
+                }}
               >
                 Cancel
               </button>
@@ -109,8 +146,10 @@ export function FolderModal({ parentFolder }: { parentFolder?: { id: string, nam
                 {loading ? (
                   <span className="flex items-center gap-2">
                     <Loader2 className="animate-spin w-4 h-4" />
-                    Creating Folder...
+                    {editingFolder ? "Editing Folder..." : "Creating Folder..."}
                   </span>
+                ) : editingFolder ? (
+                  "Edit Folder"
                 ) : (
                   "Create Folder"
                 )}

@@ -2,7 +2,7 @@ import { Folder, MoreVertical } from "lucide-react";
 import { folderIcons } from "../../ColorsAndIcons";
 import { Folder as FolderType } from "@repo/types";
 import { useEffect, useRef } from "react";
-import { useFolderStore } from "@repo/store";
+import { useFolderStore, useUiStore } from "@repo/store";
 import { toast } from "sonner";
 
 export function FolderCard({
@@ -21,7 +21,8 @@ export function FolderCard({
   const selectedIconObj = folderIcons.find((f) => f.name === folder.icon);
   const IconComponent = selectedIconObj ? selectedIconObj.icon : Folder;
   const hasColor = Boolean(folder.color);
-  const { deleteFolder } = useFolderStore();
+  const { deleteFolder, setEditingFolder } = useFolderStore();
+  const { setShowFolderModal } = useUiStore();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -44,8 +45,9 @@ export function FolderCard({
 
   const handleEdit = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log("Edit clicked");
+    setEditingFolder(folder);
     setMenuOpenId(null);
+    setShowFolderModal(true);
   };
 
   const handleDelete = (e: React.MouseEvent) => {
