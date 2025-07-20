@@ -49,7 +49,7 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
       console.error("Error fetching bookmarks:", error);
       setError(error.response?.data?.error || "Failed to fetch bookmarks");
     } finally {
-      set({ loading: false });
+      set({ loading: false });  
     }
   },
 
@@ -100,6 +100,12 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
           fetchSubfolders(currentFolder.id);
         }
       }
+      set((state) => ({
+        recentBookmarks: [
+         bookmark,
+          ...state.recentBookmarks.slice(0, 5), 
+        ],
+      }));
     } catch (error: any) {
       console.error("Error creating bookmark:", error);
       setError(error.response?.data?.error || "Failed to create bookmark");

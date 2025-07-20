@@ -115,9 +115,22 @@ export const useFolderStore = create<FolderStore>((set) => ({
     setLoading(true);
     try {
       const { folder } = await updateFolder(folderData);
-      set((state) => ({
-        folders: state.folders.map((f) => (f.id === folder.id ? folder : f)),
-      }));
+      set((state) => {
+        const olderFolder = state.folders.find((f) => f.id === folder.id);
+        const oldSubfolder = state.subfolders?.find((f) => f.id === folder.id);
+        const folderWithOldCount = {
+          ...folder,
+          _count: olderFolder?._count ?? { bookmarks: 0 },
+        }
+        const subFolderWithOldCount = {
+          ...folder,
+          _count: oldSubfolder?._count ?? { bookmarks: 0 },
+        }
+        return {
+          folders: state.folders.map((f) => (f.id === folder.id ? folderWithOldCount : f)),
+          subfolders: state.subfolders?.map((f) => (f.id === folder.id ? subFolderWithOldCount : f)),
+        }
+      });
     } catch (error: any) {
       console.error("Error updating folder:", error);
       throw error;
