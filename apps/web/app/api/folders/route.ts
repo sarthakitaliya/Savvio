@@ -147,8 +147,37 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
-    await prismaClient.folder.delete({
+    const folderToDelete = await prismaClient.folder.findUnique({
       where: { id },
+      select: { parentId: true },
+    });
+
+    if (!folderToDelete) {
+      return NextResponse.json(
+        { error: "Folder not found" },
+        { status: 404 }
+      );
+    }
+
+    // Only enforce restriction if the folder is a top-level folder
+    if (folderToDelete.parentId === null) {
+      const topLevelFolderCount = await prismaClient.folder.count({
+        where: { userId: session.user.id, parentId: null },
+      });
+
+      if (topLevelFolderCount <= 1) {
+        return NextResponse.json(
+          { error: "You must have at least one folder." },
+          { status: 400 }
+        );
+      }
+    }
+
+    await prismaClient.folder.delete({
+      where: {
+        id,
+        userId: session.user.id,
+      }
     });
 
     return NextResponse.json(

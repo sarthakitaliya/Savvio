@@ -20,12 +20,15 @@ interface FolderStore {
   currentFolder: Folder | null;
   subfolders?: Folder[];
   folderLoading: boolean;
+  editingFolder: Folder | null;
+  setEditingFolder: (folder: Folder | null) => void;
+  clearEditingFolder: () => void;
   setFolderLoading: (loading: boolean) => void;
   fetchFolders: () => Promise<void>;
   fetchSubfolders: (parentId: string) => Promise<void>;
   addFolder: (folderData: CreateFolderPayload) => Promise<void>;
-  editFolder: (folderData: UpdateFolderPayload) => Promise<void>;
-  removeFolder: (folderData: DeleteFolderPayload) => Promise<void>;
+  updateFolder: (folderData: UpdateFolderPayload) => Promise<void>;
+  deleteFolder: (folderData: DeleteFolderPayload) => Promise<void>;
   resolveFolderPath: (segments: string[]) => Promise<Folder | null>;
   cleanUp: () => void;
 }
@@ -35,7 +38,9 @@ export const useFolderStore = create<FolderStore>((set) => ({
   folders: [],
   currentFolder: null,
   folderLoading: false,
-  
+  editingFolder: null,
+  setEditingFolder: (folder: Folder | null) => set({ editingFolder: folder }),
+  clearEditingFolder: () => set({ editingFolder: null }),
   setFolderLoading: (loading: boolean) => set({ folderLoading: loading }),
 
   fetchFolders: async () => {
@@ -100,13 +105,13 @@ export const useFolderStore = create<FolderStore>((set) => ({
       });
     } catch (error: any) {
       console.error("Error creating folder:", error);
-      // setError(error.response?.data?.error || "Failed to create folder");
+      throw error;
     } finally {
       setLoading(false);
     }
   },
 
-  editFolder: async (folderData) => {
+  updateFolder: async (folderData) => {
     setLoading(true);
     try {
       const { folder } = await updateFolder(folderData);
@@ -115,22 +120,26 @@ export const useFolderStore = create<FolderStore>((set) => ({
       }));
     } catch (error: any) {
       console.error("Error updating folder:", error);
-      setError(error.response?.data?.error || "Failed to update folder");
+      throw error;
     } finally {
       setLoading(false);
     }
   },
 
-  removeFolder: async (folderData) => {
+  deleteFolder: async (folderData) => {
     setLoading(true);
     try {
       await deleteFolder(folderData);
       set((state) => ({
         folders: state.folders.filter((folder) => folder.id !== folderData.id),
       }));
+      set((state) => ({
+        subfolders: state.subfolders?.filter(
+          (folder) => folder.id !== folderData.id
+        ),
+      }));
     } catch (error: any) {
-      console.error("Error deleting folder:", error);
-      setError(error.response?.data?.error || "Failed to delete folder");
+      throw error;
     } finally {
       setLoading(false);
     }

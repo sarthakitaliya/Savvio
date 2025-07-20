@@ -36,7 +36,6 @@ export const deleteFolder = async (folderData: DeleteFolderPayload) => {
     const response = await apiClient.delete(`/folders`, { data: folderData });
     return response.data;
   } catch (error: Error | any) {
-    console.error("Error deleting folder:", error);
     throw new Error(error.response?.data?.error || "Failed to delete folder");
   }
 };
