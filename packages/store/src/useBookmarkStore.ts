@@ -27,6 +27,7 @@ interface BookmarkStore {
   fetchNotes: (id: string) => Promise<Bookmark | undefined>;
   clearBookmarks: () => void;
   getRecentBookmarks: (limit: number) => Promise<void>;
+  setRecentBookmarks: (bookmarks: recentBookmark[]) => void;
   addBookmark: (bookmarkData: CreateBookmarkPayload) => Promise<void>;
   editBookmark: (bookmarkData: UpdateBookmarkPayload) => Promise<void>;
   removeBookmark: (bookmarkData: DeleteBookmarkPayload) => Promise<void>;
@@ -49,7 +50,7 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
       console.error("Error fetching bookmarks:", error);
       setError(error.response?.data?.error || "Failed to fetch bookmarks");
     } finally {
-      set({ loading: false });  
+      set({ loading: false });
     }
   },
 
@@ -87,6 +88,9 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     }
   },
 
+  setRecentBookmarks: (bookmarks) => {
+    set({ recentBookmarks: bookmarks });
+  },
   addBookmark: async (bookmarkData) => {
     set({ loading: true });
     try {
@@ -101,10 +105,7 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
         }
       }
       set((state) => ({
-        recentBookmarks: [
-         bookmark,
-          ...state.recentBookmarks.slice(0, 5), 
-        ],
+        recentBookmarks: [bookmark, ...state.recentBookmarks.slice(0, 5)],
       }));
     } catch (error: any) {
       console.error("Error creating bookmark:", error);

@@ -14,6 +14,7 @@ import type {
   Folder,
   UpdateFolderPayload,
 } from "@repo/types";
+import { useBookmarkStore } from "./useBookmarkStore";
 
 interface FolderStore {
   folders: Folder[];
@@ -121,15 +122,19 @@ export const useFolderStore = create<FolderStore>((set) => ({
         const folderWithOldCount = {
           ...folder,
           _count: olderFolder?._count ?? { bookmarks: 0 },
-        }
+        };
         const subFolderWithOldCount = {
           ...folder,
           _count: oldSubfolder?._count ?? { bookmarks: 0 },
-        }
+        };
         return {
-          folders: state.folders.map((f) => (f.id === folder.id ? folderWithOldCount : f)),
-          subfolders: state.subfolders?.map((f) => (f.id === folder.id ? subFolderWithOldCount : f)),
-        }
+          folders: state.folders.map((f) =>
+            f.id === folder.id ? folderWithOldCount : f
+          ),
+          subfolders: state.subfolders?.map((f) =>
+            f.id === folder.id ? subFolderWithOldCount : f
+          ),
+        };
       });
     } catch (error: any) {
       console.error("Error updating folder:", error);
@@ -145,12 +150,17 @@ export const useFolderStore = create<FolderStore>((set) => ({
       await deleteFolder(folderData);
       set((state) => ({
         folders: state.folders.filter((folder) => folder.id !== folderData.id),
-      }));
-      set((state) => ({
         subfolders: state.subfolders?.filter(
           (folder) => folder.id !== folderData.id
         ),
       }));
+
+      const { recentBookmarks, setRecentBookmarks } =
+        useBookmarkStore.getState();
+        const updatedRecentBookmarks = recentBookmarks.filter(
+          (bookmark) => bookmark.folderId !== folderData.id
+        );
+      setRecentBookmarks(updatedRecentBookmarks);
     } catch (error: any) {
       throw error;
     } finally {
