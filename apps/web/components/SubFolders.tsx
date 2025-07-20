@@ -3,12 +3,14 @@ import { FolderCard } from "./ui/dashboard/FolderCard";
 import { CreateFolderButton } from "./ui/dashboard/CreateFolderButton";
 import { usePathname, useRouter } from "next/navigation";
 import { FolderSkeleton } from "./ui/dashboard/FolderSkeleton";
+import { useState } from "react";
 
 export function SubFolders() {
   const { subfolders, cleanUp, folderLoading } = useFolderStore();
   const { clearBookmarks } = useBookmarkStore();
   const router = useRouter();
   const pathName = usePathname();
+  const [menuOpenId, setMenuOpenId] = useState<string | null>(null);
 
   const handleFolderClick = (folderSlug: string) => {
     cleanUp();
@@ -28,6 +30,8 @@ export function SubFolders() {
             folder={folder}
             key={folder.id}
             onClick={() => handleFolderClick(folder.slug)}
+            menuOpenId={menuOpenId}
+            setMenuOpenId={setMenuOpenId}
           />
         ))}
       {!folderLoading && <CreateFolderButton className="sm:size-40 size-36" />}

@@ -1,8 +1,7 @@
 import { Folder, MoreVertical } from "lucide-react";
 import { folderIcons } from "../../ColorsAndIcons";
 import { Folder as FolderType } from "@repo/types";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export function FolderCard({
   folder,
