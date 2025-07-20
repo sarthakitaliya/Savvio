@@ -174,7 +174,10 @@ export async function DELETE(req: NextRequest) {
     }
 
     await prismaClient.folder.delete({
-      where: { id },
+      where: {
+        id,
+        userId: session.user.id,
+      }
     });
 
     return NextResponse.json(
