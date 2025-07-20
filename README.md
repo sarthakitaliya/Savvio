@@ -1,8 +1,6 @@
 # Savvio
 
-## 🚧 Project Status
-
-This project is currently under active development. Features and UI may change frequently. Stay tuned for updates!
+**⚠️ Note:** This project is actively being developed. Features and UI may change frequently.
 
 **Savvio** is a minimal, fast bookmarking platform focused on making saving and organizing content effortless.
 
