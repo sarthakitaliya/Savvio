@@ -12,7 +12,7 @@ export default function PrivacyPage() {
       </Head>
       <main className="max-w-3xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-center text-indigo-700 mb-8">Privacy Policy</h1>
-        <p className="text-center text-gray-500 mb-12">Effective date: 15/07/2025</p>
+        <p className="text-center text-gray-500 mb-12">Effective date: 20/07/2025</p>
 
         <div className="space-y-8 text-gray-700 dark:text-gray-300">
           <div>
