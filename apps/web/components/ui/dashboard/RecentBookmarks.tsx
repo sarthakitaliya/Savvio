@@ -6,8 +6,8 @@ import Image from "next/image";
 import { RecentBookmarkSkeleton } from "./RecentBookmarkSkeleton";
 
 export function RecentBookmarks() {
-  const { recentBookmarks, getRecentBookmarks, loading } = useBookmarkStore();
-  const { setShowBookmarkModal } = useUiStore();
+  const { recentBookmarks, getRecentBookmarks } = useBookmarkStore();
+  const { setShowBookmarkModal, loadingSkeleton } = useUiStore();
   const limit = 5;
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export function RecentBookmarks() {
   return (
     <div className="mt-8 max-w-xl mx-auto px-4">
       <h2 className="text-lg font-semibold mb-4">Recent Bookmarks</h2>
-      {loading ? (
+      {loadingSkeleton ? (
         <div className="flex flex-col gap-4">
           {[...Array(4)].map((_, idx) => (
             <RecentBookmarkSkeleton key={idx} />

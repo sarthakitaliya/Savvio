@@ -2,6 +2,8 @@ import { create } from "zustand";
 
 interface UiStore {
     loading: boolean;
+    loadingSkeleton: boolean;
+    setLoadingSkeleton: (loading: boolean) => void;
     showFolderModal: boolean;
     showBookmarkModal: boolean;
     error: string | null;
@@ -15,11 +17,13 @@ interface UiStore {
 
 export const useUiStore = create<UiStore>((set) => ({
     loading: false,
+    loadingSkeleton: false,
     showFolderModal: false,
     showBookmarkModal: false,
     error: null,
     message: null,
     setLoading: (loading) => set({ loading }),
+    setLoadingSkeleton: (loading) => set({ loadingSkeleton: loading }),
     setShowFolderModal: (show) => set({ showFolderModal: show }),
     setShowBookmarkModal: (show) => set({ showBookmarkModal: show }),
     setError: (error) => set({ error }),
