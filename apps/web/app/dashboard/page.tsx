@@ -15,7 +15,9 @@ export default function Dashboard() {
   const { fetchFolders, folders } = useFolderStore();
 
   useEffect(() => {
-    fetchFolders()
+    if(!folders.length) {
+      fetchFolders();
+    }
   }, [fetchFolders]);
   
   return (
