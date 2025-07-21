@@ -1,4 +1,4 @@
-import { useBookmarkStore, useFolderStore } from "@repo/store";
+import { useBookmarkStore, useFolderStore, useUiStore } from "@repo/store";
 import { FolderCard } from "./ui/dashboard/FolderCard";
 import { CreateFolderButton } from "./ui/dashboard/CreateFolderButton";
 import { usePathname, useRouter } from "next/navigation";
@@ -6,8 +6,9 @@ import { FolderSkeleton } from "./ui/dashboard/FolderSkeleton";
 import { useState } from "react";
 
 export function SubFolders() {
-  const { subfolders, cleanUp, folderLoading } = useFolderStore();
+  const { subfolders, cleanUp } = useFolderStore();
   const { clearBookmarks } = useBookmarkStore();
+  const { loadingSkeleton } = useUiStore();
   const router = useRouter();
   const pathName = usePathname();
   const [menuOpenId, setMenuOpenId] = useState<string | null>(null);
@@ -20,7 +21,7 @@ export function SubFolders() {
 
   return (
     <div className="flex items-center flex-wrap gap-5 sm:gap-7 mt-15 mb-10 md:mx-5">
-      {folderLoading &&
+      {loadingSkeleton &&
         [...Array(2)].map((_, index) => <FolderSkeleton key={index} />)}
 
       {subfolders &&
@@ -34,7 +35,7 @@ export function SubFolders() {
             setMenuOpenId={setMenuOpenId}
           />
         ))}
-      {!folderLoading && <CreateFolderButton className="sm:size-40 size-36" />}
+      {!loadingSkeleton && <CreateFolderButton className="sm:size-40 size-36" />}
     </div>
   );
 }

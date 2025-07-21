@@ -34,7 +34,7 @@ interface FolderStore {
   resolveFolderPath: (segments: string[]) => Promise<Folder | null>;
   cleanUp: () => void;
 }
-const { setLoading, setError } = useUiStore.getState();
+const { setLoading, setError, setLoadingSkeleton } = useUiStore.getState();
 
 export const useFolderStore = create<FolderStore>((set) => ({
   folders: [],
@@ -46,7 +46,7 @@ export const useFolderStore = create<FolderStore>((set) => ({
   setFolderLoading: (loading: boolean) => set({ folderLoading: loading }),
 
   fetchFolders: async () => {
-    set({ folderLoading: true });
+    setLoadingSkeleton(true);
     try {
       const { folders } = await getFolders();
       set({ folders });
@@ -54,12 +54,12 @@ export const useFolderStore = create<FolderStore>((set) => ({
       console.error("Error fetching folders:", error);
       setError(error.response?.data?.error || "Failed to fetch folders");
     } finally {
-      set({ folderLoading: false });
+      setLoadingSkeleton(false);
     }
   },
 
   fetchSubfolders: async (parentId) => {
-    set({ folderLoading: true });
+    setLoadingSkeleton(true);
     try {
       const { folders } = await getSubfolders(parentId);
       set({ subfolders: folders });
@@ -67,12 +67,12 @@ export const useFolderStore = create<FolderStore>((set) => ({
       console.error("Error fetching subfolders:", error);
       setError(error.response?.data?.error || "Failed to fetch subfolders");
     } finally {
-      set({ folderLoading: false });
+      setLoadingSkeleton(false);
     }
   },
 
   setSubfolders: (subfolders) => set({ subfolders }),
-  
+
   resolveFolderPath: async (segments) => {
     setLoading(true);
     try {
@@ -160,9 +160,9 @@ export const useFolderStore = create<FolderStore>((set) => ({
 
       const { recentBookmarks, setRecentBookmarks } =
         useBookmarkStore.getState();
-        const updatedRecentBookmarks = recentBookmarks.filter(
-          (bookmark) => bookmark.folderId !== folderData.id
-        );
+      const updatedRecentBookmarks = recentBookmarks.filter(
+        (bookmark) => bookmark.folderId !== folderData.id
+      );
       setRecentBookmarks(updatedRecentBookmarks);
     } catch (error: any) {
       throw error;

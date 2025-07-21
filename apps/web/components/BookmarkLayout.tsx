@@ -1,13 +1,14 @@
-import { useBookmarkStore } from "@repo/store";
+import { useBookmarkStore, useUiStore } from "@repo/store";
 import { Bookmark } from "./Bookmark";
 import { BookmarkSkeleton } from "./BookmarkSkeleton";
 
 export function BookmarkLayout() {
-  const { bookmarks, loading } = useBookmarkStore();
+  const { bookmarks } = useBookmarkStore();
+  const { loadingSkeleton } = useUiStore();
 
   return (
     <div className="flex items-center justify-center md:justify-normal flex-wrap gap-5 sm:gap-7 mt-20 mb-10 md:mx-5">
-      {loading ? (
+      {loadingSkeleton ? (
         <div className="flex w-full flex-wrap justify-center gap-5 sm:gap-7">
           {[...Array(4)].map((_, index) => (
             <BookmarkSkeleton key={index} />
