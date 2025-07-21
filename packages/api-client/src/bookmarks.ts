@@ -17,8 +17,6 @@ export const getBookmarks = async (folderId: string) => {
 export const createBookmark = async (bookmarkData: CreateBookmarkPayload) => {
     try {
         const response = await apiClient.post(`/bookmarks`, bookmarkData);
-        console.log("Bookmark created successfully:", bookmarkData);
-        
         return response.data;
     } catch (error: Error | any) {
         console.error("Error creating bookmark:", error);
@@ -38,7 +36,7 @@ export const updateBookmark = async (bookmarkData: UpdateBookmarkPayload) => {
 
 export const deleteBookmark = async (bookmarkData: DeleteBookmarkPayload) => {
   try {
-    const response = await apiClient.delete(`/bookmarks`, {data: { bookmarkData }});
+    const response = await apiClient.delete(`/bookmarks`, {data: { id: bookmarkData.id }});
     return response.data;
   } catch (error: Error | any) {
     console.error("Error deleting bookmark:", error);

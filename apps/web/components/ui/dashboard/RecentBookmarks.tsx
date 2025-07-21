@@ -13,7 +13,9 @@ export function RecentBookmarks() {
   useEffect(() => {
     const fetchRecentBookmarks = async () => {
       try {
-        await getRecentBookmarks(limit);
+        if (recentBookmarks.length === 0) {
+          await getRecentBookmarks(limit);
+        }
       } catch (error) {
         console.error("Error fetching recent bookmarks:", error);
       }

@@ -92,12 +92,6 @@ export function BookmarkModal({
             setSelectedFolder("");
             setType("url");
           }
-        })
-        .catch((error) => {
-          console.error("Error creating bookmark:", error);
-          toast.error(
-            error.response?.data?.error || "Failed to create bookmark."
-          );
         }),
       {
         loading: "Creating bookmark...",

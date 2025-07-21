@@ -30,7 +30,7 @@ interface BookmarkStore {
   setRecentBookmarks: (bookmarks: recentBookmark[]) => void;
   addBookmark: (bookmarkData: CreateBookmarkPayload) => Promise<void>;
   editBookmark: (bookmarkData: UpdateBookmarkPayload) => Promise<void>;
-  removeBookmark: (bookmarkData: DeleteBookmarkPayload) => Promise<void>;
+  deleteBookmark: (bookmarkData: DeleteBookmarkPayload) => Promise<void>;
 }
 
 const { setError } = useUiStore.getState();
@@ -159,16 +159,43 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     }
   },
 
-  removeBookmark: async (bookmarkData) => {
+  deleteBookmark: async (bookmarkData) => {
     set({ loading: true });
     try {
       await deleteBookmark(bookmarkData);
       set((state) => ({
         bookmarks: state.bookmarks.filter((b) => b.id !== bookmarkData.id),
+        recentBookmarks: state.recentBookmarks.filter(
+          (b) => b.id !== bookmarkData.id
+        ),
+      }));
+      // Update folder counts
+      useFolderStore.setState((state: any) => ({
+        folders: state.folders.map((folder: any) => {
+          if (folder.id === bookmarkData.id) {
+            return {
+              ...folder,
+              _count: {
+                bookmarks: folder._count.bookmarks - 1,
+              },
+            };
+          }
+          return folder;
+        }),
+        subfolders: state.subfolders?.map((folder: any) => {
+          if (folder.id === bookmarkData.id) {
+            return {
+              ...folder,
+              _count: {
+                bookmarks: folder._count.bookmarks - 1,
+              },
+            };
+          }
+          return folder;
+        }),
       }));
     } catch (error: any) {
-      console.error("Error deleting bookmark:", error);
-      setError(error.response?.data?.error || "Failed to delete bookmark");
+      throw error;
     } finally {
       set({ loading: false });
     }
