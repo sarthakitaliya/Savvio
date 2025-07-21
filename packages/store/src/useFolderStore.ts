@@ -34,7 +34,7 @@ interface FolderStore {
   resolveFolderPath: (segments: string[]) => Promise<Folder | null>;
   cleanUp: () => void;
 }
-const { setLoading, setError, setLoadingSkeleton } = useUiStore.getState();
+const { setLoading, setError, setLoadingFolderSkeleton } = useUiStore.getState();
 
 export const useFolderStore = create<FolderStore>((set) => ({
   folders: [],
@@ -46,7 +46,7 @@ export const useFolderStore = create<FolderStore>((set) => ({
   setFolderLoading: (loading: boolean) => set({ folderLoading: loading }),
 
   fetchFolders: async () => {
-    setLoadingSkeleton(true);
+    setLoadingFolderSkeleton(true);
     try {
       const { folders } = await getFolders();
       set({ folders });
@@ -54,12 +54,12 @@ export const useFolderStore = create<FolderStore>((set) => ({
       console.error("Error fetching folders:", error);
       setError(error.response?.data?.error || "Failed to fetch folders");
     } finally {
-      setLoadingSkeleton(false);
+      setLoadingFolderSkeleton(false);
     }
   },
 
   fetchSubfolders: async (parentId) => {
-    setLoadingSkeleton(true);
+    setLoadingFolderSkeleton(true);
     try {
       const { folders } = await getSubfolders(parentId);
       set({ subfolders: folders });
@@ -67,7 +67,7 @@ export const useFolderStore = create<FolderStore>((set) => ({
       console.error("Error fetching subfolders:", error);
       setError(error.response?.data?.error || "Failed to fetch subfolders");
     } finally {
-      setLoadingSkeleton(false);
+      setLoadingFolderSkeleton(false);
     }
   },
 

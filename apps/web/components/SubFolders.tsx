@@ -8,7 +8,7 @@ import { useState } from "react";
 export function SubFolders() {
   const { subfolders, cleanUp } = useFolderStore();
   const { clearBookmarks } = useBookmarkStore();
-  const { loadingSkeleton } = useUiStore();
+  const { loadingFolderSkeleton } = useUiStore();
   const router = useRouter();
   const pathName = usePathname();
   const [menuOpenId, setMenuOpenId] = useState<string | null>(null);
@@ -21,7 +21,7 @@ export function SubFolders() {
 
   return (
     <div className="flex items-center flex-wrap gap-5 sm:gap-7 mt-15 mb-10 md:mx-5">
-      {loadingSkeleton &&
+      {loadingFolderSkeleton &&
         [...Array(2)].map((_, index) => <FolderSkeleton key={index} />)}
 
       {subfolders &&
@@ -35,7 +35,7 @@ export function SubFolders() {
             setMenuOpenId={setMenuOpenId}
           />
         ))}
-      {!loadingSkeleton && <CreateFolderButton className="sm:size-40 size-36" />}
+      {!loadingFolderSkeleton && <CreateFolderButton className="sm:size-40 size-36" />}
     </div>
   );
 }

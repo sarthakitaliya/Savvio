@@ -24,8 +24,7 @@ export default function FolderPage() {
     subfolders,
   } = useFolderStore();
   const { fetchBookmarks, clearBookmarks, setLoading } = useBookmarkStore();
-  const { setFolderLoading } = useFolderStore();
-  const { setLoadingSkeleton } = useUiStore();
+  const { setLoadingBookmarkSkeleton, setLoadingFolderSkeleton } = useUiStore();
   const lastPathRef = useRef<string>("");
   const router = useRouter();
 
@@ -71,7 +70,8 @@ export default function FolderPage() {
   }, [currentFolder?.id, fetchSubfolders, fetchBookmarks]);
 
     useEffect(() => {
-      setLoadingSkeleton(true);
+      setLoadingBookmarkSkeleton(true);
+      setLoadingFolderSkeleton(true);
     }, []);
 
   return (

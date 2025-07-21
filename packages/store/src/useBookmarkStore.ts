@@ -33,7 +33,7 @@ interface BookmarkStore {
   deleteBookmark: (bookmarkData: DeleteBookmarkPayload) => Promise<void>;
 }
 
-const { setError, setLoadingSkeleton } = useUiStore.getState();
+const { setError, setLoadingBookmarkSkeleton } = useUiStore.getState();
 
 export const useBookmarkStore = create<BookmarkStore>((set) => ({
   bookmarks: [],
@@ -42,7 +42,7 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
   loading: false,
   setLoading: (loading: boolean) => set({ loading }),
   fetchBookmarks: async (folderId) => {
-    setLoadingSkeleton(true);
+    setLoadingBookmarkSkeleton(true);
     try {
       const { bookmarks } = await getBookmarks(folderId);
       set({ bookmarks });
@@ -50,12 +50,12 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
       console.error("Error fetching bookmarks:", error);
       setError(error.response?.data?.error || "Failed to fetch bookmarks");
     } finally {
-      setLoadingSkeleton(false);
+      setLoadingBookmarkSkeleton(false);
     }
   },
 
   fetchNotes: async (id) => {
-    setLoadingSkeleton(true);
+    setLoadingBookmarkSkeleton(true);
     try {
       const { bookmark } = await getNoteById(id);
       set({ notes: bookmark || null });
@@ -65,7 +65,7 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
       setError(error.response?.data?.error || "Failed to fetch note");
       return undefined;
     } finally {
-      setLoadingSkeleton(false);
+      setLoadingBookmarkSkeleton(false);
     }
   },
 
@@ -74,7 +74,7 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
   },
 
   getRecentBookmarks: async (limit = 10) => {
-    setLoadingSkeleton(true);
+    setLoadingBookmarkSkeleton(true);
     try {
       const { bookmarks } = await getRecentBookmarks(limit);
       set({ recentBookmarks: bookmarks });
@@ -84,7 +84,7 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
         error.response?.data?.error || "Failed to fetch recent bookmarks"
       );
     } finally {
-      setLoadingSkeleton(false);
+      setLoadingBookmarkSkeleton(false);
     }
   },
 
