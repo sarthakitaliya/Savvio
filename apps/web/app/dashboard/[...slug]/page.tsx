@@ -5,7 +5,7 @@ import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { SearchBar } from "../../../components/ui/SearchBar";
 import { FolderModal } from "../../../components/FolderModal";
 import { BookmarkModal } from "../../../components/BookmarkModal";
-import { useBookmarkStore, useFolderStore } from "@repo/store";
+import { useBookmarkStore, useFolderStore, useUiStore } from "@repo/store";
 import { SubFolders } from "../../../components/SubFolders";
 import { BookmarkLayout } from "../../../components/BookmarkLayout";
 import { AddBookmarkButton } from "../../../components/AddBookmarkButton";
@@ -25,6 +25,7 @@ export default function FolderPage() {
   } = useFolderStore();
   const { fetchBookmarks, clearBookmarks, setLoading } = useBookmarkStore();
   const { setFolderLoading } = useFolderStore();
+  const { setLoadingSkeleton } = useUiStore();
   const lastPathRef = useRef<string>("");
   const router = useRouter();
 
@@ -70,8 +71,7 @@ export default function FolderPage() {
   }, [currentFolder?.id, fetchSubfolders, fetchBookmarks]);
 
     useEffect(() => {
-      setLoading(true);
-      setFolderLoading(true);
+      setLoadingSkeleton(true);
     }, []);
 
   return (
