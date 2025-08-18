@@ -1,27 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, NotebookPen, BookmarkPlus } from "lucide-react";
 import { useBookmarkStore, useUiStore } from "@repo/store";
-import { useEffect } from "react";
 import Image from "next/image";
 import { RecentBookmarkSkeleton } from "./RecentBookmarkSkeleton";
 
 export function RecentBookmarks() {
-  const { recentBookmarks, getRecentBookmarks } = useBookmarkStore();
+  const { recentBookmarks} = useBookmarkStore();
   const { setShowBookmarkModal, loadingBookmarkSkeleton } = useUiStore();
-  const limit = 5;
-
-  useEffect(() => {
-    const fetchRecentBookmarks = async () => {
-      try {
-        if (recentBookmarks.length === 0) {
-          await getRecentBookmarks(limit);
-        }
-      } catch (error) {
-        console.error("Error fetching recent bookmarks:", error);
-      }
-    };
-    fetchRecentBookmarks();
-  }, [getRecentBookmarks, limit]);
 
   const hasBookmarks = recentBookmarks.length > 0;
 

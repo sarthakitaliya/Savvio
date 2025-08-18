@@ -16,7 +16,7 @@ export default function ProfilePage() {
   }, [getProfileStats]);
 
   const handleLogout = async () => {
-    signOut({
+    await signOut({
       fetchOptions: {
         onSuccess: () => {
           logout();
