@@ -2,7 +2,7 @@ import { prismaClient } from "@repo/db";
 import type { Bookmark, Folder, Tag } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "../../../lib/middleware";
-import { promise, z } from "zod";
+import { z } from "zod";
 import type { SearchResult } from "@repo/types";
 import { buildFullSlug } from "../../../lib/fullSlug";
 
