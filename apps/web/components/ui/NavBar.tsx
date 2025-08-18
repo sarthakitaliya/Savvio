@@ -1,34 +1,31 @@
 "use client";
-import { useUserStore } from "@repo/store";
+import { useUiStore, useUserStore } from "@repo/store";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import ThemeToggle from "../Theme-toggle";
 import { Menu } from "@headlessui/react";
-import { authClient } from "../../lib/auth-client";
+import { signOut } from "../../lib/auth-client";
 import { useRouter } from "next/navigation";
 import { Logo } from "../logo";
 import Link from "next/link";
 
 export function NavBar() {
   const { user, logout } = useUserStore();
+  const { setError } = useUiStore();
   const router = useRouter();
 
   const handleLogout = async () => {
-    try {
-      await authClient.signOut({
-        fetchOptions: {
-          onSuccess: () => {
-            router.push("/login");
-            logout();
-          },
-          onError: (error) => {
-            console.error("Logout failed:", error);
-          },
+    await signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          logout();
+          router.push("/");
         },
-      });
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
+        onError: () => {
+          setError("Logout failed. Please try again.");
+        },
+      },
+    });
   };
 
   return (

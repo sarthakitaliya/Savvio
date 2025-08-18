@@ -1,6 +1,6 @@
 "use client";
 
-import { useFolderStore} from "@repo/store";
+import { useBookmarkStore, useFolderStore, useUiStore } from "@repo/store";
 import { SearchBar } from "../../components/ui/SearchBar";
 import { FolderLayout } from "../../components/ui/dashboard/FolderLayout";
 import { RecentBookmarks } from "../../components/ui/dashboard/RecentBookmarks";
@@ -10,20 +10,28 @@ import { CreateFolderButton } from "../../components/ui/dashboard/CreateFolderBu
 import { BookmarkModal } from "../../components/BookmarkModal";
 import { AddBookmarkButton } from "../../components/AddBookmarkButton";
 
-
 export default function Dashboard() {
   const { fetchFolders, folders } = useFolderStore();
+  const { getRecentBookmarks } = useBookmarkStore();
+  const { setError } = useUiStore();
+  const limit = 5;
 
   useEffect(() => {
-    if(!folders.length) {
-      fetchFolders();
+    async function fetchData() {
+      await Promise.all([fetchFolders(), getRecentBookmarks(limit)]).catch(
+        (error) => {
+          console.error("Error fetching data:", error);
+          setError("Failed to fetch data");
+        }
+      );
     }
-  }, [fetchFolders]);
-  
+    fetchData();
+  }, [fetchFolders, getRecentBookmarks]);
+
   return (
     <div className="m-5">
-      <AddBookmarkButton/>
-      <FolderModal/>
+      <AddBookmarkButton />
+      <FolderModal />
       <BookmarkModal folders={folders} />
       <div className="max-w-md mx-auto pt-5">
         <SearchBar placeholder="Search your bookmarks" className="mt-10" />

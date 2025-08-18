@@ -55,6 +55,8 @@ export default function FolderPage() {
   useEffect(() => {
     if (currentFolder?.id) {
       const fetchData = async () => {
+        setLoadingBookmarkSkeleton(true);
+        setLoadingFolderSkeleton(true);
         try {
           await Promise.all([
             fetchSubfolders(currentFolder.id),
@@ -69,10 +71,6 @@ export default function FolderPage() {
     }
   }, [currentFolder?.id, fetchSubfolders, fetchBookmarks]);
 
-    useEffect(() => {
-      setLoadingBookmarkSkeleton(true);
-      setLoadingFolderSkeleton(true);
-    }, []);
 
   return (
     <div className="m-5">

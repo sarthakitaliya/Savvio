@@ -2,7 +2,7 @@ import { prismaClient } from "@repo/db";
 import type { Bookmark, Folder, Tag } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "../../../lib/middleware";
-import { z } from "zod";
+import { promise, z } from "zod";
 import type { SearchResult } from "@repo/types";
 import { buildFullSlug } from "../../../lib/fullSlug";
 
@@ -58,47 +58,51 @@ export async function GET(req: NextRequest) {
     let folders: Folder[] = [];
 
     if (scope === "dashboard") {
-      bookmarks = await prismaClient.bookmark.findMany({
-        where: {
-          userId: session.user.id,
-          ...searchClause,
-        },
-        include: {
-          tags: true,
-        },
-        take: 20,
-      });
-      folders = await prismaClient.folder.findMany({
-        where: {
-          userId: session.user.id,
-          name: { contains: q, mode: "insensitive" as const },
-        },
-        include: {
-          bookmarks: true,
-        },
-        take: 20,
-      });
+      [bookmarks, folders] = await Promise.all([
+        prismaClient.bookmark.findMany({
+          where: {
+            userId: session.user.id,
+            ...searchClause,
+          },
+          include: {
+            tags: true,
+          },
+          take: 20,
+        }),
+        prismaClient.folder.findMany({
+          where: {
+            userId: session.user.id,
+            name: { contains: q, mode: "insensitive" as const },
+          },
+          include: {
+            bookmarks: true,
+          },
+          take: 20,
+        }),
+      ]);
     } else if (scope === "folder" && folderId) {
-      bookmarks = await prismaClient.bookmark.findMany({
-        where: {
-          userId: session.user.id,
-          folderId,
-          ...searchClause,
-        },
-        include: {
-          tags: true,
-        },
-        take: 20,
-      });
+      [bookmarks, folders] = await Promise.all([
+        prismaClient.bookmark.findMany({
+          where: {
+            userId: session.user.id,
+            folderId,
+            ...searchClause,
+          },
+          include: {
+            tags: true,
+          },
+          take: 20,
+        }),
 
-      folders = await prismaClient.folder.findMany({
-        where: {
-          userId: session.user.id,
-          parentId: folderId,
-          name: { contains: q, mode: "insensitive" as const },
-        },
-        take: 20,
-      });
+        prismaClient.folder.findMany({
+          where: {
+            userId: session.user.id,
+            parentId: folderId,
+            name: { contains: q, mode: "insensitive" as const },
+          },
+          take: 20,
+        }),
+      ]);
     } else {
       return NextResponse.json(
         { error: "Invalid search scope or folderId" },

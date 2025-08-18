@@ -11,8 +11,10 @@ export function Breadcrumbs({ slugs }: { slugs: string[] }) {
       </Link>
       {slugs?.map((slug, i) => {
         const href = `/dashboard/${slugs.slice(0, i + 1).join("/")}`;
-        // Strip nanoid suffix and replace hyphens with spaces for display
-        const displaySlug = slug.replace(/-[a-zA-Z0-9]{5}$/, '').replace(/-/g, ' ').trim();
+        const displaySlug = slug
+          .replace(/-[a-zA-Z0-9]{5}$/, "") // remove the "-X_DkJ" part
+          .replace(/-/g, " ") // make remaining dashes into spaces
+          .trim();
         return (
           <span key={i}>
             {" / "}
