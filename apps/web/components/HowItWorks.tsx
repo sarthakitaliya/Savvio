@@ -24,7 +24,7 @@ export default function HowItWorks() {
       description:
         "Access everything on your dashboard. Organize with folders and search instantly.",
       videoSrc:
-        "/videos/search_and_organize_cmp.mp4",
+        "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614335/search_and_organize_cmp_vj1wsf.mp4",
       poster:
         "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614335/search_and_organize_cmp_vj1wsf.jpg",
     },
