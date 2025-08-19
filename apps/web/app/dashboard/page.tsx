@@ -26,7 +26,7 @@ export default function Dashboard() {
       );
     }
     fetchData();
-  }, [fetchFolders, getRecentBookmarks]);
+  }, [fetchFolders, getRecentBookmarks, setError]);
 
   return (
     <div className="m-5">

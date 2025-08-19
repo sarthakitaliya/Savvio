@@ -37,7 +37,7 @@ export default function Footer() {
                 <ThemeToggle />
               </div>
             </div>
-          </div>
+          </div>  
 
           <div className="flex flex-col gap-1 text-sm">
             <h3 className="font-bold mb-2">Quick Links</h3>
@@ -53,18 +53,14 @@ export default function Footer() {
             >
               Privacy Policy
             </Link>
-            <Link
-              href="/#"
+            <a
+              href="https://chromewebstore.google.com/detail/savvio/pfgjkdbnpkieiakfigebbhfmeamgknem"
               className="text-gray-600 hover:text-indigo-600 dark:text-gray-400"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Extension
-            </Link>
-            <Link
-              href="/contact"
-              className="text-gray-600 hover:text-indigo-600 dark:text-gray-400"
-            >
-              Contact
-            </Link>
+            </a>
           </div>
         </div>
       </div>

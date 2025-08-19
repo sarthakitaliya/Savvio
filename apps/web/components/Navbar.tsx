@@ -15,7 +15,7 @@ export default function NavBar() {
       <div className="flex items-center space-x-2 sm:space-x-4 border border-[#CECEEA] rounded-2xl p-2 sm:p-2 font-medium bg-[#F5F5F4] dark:bg-[#202020] dark:border-[#3A3A3C]">
         <LogIn className="sm:hidden text-gray-500 size-5"/>
         <Link href="/login" className="text-sm hidden sm:block">Login</Link>
-        <a href="https://chromewebstore.google.com/detail/savvio/pfgjkdbnpkieiakfigebbhfmeamgknem" className="text-xs bg-black text-white dark:bg-[#F5F5F4] dark:text-black rounded-xl sm:rounded-2xl p-2 sm:p-3" target="_blank">Add to Chrome</a>
+        <a href="https://chromewebstore.google.com/detail/savvio/pfgjkdbnpkieiakfigebbhfmeamgknem" className="text-xs bg-black text-white dark:bg-[#F5F5F4] dark:text-black rounded-xl sm:rounded-2xl p-2 sm:p-3" target="_blank" rel="noopener noreferrer">Add to Chrome</a>
       </div>
     </div>
   );

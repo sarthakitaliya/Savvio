@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,9 +10,13 @@ export default function Hero() {
   const [imageSrc, setImageSrc] = useState("");
   useEffect(() => {
     if (isDark) {
-      setImageSrc("https://res.cloudinary.com/dc0r1vikq/image/upload/v1755598868/Screenshot_2025-08-19_at_3.50.55_PM_hcjkkq.png");
+      setImageSrc(
+        "https://res.cloudinary.com/dc0r1vikq/image/upload/v1755598868/Screenshot_2025-08-19_at_3.50.55_PM_hcjkkq.png"
+      );
     } else {
-      setImageSrc("https://res.cloudinary.com/dc0r1vikq/image/upload/v1755598269/Screenshot_2025-08-19_at_3.40.39_PM_eouw21.png");
+      setImageSrc(
+        "https://res.cloudinary.com/dc0r1vikq/image/upload/v1755598269/Screenshot_2025-08-19_at_3.40.39_PM_eouw21.png"
+      );
     }
   }, [isDark]);
   return (
@@ -35,6 +39,7 @@ export default function Hero() {
           <a
             href="https://chromewebstore.google.com/detail/savvio/pfgjkdbnpkieiakfigebbhfmeamgknem"
             target="_blank"
+            rel="noopener noreferrer"
             className="px-4 py-3 bg-black text-white rounded-2xl shadow-2xl hover:bg-gray-800 transition-colors text-sm sm:text-base"
           >
             Install Extension
@@ -42,7 +47,6 @@ export default function Hero() {
         </div>
       </div>
       <div className="relative w-full h-full lg:w-5xl mb-10 lg:mb-30">
-        
         <Image
           src={imageSrc}
           alt="Hero Image"
