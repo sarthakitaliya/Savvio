@@ -19,6 +19,7 @@ export default function Hero() {
       );
     }
   }, [isDark]);
+  if(!imageSrc) return null; 
   return (
     <div className="flex flex-col items-center justify-center text-center p-3 md:p-6 gap-4 mt-35">
       <div className="">
