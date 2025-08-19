@@ -11,11 +11,11 @@ export default function Hero() {
   useEffect(() => {
     if (isDark) {
       setImageSrc(
-        "https://res.cloudinary.com/dc0r1vikq/image/upload/v1755617967/Screenshot_2025-08-19_at_3.50.55_PM_fh9pvc.png"
+        "/hero-dark.png"
       );
     } else {
       setImageSrc(
-        "https://res.cloudinary.com/dc0r1vikq/image/upload/v1755617960/Screenshot_2025-08-19_at_3.40.39_PM_irugf9.png"
+        "/hero-light.png"
       );
     }
   }, [isDark]);
