@@ -4,17 +4,17 @@ export default function HowItWorks() {
     {
       title: "Add the Extension",
       description: "Install Savvio with one click. Log in once to sync bookmarks and notes across the extension and dashboard.",
-      videoSrc: "https://res.cloudinary.com/dc0r1vikq/video/upload/v1755609550/add_to_browser_qmdgt6.mp4",
+      videoSrc: "https://res.cloudinary.com/dc0r1vikq/video/upload/v1755614332/add_to_browser_cmp_kiplxf.mp4",
     },
     {
       title: "Save Bookmarks & Notes",
       description: "Use the floating button or popup to save links and quick notes from anywhere.",
-      videoSrc: "https://res.cloudinary.com/dc0r1vikq/video/upload/v1755609105/Add_bookmarks_kx1sbs.mp4",
+      videoSrc: "https://res.cloudinary.com/dc0r1vikq/video/upload/v1755614339/Add_bookmarks_cmp_u7fswn.mp4",
     },
     {
       title: "Organize & Search",
       description: "Access everything on your dashboard. Organize with folders and search instantly.",
-      videoSrc: "https://res.cloudinary.com/dc0r1vikq/video/upload/v1755610301/search_and_organize_hlcnqz.mp4",
+      videoSrc: "https://res.cloudinary.com/dc0r1vikq/video/upload/v1755614335/search_and_organize_cmp_vj1wsf.mp4",
     },
   ];
 
