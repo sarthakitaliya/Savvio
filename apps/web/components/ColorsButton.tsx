@@ -1,4 +1,4 @@
-import { folderColors } from "./ColorsAndIcons";
+import { folderColors } from "../lib/ColorsAndIcons";
 
 export function ColorsButton({
   onChange,

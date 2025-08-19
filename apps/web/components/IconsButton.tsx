@@ -1,4 +1,4 @@
-import { folderIcons } from "./ColorsAndIcons";
+import { folderIcons } from "../lib/ColorsAndIcons";
 
 export function IconsButton({  onChange, selectedIcon }: { onChange?: (icon: string) => void, selectedIcon?: string }) {
 

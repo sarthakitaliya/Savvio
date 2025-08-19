@@ -1,6 +1,6 @@
 import { useSearchStore } from "@repo/store";
 import { ArrowRight, Folder, NotebookPen } from "lucide-react";
-import { folderIcons } from "./ColorsAndIcons";
+import { folderIcons } from "../lib/ColorsAndIcons";
 import Link from "next/link";
 import Image from "next/image";
 

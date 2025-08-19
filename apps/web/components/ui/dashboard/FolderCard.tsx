@@ -1,5 +1,5 @@
 import { Folder, MoreVertical } from "lucide-react";
-import { folderIcons } from "../../ColorsAndIcons";
+import { folderIcons } from "../../../lib/ColorsAndIcons";
 import { Folder as FolderType } from "@repo/types";
 import { useEffect, useRef } from "react";
 import { useFolderStore, useUiStore } from "@repo/store";
