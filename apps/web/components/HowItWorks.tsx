@@ -10,8 +10,6 @@ export default function HowItWorks() {
         "Install Savvio with one click. Log in once to sync bookmarks and notes across the extension and dashboard.",
       videoSrc:
         "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614332/add_to_browser_cmp_kiplxf.mp4",
-      poster:
-        "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614332/add_to_browser_cmp_kiplxf.jpg",
     },
     {
       title: "Save Bookmarks & Notes",
@@ -19,8 +17,6 @@ export default function HowItWorks() {
         "Use the floating button or popup to save links and quick notes from anywhere.",
       videoSrc:
         "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614339/Add_bookmarks_cmp_u7fswn.mp4",
-      poster:
-        "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614339/Add_bookmarks_cmp_u7fswn.jpg",
     },
     {
       title: "Organize & Search",
@@ -28,8 +24,6 @@ export default function HowItWorks() {
         "Access everything on your dashboard. Organize with folders and search instantly.",
       videoSrc:
         "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614335/search_and_organize_cmp_vj1wsf.mp4",
-      poster:
-        "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614335/search_and_organize_cmp_vj1wsf.jpg",
     },
   ];
 
@@ -85,7 +79,6 @@ function Step({ step, index }: { step: any; index: number }) {
           {inView && (
             <video
               src={step.videoSrc}
-              poster={step.poster}
               autoPlay
               muted
               loop
@@ -95,14 +88,6 @@ function Step({ step, index }: { step: any; index: number }) {
               className={`w-full h-full object-cover transition-opacity duration-700 ${
                 videoLoaded ? "opacity-100" : "opacity-0"
               }`}
-            />
-          )}
-          {!inView && (
-            <img
-              src={step.poster}
-              alt={step.title}
-              className="w-full h-full object-cover"
-              loading="lazy"
             />
           )}
         </div>
