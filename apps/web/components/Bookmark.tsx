@@ -73,7 +73,7 @@ export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
             rel="noopener noreferrer"
             className="text-sm text-gray-500 hover:underline"
           >
-            <p className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[220px]">
+            <p className="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[190px]">
               {bookmark.url}
             </p>
           </a>
@@ -97,7 +97,7 @@ export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
     );
   } else {
     return (
-      <div className="w-full h-62 sm:w-64 max-w-xs flex-grow bg-white border-[0.1px] border-gray-300 dark:border-white/20 dark:bg-[#2A2A2A] p-4 rounded-2xl flex flex-col">
+      <div className="w-full h-60 sm:w-64 max-w-xs flex-grow bg-white border-[0.1px] border-gray-300 dark:border-white/20 dark:bg-[#2A2A2A] p-4 rounded-2xl flex flex-col">
         <div className="flex items-center gap-2 mb-2">
           <NotebookPen className="w-4 h-4 text-gray-500 dark:text-gray-400" />
           <h3 className="text-md truncate flex-1">
@@ -109,12 +109,12 @@ export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
             </span>
           </div>
         </div>
-        <p className="text-sm text-justify text-gray-500 dark:text-gray-400 mt-2 line-clamp-5 max-w-full overflow-hidden">
-          {bookmark.notes}
-        </p>
-        <div>
+        <div className="flex flex-col flex-grow">
+          <p className="text-sm text-justify text-gray-500 dark:text-gray-400 mt-2 line-clamp-5 mb-4">
+            {bookmark.notes}
+          </p>
           {bookmark.tags && bookmark.tags.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-1">
+            <div className="flex flex-wrap gap-1 mb-2 mt-auto">
               {bookmark.tags.map((tag, index) => (
                 <span
                   key={index}
@@ -125,15 +125,20 @@ export function Bookmark({ bookmark }: { bookmark: Bookmark }) {
               ))}
             </div>
           )}
+          <div className="flex justify-between items-center px-1 mt-auto">
+            <button
+              className="text-sm flex justify-center items-center gap-2 text-black dark:text-gray-300 cursor-pointer hover:underline"
+              onClick={() => {
+                router.push(`/dashboard/note/${bookmark.id}`);
+              }}
+            >
+              View Note <ArrowRight className="size-5" />
+            </button>
+            <div className="text-gray-400 hover:text-red-500 cursor-pointer">
+              <Trash size={17} onClick={handleDeleteBookmark} />
+            </div>
+          </div>
         </div>
-        <button
-          className="text-sm flex justify-center items-center mt-auto px-4 py-2 text-white cursor-pointer hover:underline"
-          onClick={() => {
-            router.push(`/dashboard/note/${bookmark.id}`);
-          }}
-        >
-          View Note <ArrowRight className="size-5" />
-        </button>
       </div>
     );
   }
