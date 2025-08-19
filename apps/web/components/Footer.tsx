@@ -1,6 +1,7 @@
 import { Github, Twitter } from "lucide-react";
 import { Logo } from "./logo";
 import Link from "next/link";
+import ThemeToggle from "./Theme-toggle";
 
 export default function Footer() {
   return (
@@ -17,7 +18,7 @@ export default function Footer() {
             <p className="mt-1 text-sm text-[#6B7280] dark:text-gray-400 ml-2">
               Stay organized. Stay Savvio.
             </p>
-            <div className="flex gap-4 mt-3 ml-2">
+            <div className="flex items-center  gap-4 mt-3 ml-2">
               <a
                 href="https://github.com/sarthakitaliya/Savvio"
                 target="_blank"
@@ -32,6 +33,9 @@ export default function Footer() {
               >
                 <Twitter className="h-5 w-5 text-gray-500 hover:text-indigo-600" />
               </a>
+              <div className="-ml-2"  >
+                <ThemeToggle />
+              </div>
             </div>
           </div>
 

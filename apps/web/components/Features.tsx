@@ -39,12 +39,12 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="py-16 px-4 mt-20">
+    <section className="py-16 px-4 md:mt-8">
       <div className="max-w-sm mx-auto text-center mb-15">
         <h2 className="text-4xl font-semibold tracking-tight">
           Key Features
         </h2>
-        <p className="text-[#696969] dark:text-gray-400 max-w-md mx-auto mb-10">
+        <p className="text-[#696969] dark:text-gray-400 max-w-md mx-auto mb-10 leading-none">
           A seamless way to save, search, and organize your web experience.
         </p>
       </div>

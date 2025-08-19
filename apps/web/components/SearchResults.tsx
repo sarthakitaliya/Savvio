@@ -48,7 +48,7 @@ export function SearchResults() {
                       >
                         <NotebookPen className="w-4 h-4 text-[#4B5563] dark:text-[#A1A1AA]" />
                         <span className="truncate max-w-[160px] sm:max-w-[280px]">{item.title}</span>
-                        <ArrowRight className="w-4 h-4 self-end ml-auto" />
+                        <ArrowRight className="w-5 h-5 self-end ml-auto" />
                       </Link>
                     ) : (
                       <a
@@ -65,7 +65,7 @@ export function SearchResults() {
                           className="w-4 h-4 object-contain"
                         />
                         <span className="truncate max-w-[160px] sm:max-w-[280px]">{item.title}</span>
-                        <ArrowRight className="w-4 h-4 self-end ml-auto" />
+                        <ArrowRight className="w-5 h-5 self-end ml-auto" />
                       </a>
                     )}
                   </div>
@@ -76,7 +76,7 @@ export function SearchResults() {
                   >
                     <IconComponent className="w-4 h-4 text-[#4B5563] dark:text-[#A1A1AA]" />
                     <p className="truncate max-w-[160px] sm:max-w-[280px]">{item.name}</p>
-                    <ArrowRight className="w-4 h-4 self-end ml-auto" />
+                    <ArrowRight className="w-5 h-5 self-end ml-auto" />
                   </Link>
                 )}
               </li>
