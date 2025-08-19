@@ -18,7 +18,7 @@ import {
   Newspaper,
   ShoppingCart,
   Heart,
-  Calendar,
+  Calendar,   
   Notebook
 } from "lucide-react";
 
@@ -29,6 +29,9 @@ export const folderColors = [
   { name: "Red", color: "#EF4444" },
   { name: "Yellow", color: "#F59E0B" },
   { name: "Pink", color: "#EC4899" },
+  { name: "Orange", color: "#F97316" },
+  {name: "Teal", color: "#14B8A6"},
+  {name: "Gray", color: "#6B7280"},
 ];
 
 export const folderIcons = [
