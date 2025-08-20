@@ -44,6 +44,7 @@ apps/
 
 packages/
   api-client/      → Shared API calls and auth client
+  db/              → DB setup
   store/           → Zustand store
   types/           → Shared TypeScript types
 ```
