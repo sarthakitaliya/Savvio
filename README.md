@@ -1,7 +1,5 @@
 # Savvio
 
-**⚠️ Note:** This project is actively being developed. Features and UI may change frequently.
-
 **Savvio** is a minimal, fast bookmarking platform focused on making saving and organizing content effortless.
 
 - Chrome Extension (Vite + React)
@@ -34,19 +32,6 @@
   - tags
   - URL
   - notes
-
----
-
-## Future Features
-
-- **Import Existing Bookmarks**  
-  Import your current browser bookmarks directly into Savvio to get started fast.
-
-- **Save Images**  
-  Save images directly from both the extension and the web app for better visual organization.
-
-- **Sharing**  
-  Share one or more folders with collaborators, friends, or your team.
 
 ---
 
