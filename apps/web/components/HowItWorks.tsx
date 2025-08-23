@@ -6,7 +6,7 @@ export default function HowItWorks() {
       description:
         "Install Savvio with one click. Log in once to sync bookmarks and notes across the extension and dashboard.",
       videoSrc:
-        "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614332/add_to_browser_cmp_kiplxf.mp4",
+        "https://res.cloudinary.com/dc0r1vikq/video/upload/v1755950771/add_to_browser_720p_mymel3.mp4",
       poster:
         "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614332/add_to_browser_cmp_kiplxf.jpg",
     },
@@ -15,7 +15,7 @@ export default function HowItWorks() {
       description:
         "Use the floating button or popup to save links and quick notes from anywhere.",
       videoSrc:
-        "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614339/Add_bookmarks_cmp_u7fswn.mp4",
+        "https://res.cloudinary.com/dc0r1vikq/video/upload/v1755950769/add_to_bookmark_720p_uuqtzw.mp4",
       poster:
         "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614339/Add_bookmarks_cmp_u7fswn.jpg",
     },
@@ -24,7 +24,7 @@ export default function HowItWorks() {
       description:
         "Access everything on your dashboard. Organize with folders and search instantly.",
       videoSrc:
-        "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614335/search_and_organize_cmp_vj1wsf.mp4",
+        "https://res.cloudinary.com/dc0r1vikq/video/upload/v1755950775/organize_and_search_720p_kaagz8.mp4",
       poster:
         "https://res.cloudinary.com/dc0r1vikq/video/upload/f_auto,q_auto/v1755614335/search_and_organize_cmp_vj1wsf.jpg",
     },
