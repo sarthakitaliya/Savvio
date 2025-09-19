@@ -95,44 +95,30 @@ export const useBookmarkStore = create<BookmarkStore>((set) => ({
     set({ loading: true });
     try {
       const { bookmark } = await createBookmark(bookmarkData);
-      const { currentFolder, subfolders, folders } = useFolderStore.getState();
+      const { currentFolder } = useFolderStore.getState();
 
       if (currentFolder?.id === bookmark.folderId) {
         set((state) => ({ bookmarks: [...state.bookmarks, bookmark] }));
-      } else {
-        if (currentFolder) {
-          if (
-            subfolders?.find(
-              (folder: { id: string }) => folder.id === bookmark.folderId
-            )
-          ) {
-            useFolderStore.setState((state: any) => ({
-              subfolders: state.subfolders.map((folder: any) =>
-                folder.id === bookmark.folderId
-                  ? {
-                      ...folder,
-                      _count: { bookmarks: folder._count.bookmarks + 1 },
-                    }
-                  : folder
-              ),
-            }));
-          }
-        } else if (folders.find((folder) => folder.id === bookmark.folderId)) {
-          useFolderStore.setState((state: any) => ({
-            folders: state.folders.map((folder: any) =>
-              folder.id === bookmark.folderId
-                ? {
-                    ...folder,
-                    _count: { bookmarks: folder._count.bookmarks + 1 },
-                  }
-                : folder
-            ),
-          }));
-        }
       }
 
+      useFolderStore.setState((state: any) => ({
+        folders: state.folders.map((folder: any) =>
+          folder.id === bookmark.folderId
+            ? { ...folder, _count: { bookmarks: folder._count.bookmarks + 1 } }
+            : folder
+        ),
+        subfolders: state.subfolders?.map((folder: any) =>
+          folder.id === bookmark.folderId
+            ? { ...folder, _count: { bookmarks: folder._count.bookmarks + 1 } }
+            : folder
+        ),
+      }));
+
       set((state) => ({
-        recentBookmarks: [bookmark, ...state.recentBookmarks.slice(0, 5)],
+        recentBookmarks: [
+          bookmark,
+          ...state.recentBookmarks.filter((b) => b.id !== bookmark.id),
+        ].slice(0, 5),
       }));
     } catch (error: any) {
       console.error("Error creating bookmark:", error);
