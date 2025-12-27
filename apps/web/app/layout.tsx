@@ -14,11 +14,14 @@ const shantellSans = Shantell_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Savvio",
+  title: "Savvio - Bookmark Manager",
   description:
     "Savvio is a modern bookmark manager that lets you save, organize, and discover your favorite links with ease and style.",
   keywords: ["bookmark manager", "save links", "organize bookmarks", "Savvio"],
   authors: [{ name: "Sarthak Italiya" }],
+  alternates: {
+    canonical: "https://savvio.sarthak-dev.me/",
+  },
   icons: {
     icon: "/favicon.ico",
   },
