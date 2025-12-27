@@ -12,7 +12,11 @@
     "check-types": "tsc --noEmit"
   },
   "turbo": {
-    "env": ["GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "CHROME_EXTENSION_ID"]
+    "env": [
+      "GOOGLE_CLIENT_ID",
+      "GOOGLE_CLIENT_SECRET",
+      "CHROME_EXTENSION_ID"
+    ]
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
@@ -26,7 +30,7 @@
     "link-preview-js": "^3.1.0",
     "lucide-react": "^0.524.0",
     "nanoid": "^5.1.5",
-    "next": "^15.3.0",
+    "next": "15.3.8",
     "next-themes": "^0.4.6",
     "postcss": "^8.5.6",
     "react": "^19.1.0",
