@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   themeColor: "#ffffff",
   openGraph: {
-    title: "Savvio",
+    title: "Savvio - Bookmark Manager",
     description:
       "Savvio is a modern bookmark manager that lets you save, organize, and discover your favorite links with ease and style.",
     url: "https://savvio.sarthak-dev.me",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Savvio",
+    title: "Savvio - Bookmark Manager",
     description:
       "Savvio is a modern bookmark manager that lets you save, organize, and discover your favorite links with ease and style.",
     images: ["https://savvio.sarthak-dev.me/og-thumbnail.png"],
