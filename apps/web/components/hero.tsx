@@ -26,9 +26,8 @@ export default function Hero() {
         <h1 className="text-4xl  md:text-6xl font-extrabold tracking-tight text-balance">
           Stay Organized, Stay Savvio
         </h1>
-        <p className="mt-2 text-xs md:text-lg text-[#7f7f7f] max-w-xl mx-auto tracking-wide leading-4 md:leading-6">
-          Save, search, and manage bookmarks & notes across devices all from one
-          simple extension and dashboard.
+        <p className="mt-4 text-sm md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed tracking-wide">
+          Save, search, and manage bookmarks & notes across devices all from one simple extension and dashboard.
         </p>
         <div className="flex flex-wrap gap-3 justify-center items-center mt-8 ">
           <Link

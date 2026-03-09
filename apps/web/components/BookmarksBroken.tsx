@@ -5,9 +5,8 @@ export default function BookmarksBroken() {
     <section className="flex flex-col md:flex-row items-center justify-center gap-10 mt-18 p-10 sm:px-6 lg:px-8">
       <div className="w-[85vw] sm:w-5/6  md:w-[400px] md:h-[465px] lg:h-[510px] lg:w-[500px] bg-[#F8F9FD] border border-[#CECEEA] p-10 rounded-3xl overflow-hidden">
         <h2 className="text-2xl sm:text-4xl font-bold dark:text-black">Bookmarks Are Broken.</h2>
-        <p className="text-[#696969] text-sm sm:text-base mt-2 relative z-99">
-          Browsers, devices, tabs — they don&apos;t talk. Your bookmarks are
-          scattered, hard to find, and impossible to organize.
+        <p className="text-gray-500 dark:text-gray-400 text-base mt-2 relative z-99">
+          Stop losing track of what matters. Your bookmarks deserve better than being scattered everywhere.
         </p>
         <video  
           src="/videos/broken-bookmarks.mp4"
@@ -23,7 +22,7 @@ export default function BookmarksBroken() {
           <h2 className="text-2xl sm:text-4xl font-bold text-white">
             A Better Way to Manage Bookmarks
           </h2>
-          <p className="text-[#B0B0B0] text-sm sm:text-base mt-2">
+          <p className="text-gray-400 text-base mt-2 leading-relaxed">
             Introducing a solution that brings all your bookmarks together in
             one place. <br />
             Across browsers. Across devices.

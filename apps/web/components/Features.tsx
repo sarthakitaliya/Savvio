@@ -44,7 +44,7 @@ export default function Features() {
         <h2 className="text-4xl font-semibold tracking-tight">
           Key Features
         </h2>
-        <p className="text-[#696969] dark:text-gray-400 max-w-md mx-auto mb-10 leading-none">
+        <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10 text-base leading-relaxed">
           A seamless way to save, search, and organize your web experience.
         </p>
       </div>
@@ -56,7 +56,7 @@ export default function Features() {
               {features.icon}
             </div>
             <h3 className="text-lg font-semibold">{features.title}</h3>
-            <p className="text-sm text-[#696969] mt-1 max-w-xs">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 max-w-xs">
               {features.description}
             </p>
           </div>

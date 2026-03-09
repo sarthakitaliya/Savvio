@@ -34,7 +34,7 @@ export default function HowItWorks() {
     <section className=" px-7 sm:p-10 sm:px-6 lg:px-8 space-y-15 md:space-y-24">
       <div className="text-center">
         <h1 className="text-3xl sm:text-5xl font-bold">How Savvio Works</h1>
-        <p className="text-[#696969] text-sm mt-1">
+        <p className="text-gray-500 dark:text-gray-400 mt-2 text-base">
           Just 3 steps to a more organized digital life.
         </p>
       </div>
@@ -65,7 +65,7 @@ function Step({ step, index }: { step: any; index: number }) {
           </span>
         </div>
         <h2 className="text-3xl font-semibold">{step.title}</h2>
-        <p className="text-[#696969] text-base leading-5">{step.description}</p>
+        <p className="text-gray-500 dark:text-gray-400 text-base leading-relaxed">{step.description}</p>
       </div>
 
       <div className="w-full md:w-1/2">
